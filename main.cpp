@@ -1,6 +1,14 @@
 #include <iostream>
 
+#include "classes/supervisor.h"
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+
+    Supervisor supervisor;
+    for (auto airline: supervisor.getAirlines()){
+        cout << airline.getCode() << '\n';
+
+    }
+    cout << supervisor.getAirlines().size();
+    //createMenu();
+    //endMenu();
 }
