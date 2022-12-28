@@ -14,7 +14,7 @@ public:
     Airport();
     Airport(string, string, string, string, double, double);
 
-    string getCode();
+    string getCode() const;
     string getName();
     string getCity();
     string getCountry();
@@ -27,8 +27,6 @@ public:
     void setCountry(string);
     void setLatitude(double);
     void setLongitude(double);
-
-    bool operator<(const Airport&) const;
 
 private:
     string code;

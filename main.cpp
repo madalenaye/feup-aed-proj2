@@ -4,11 +4,11 @@
 int main() {
 
     Supervisor supervisor;
-    for (auto airline: supervisor.getAirlines()){
+    for (auto airline: supervisor.getAirports()){
         cout << airline.getCode() << '\n';
 
     }
-    cout << supervisor.getAirlines().size();
+    cout << supervisor.getAirports().size();
     //createMenu();
     //endMenu();
 }

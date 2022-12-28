@@ -8,19 +8,21 @@
 #include <string>
 #include <vector>
 #include <list>
+#include "airport.h"
 
 using namespace std;
 
 class Graph {
     struct Edge {
-        string dest;   // Destination node
+        int dest;   // Destination node
         string airline;
         double distance; // An integer weight
     };
 
     struct Node {
         list<Edge> adj; // The list of outgoing edges (to adjacent nodes)
-        bool visited;   // As the node been visited on a search?
+        bool visited; // As the node been visited on a search?
+        Airport airport = Airport("XXX","XXX","XXX","XXX",0,0);
     };
 
     int size;              // Graph size (vertices are numbered from 1 to n)
@@ -32,7 +34,9 @@ public:
     Graph();
 
     // Add edge from source to destination with a certain weight
-    void addEdge(string src, string dest, string airline);
+    void addEdge(int src, int dest, string airline);
+
+    void addAirport(int src, Airport airport);
 
     // Depth-First Search: example implementation
     //void dfs(string v);

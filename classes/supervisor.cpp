@@ -10,18 +10,11 @@ Supervisor::Supervisor() {
     createGraph();
 }
 
-vector<Airport> Supervisor::getAirports() {
-    return airports;
-}
-vector<Airline> Supervisor::getAirlines() {
-    return airlines;
-}
-
 void Supervisor::createAirports() {
     ifstream myFile;
     string currentLine, code, name, city, country, x;
     double latitude, longitude;
-
+    int i = 1;
     myFile.open("../data/airports.csv");
     getline(myFile, currentLine);
 
@@ -36,8 +29,10 @@ void Supervisor::createAirports() {
         getline(iss,x,','); longitude = stod(x);
 
         Airport airport = Airport(code,name,city,country,latitude,longitude);
-        //airports.insert(airport);
-        airports.push_back(airport);
+        graph.addAirport(i,airport);
+        id_airports.insert({airport.getCode(),i++});
+
+        airports.insert(airport);
     }
 }
 
@@ -53,8 +48,7 @@ void Supervisor::createAirlines() {
         getline(is, callsign,',');
         getline(is,country,',');
         Airline a = Airline(code, name, callsign, country);
-        //airlines.insert(a);
-        airlines.push_back(a);
+        airlines.insert(a);
     }
 }
 
@@ -68,6 +62,6 @@ void Supervisor::createGraph(){
         getline(is,source,',');
         getline(is,target,',');
         getline(is,airline,',');
-        graph.addEdge(source,target,airline);
+        graph.addEdge(id_airports[source],id_airports[target],airline);
     }
 }
