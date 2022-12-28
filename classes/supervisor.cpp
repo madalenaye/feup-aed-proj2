@@ -30,8 +30,8 @@ void Supervisor::createAirports() {
 
         Airport airport = Airport(code,name,city,country,latitude,longitude);
         graph.addAirport(i,airport);
+        id_city[{airport.getCountry(),airport.getCity()}].push_back(i);
         id_airports.insert({airport.getCode(),i++});
-
         airports.insert(airport);
     }
 }
@@ -65,3 +65,4 @@ void Supervisor::createGraph(){
         graph.addEdge(id_airports[source],id_airports[target],airline);
     }
 }
+

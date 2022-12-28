@@ -16,8 +16,8 @@ public:
 
     string getCode() const;
     string getName();
-    string getCity();
-    string getCountry();
+    string  getCity() const;
+    string getCountry() const;
     double getLatitude();
     double getLongitude();
 

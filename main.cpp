@@ -4,11 +4,13 @@
 int main() {
 
     Supervisor supervisor;
-    for (auto airline: supervisor.getAirports()){
-        cout << airline.getCode() << '\n';
-
+    for (auto city:supervisor.getCity()){
+        if (city.first.second=="London" ){
+        cout << city.first.first<< '-' <<city.first.second << '-';
+        for (auto i:city.second){
+            cout << i << '\n';
+        }}
     }
-    cout << supervisor.getAirports().size();
     //createMenu();
     //endMenu();
 }

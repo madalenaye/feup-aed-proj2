@@ -16,8 +16,8 @@ Airport::Airport(string code, string name, string city, string country, double l
 
 string Airport::getCode() const {return code;}
 string Airport::getName() {return name;}
-string Airport::getCity() {return city;}
-string Airport::getCountry() {return country;}
+string Airport::getCity() const {return city;}
+string Airport::getCountry() const {return country;}
 double Airport::getLatitude() {return latitude;}
 double Airport::getLongitude() {return longitude;}
 
