@@ -55,6 +55,7 @@ public:
     unordered_set<Airport,AirportHash,AirportHash> const& getAirports() const {return airports;}
     unordered_set<Airline,AirlineHash,AirlineHash> const& getAirlines() const {return airlines;}
     Graph getGraph() const;
+    unordered_map<string,int> getMap() const;
 private:
     void createAirports();
 

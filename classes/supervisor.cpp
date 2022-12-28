@@ -10,6 +10,11 @@ Supervisor::Supervisor() {
     createGraph();
 }
 
+unordered_map<string,int> Supervisor::getMap() const{
+    return id_airports;
+}
+
+
 Graph Supervisor::getGraph() const {return graph;}
 
 void Supervisor::createAirports() {

@@ -62,7 +62,6 @@ int Graph::distance(int src, int dest) {
             if (!nodes[w].visited) {
                 q.push(w);
                 nodes[w].visited = true;
-                
                 nodes[w].dist = nodes[u].dist + 1;
             }
         }

@@ -7,7 +7,17 @@ int main() {
         cout << airline.getCode() << '\n';
     cout << supervisor.getAirports().size();*/
     Graph graph = supervisor.getGraph();
-    cout << graph.distance(1,2);
+
+    string src, dest;
+    cout << "Source: ";
+    cin >> src;
+
+    cout << "Target: ";
+    cin >> dest;
+    auto map = supervisor.getMap();
+
+
+    cout << graph.distance(map[src],map[dest]);
     //createMenu();
     //endMenu();
 }
