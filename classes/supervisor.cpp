@@ -10,6 +10,8 @@ Supervisor::Supervisor() {
     createGraph();
 }
 
+Graph Supervisor::getGraph() const {return graph;}
+
 void Supervisor::createAirports() {
     ifstream myFile;
     string currentLine, code, name, city, country, x;
