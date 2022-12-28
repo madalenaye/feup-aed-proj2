@@ -44,8 +44,7 @@ void Graph::bfs(int v) {
     }
 }
 
-int Graph::distance(int src, int dest) {
-    if (src==dest) return 0;
+vector<Airport> Graph::distance(int src, int dest) {
     for (int i=1; i<=size; i++) {
         nodes[i].visited = false;
         nodes[i].dist = 0;
@@ -53,6 +52,10 @@ int Graph::distance(int src, int dest) {
     queue<int> q; // queue of unvisited nodes
     q.push(src);
     nodes[src].visited = true;
+    vector<Airport> init;
+    init.push_back(nodes[src].airport);
+    nodes[src].visitedAirports = init;
+
     while (!q.empty()) { // while there are still unvisited nodes
         int u = q.front(); q.pop();
         // show node order
@@ -63,9 +66,11 @@ int Graph::distance(int src, int dest) {
                 q.push(w);
                 nodes[w].visited = true;
                 nodes[w].dist = nodes[u].dist + 1;
+                auto x = nodes[u].visitedAirports;
+                x.push_back(nodes[w].airport);
+                nodes[w].visitedAirports = x;
             }
         }
     }
-    if (nodes[dest].dist == 0) return -1;
-    return nodes[dest].dist;
+    return nodes[dest].visitedAirports;
 }

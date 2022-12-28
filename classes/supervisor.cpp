@@ -14,7 +14,6 @@ unordered_map<string,int> Supervisor::getMap() const{
     return id_airports;
 }
 
-
 Graph Supervisor::getGraph() const {return graph;}
 
 void Supervisor::createAirports() {
@@ -52,7 +51,7 @@ void Supervisor::createAirlines() {
         istringstream is(line);
         getline(is,code,',');
         getline(is,name,',');
-        getline(is, callsign,',');
+        getline(is,callsign,',');
         getline(is,country,',');
         Airline a = Airline(code, name, callsign, country);
         airlines.insert(a);

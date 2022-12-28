@@ -25,6 +25,7 @@ class Graph {
         bool visited; // As the node been visited on a search?
         Airport airport = Airport("XXX","XXX","XXX","XXX",0,0);
         int dist;
+        vector<Airport> visitedAirports;
     };
 
     int size;              // Graph size (vertices are numbered from 1 to n)
@@ -43,7 +44,7 @@ public:
     // Depth-First Search: example implementation
     //void dfs(string v);
     void bfs(int v);
-    int distance(int src, int dest);
+    vector<Airport> distance(int src, int dest);
 
 };
 
