@@ -10,7 +10,7 @@ Airline::Airline(string code, string name, string callSign, string country){
     this->country=country;
 }
 
-string Airline::getCode(){return this->code;}
+string Airline::getCode() const {return this->code;}
 string Airline::getName(){return this->name;}
 string Airline::getCallSign(){return this->callSign;}
 string Airline::getCountry(){return this->country;}
@@ -19,7 +19,3 @@ void Airline::setCode(string code){this->code=code;}
 void Airline::setName(string name){this->name=name;}
 void Airline::setCallSign(string callSign){this->callSign=callSign;}
 void Airline::setCountry(string country){this->country=country;}
-
-bool Airline::operator=(const Airline &airline) const {
-    return code < airline.code;
-}

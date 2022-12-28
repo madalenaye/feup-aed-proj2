@@ -14,7 +14,7 @@ Airport::Airport(string code, string name, string city, string country, double l
     this->longitude = longitude;
 }
 
-string Airport::getCode() {return code;}
+string Airport::getCode() const {return code;}
 string Airport::getName() {return name;}
 string Airport::getCity() {return city;}
 string Airport::getCountry() {return country;}
@@ -27,5 +27,3 @@ void Airport::setCity(string city) {this->city = city;}
 void Airport::setCountry(string country) {this->country = country;}
 void Airport::setLatitude(double latitude) {this->latitude = latitude;}
 void Airport::setLongitude(double longitude) {this->longitude = longitude;}
-
-bool Airport::operator<(const Airport & airport) const {return code < airport.code;}

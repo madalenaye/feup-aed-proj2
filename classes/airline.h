@@ -10,7 +10,7 @@ class Airline{
     public:
         Airline();
         Airline(string code, string name, string callSign, string country);
-        string getCode();
+        string getCode() const;
         string getName();
         string getCallSign();
         string getCountry();
@@ -18,7 +18,6 @@ class Airline{
         void setName(string);
         void setCallSign(string);
         void setCountry(string);
-        bool operator=(const Airline& airline) const;
     private:
         string code;
         string name;
