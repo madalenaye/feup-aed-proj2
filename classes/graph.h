@@ -10,6 +10,7 @@
 #include <list>
 #include <iostream>
 #include "airport.h"
+#include "airline.h"
 
 using namespace std;
 
@@ -26,6 +27,7 @@ class Graph {
         Airport airport = Airport("XXX","XXX","XXX","XXX",0,0);
         int dist;
         vector<Airport> visitedAirports;
+        vector<Airline> visitedAirlines;
     };
 
     int size;              // Graph size (vertices are numbered from 1 to n)
@@ -44,7 +46,7 @@ public:
     // Depth-First Search: example implementation
     //void dfs(string v);
     void bfs(int v);
-    vector<Airport> distance(int src, int dest);
+    pair<vector<string>,vector<Airport>> distance(int src, int dest, vector<string> airlines);
 
 };
 

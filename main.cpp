@@ -4,11 +4,7 @@
 int main() {
     Supervisor supervisor;
     Graph graph = supervisor.getGraph();
-    auto x = supervisor.getAirports();
-    auto z = Airport("CDG");
-    auto y = x.find(z);
-    if (y == x.end()) cout << "Not found\n";
-    else cout << y->getName()<< '\n';
+
     string src, dest;
     cout << "Source: ";
     cin >> src;
@@ -17,13 +13,24 @@ int main() {
     cin >> dest;
     auto map = supervisor.getMap();
 
+    vector<string> airlines;
+    airlines.push_back("TAP");
+    airlines.push_back("AAL");
+    airlines.push_back("BAW");
 
-    auto vetor = graph.distance(map[src],map[dest]);
-    for (int i = 0; i<vetor.size()-1; i++){
-        cout << vetor[i].getName() << " - ";
+    auto vetor = graph.distance(map[src],map[dest],airlines);
+    if (vetor.second.empty()) cout << "Not found\n";
+
+    else {
+        for (int i = 0; i < vetor.second.size() - 1; i++) {
+            cout << vetor.second[i].getCode() << " --- ( ";
+            cout << vetor.first[i] << " ) --> ";
+        }
+        cout << vetor.second[vetor.second.size() - 1].getName() << '\n';
+        cout << "Number of flights : " << vetor.second.size() - 1;
+
+
     }
-    cout << vetor[vetor.size()-1].getName() << '\n';
-    cout << "Number of flights : " << vetor.size()-1;
     //createMenu();
     //endMenu();
 }

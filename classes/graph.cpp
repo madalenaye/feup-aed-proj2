@@ -44,11 +44,13 @@ void Graph::bfs(int v) {
     }
 }
 
-vector<Airport> Graph::distance(int src, int dest) {
+pair<vector<string>,vector<Airport>> Graph::distance(int src, int dest, vector<string> airlines) {
     for (int i=1; i<=size; i++) {
         nodes[i].visited = false;
         nodes[i].dist = 0;
     }
+    pair<vector<string>,vector<Airport>> res;
+    vector<string> fir;
     queue<int> q; // queue of unvisited nodes
     q.push(src);
     nodes[src].visited = true;
@@ -58,19 +60,32 @@ vector<Airport> Graph::distance(int src, int dest) {
 
     while (!q.empty()) { // while there are still unvisited nodes
         int u = q.front(); q.pop();
+
         // show node order
-        //cout << u << " ";
+        // cout << u << " ";
         for (auto e : nodes[u].adj) {
+            bool tem = false;
+            for (auto x : airlines){
+                if (x == e.airline){
+                    tem = true;
+                    break;
+                }
+            }
+            if (!tem) continue;
             int w = e.dest;
+            auto why = e.airline;
             if (!nodes[w].visited) {
                 q.push(w);
                 nodes[w].visited = true;
                 nodes[w].dist = nodes[u].dist + 1;
                 auto x = nodes[u].visitedAirports;
                 x.push_back(nodes[w].airport);
+                fir.push_back(e.airline);
                 nodes[w].visitedAirports = x;
             }
         }
     }
-    return nodes[dest].visitedAirports;
+    res.second = nodes[dest].visitedAirports;
+    res.first = fir;
+    return res;
 }
