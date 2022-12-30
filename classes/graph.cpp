@@ -57,7 +57,7 @@ pair<vector<string>,vector<Airport>> Graph::bfs(int src, int dest, vector<string
     vector<Airport> init;
     init.push_back(nodes[src].airport);
     nodes[src].visitedAirports = init;
-
+    nodes[src].visitedAirlines = fir;
     while (!q.empty()) { // while there are still unvisited nodes
         int u = q.front(); q.pop();
 
@@ -78,15 +78,19 @@ pair<vector<string>,vector<Airport>> Graph::bfs(int src, int dest, vector<string
                 q.push(w);
                 nodes[w].visited = true;
                 nodes[w].dist = nodes[u].dist + 1;
+
                 auto x = nodes[u].visitedAirports;
                 x.push_back(nodes[w].airport);
-                fir.push_back(e.airline);
                 nodes[w].visitedAirports = x;
+
+                auto y = nodes[u].visitedAirlines;
+                y.push_back(e.airline);
+                nodes[w].visitedAirlines = y;
             }
         }
     }
     res.second = nodes[dest].visitedAirports;
-    res.first = fir;
+    res.first = nodes[dest].visitedAirlines;
     return res;
 }
 

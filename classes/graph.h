@@ -29,7 +29,7 @@ class Graph {
         Airport airport = Airport("XXX","XXX","XXX","XXX",0,0);
         int dist;
         vector<Airport> visitedAirports;
-        vector<Airline> visitedAirlines;
+        vector<string> visitedAirlines;
     };
 
     int size;              // Graph size (vertices are numbered from 1 to n)
