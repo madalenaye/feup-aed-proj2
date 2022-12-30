@@ -16,9 +16,9 @@ Graph::Graph() {
 }
 
 // Add edge from source to destination with a certain weight
-void Graph::addEdge(int src, int dest, string airline) {
+void Graph::addEdge(int src, int dest, string airline, double d) {
     //if (src<1 || src>size || dest<1 || dest>size) return;
-    nodes[src].adj.push_back({dest,airline,0});
+    nodes[src].adj.push_back({dest,airline,d});
 }
 
 void Graph::addAirport(int src, Airport airport) {
@@ -77,7 +77,7 @@ pair<vector<string>,vector<Airport>> Graph::bfs(int src, int dest, vector<string
             if (!nodes[w].visited) {
                 q.push(w);
                 nodes[w].visited = true;
-                nodes[w].dist = nodes[u].dist + 1;
+                nodes[w].dist = nodes[u].dist + e.distance;
 
                 auto x = nodes[u].visitedAirports;
                 x.push_back(nodes[w].airport);
@@ -91,6 +91,7 @@ pair<vector<string>,vector<Airport>> Graph::bfs(int src, int dest, vector<string
     }
     res.second = nodes[dest].visitedAirports;
     res.first = nodes[dest].visitedAirlines;
+    cout << nodes[dest].dist << '\n';
     return res;
 }
 

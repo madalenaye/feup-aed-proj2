@@ -41,7 +41,7 @@ public:
     Graph();
 
     // Add edge from source to destination with a certain weight
-    void addEdge(int src, int dest, string airline);
+    void addEdge(int src, int dest, string airline, double d);
 
     void addAirport(int src, Airport airport);
 

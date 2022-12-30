@@ -68,6 +68,8 @@ void Supervisor::createGraph(){
         getline(is,source,',');
         getline(is,target,',');
         getline(is,airline,',');
-        graph.addEdge(id_airports[source],id_airports[target],airline);
+        auto d = graph.distance(airports.find(Airport(source))->getLatitude(),airports.find(Airport(source))->getLongitude()
+                                ,airports.find(Airport(target))->getLatitude(),airports.find(Airport(target))->getLongitude());
+        graph.addEdge(id_airports[source],id_airports[target],airline,d);
     }
 }
