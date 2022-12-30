@@ -9,8 +9,10 @@
 #include <vector>
 #include <list>
 #include <iostream>
+#include <cmath>
 #include "airport.h"
 #include "airline.h"
+
 
 using namespace std;
 
@@ -45,8 +47,10 @@ public:
 
     // Depth-First Search: example implementation
     //void dfs(string v);
-    void bfs(int v);
-    pair<vector<string>,vector<Airport>> distance(int src, int dest, vector<string> airlines);
+    //void bfs(int v);
+    pair<vector<string>,vector<Airport>> bfs(int src, int dest, vector<string> airlines);
+
+    double distance(double lat1, double lon1,double lat2, double lon2);
 
 };
 

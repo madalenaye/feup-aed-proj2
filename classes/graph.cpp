@@ -24,7 +24,7 @@ void Graph::addEdge(int src, int dest, string airline) {
 void Graph::addAirport(int src, Airport airport) {
     nodes[src].airport=airport;
 }
-
+/*
 void Graph::bfs(int v) {
     for (int i=1; i<=size; i++) nodes[i].visited = false;
     queue<int> q; // queue of unvisited nodes
@@ -42,9 +42,9 @@ void Graph::bfs(int v) {
             }
         }
     }
-}
+}*/
 
-pair<vector<string>,vector<Airport>> Graph::distance(int src, int dest, vector<string> airlines) {
+pair<vector<string>,vector<Airport>> Graph::bfs(int src, int dest, vector<string> airlines) {
     for (int i=1; i<=size; i++) {
         nodes[i].visited = false;
         nodes[i].dist = 0;
@@ -88,4 +88,23 @@ pair<vector<string>,vector<Airport>> Graph::distance(int src, int dest, vector<s
     res.second = nodes[dest].visitedAirports;
     res.first = fir;
     return res;
+}
+
+double Graph::distance(double lat1, double lon1, double lat2, double lon2) {
+    double dLat = (lat2 - lat1) *
+                  M_PI / 180.0;
+    double dLon = (lon2 - lon1) *
+                  M_PI / 180.0;
+
+    // convert to radians
+    lat1 = (lat1) * M_PI / 180.0;
+    lat2 = (lat2) * M_PI / 180.0;
+
+    // apply formulae
+    double a = pow(sin(dLat / 2), 2) +
+               pow(sin(dLon / 2), 2) *
+               cos(lat1) * cos(lat2);
+    double rad = 6371;
+    double c = 2 * asin(sqrt(a));
+    return rad * c;
 }
