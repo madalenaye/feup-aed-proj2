@@ -48,8 +48,8 @@ public:
     // Depth-First Search: example implementation
     //void dfs(string v);
     //void bfs(int v);
-    pair<vector<string>,vector<Airport>> bfs(int src, int dest, vector<string> airlines);
-
+    //pair<vector<string>,vector<Airport>> bfs(int src, int dest, vector<string> airlines);
+    pair<vector<vector<Airport>>,vector<vector<string>>> bfs(int src, int dest, vector<string> airlines);
     double distance(double lat1, double lon1,double lat2, double lon2);
 
 };

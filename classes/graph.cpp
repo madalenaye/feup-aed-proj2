@@ -24,26 +24,68 @@ void Graph::addEdge(int src, int dest, string airline, double d) {
 void Graph::addAirport(int src, Airport airport) {
     nodes[src].airport=airport;
 }
-/*
-void Graph::bfs(int v) {
-    for (int i=1; i<=size; i++) nodes[i].visited = false;
+
+pair<vector<vector<Airport>>,vector<vector<string>>> Graph::bfs(int src, int dest, vector<string> airlines) {
+    for (int i=1; i<=size; i++) {
+        nodes[i].visited = false;
+        nodes[i].dist = 0;
+    }
+
+    vector<vector<Airport>> res;
+    vector<vector<string>> res2;
+    vector<string> fir;
     queue<int> q; // queue of unvisited nodes
-    q.push(v);
-    nodes[v].visited = true;
+    q.push(src);
+    nodes[src].visited = true;
+    vector<Airport> init;
+    init.push_back(nodes[src].airport);
+    nodes[src].visitedAirports = init;
+    nodes[src].visitedAirlines = fir;
     while (!q.empty()) { // while there are still unvisited nodes
         int u = q.front(); q.pop();
+
         // show node order
-        //cout << u << " ";
+        // cout << u << " ";
         for (auto e : nodes[u].adj) {
+            bool tem = false;
+            for (auto x : airlines){
+                if (x == e.airline){
+                    tem = true;
+                    break;
+                }
+            }
+            if (!tem) continue;
             int w = e.dest;
+            auto why = e.airline;
             if (!nodes[w].visited) {
                 q.push(w);
                 nodes[w].visited = true;
+                nodes[w].dist = nodes[u].dist + e.distance;
+
+                auto x = nodes[u].visitedAirports;
+                x.push_back(nodes[w].airport);
+                nodes[w].visitedAirports = x;
+
+                auto y = nodes[u].visitedAirlines;
+                y.push_back(e.airline);
+                nodes[w].visitedAirlines = y;
+            }
+            else if (w == dest && nodes[u].visitedAirports.size() == nodes[w].visitedAirports.size()-1){
+                auto aux = nodes[u].visitedAirports;
+                aux.push_back(nodes[w].airport);
+                res.push_back(aux);
+
+                auto aux2 = nodes[u].visitedAirlines;
+                aux2.push_back(e.airline);
+                res2.push_back(aux2);
             }
         }
     }
-}*/
-
+    res.push_back(nodes[dest].visitedAirports);
+    res2.push_back(nodes[dest].visitedAirlines);
+    return {res,res2};
+}
+/*
 pair<vector<string>,vector<Airport>> Graph::bfs(int src, int dest, vector<string> airlines) {
     for (int i=1; i<=size; i++) {
         nodes[i].visited = false;
@@ -93,7 +135,7 @@ pair<vector<string>,vector<Airport>> Graph::bfs(int src, int dest, vector<string
     res.first = nodes[dest].visitedAirlines;
     cout << nodes[dest].dist << '\n';
     return res;
-}
+}*/
 
 double Graph::distance(double lat1, double lon1, double lat2, double lon2) {
     double dLat = (lat2 - lat1) *

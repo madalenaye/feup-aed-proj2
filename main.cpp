@@ -19,17 +19,21 @@ int main() {
 
     airlines.push_back("EZY");
     airlines.push_back("AAL");
+    airlines.push_back("AZA");
+    airlines.push_back("AFR");
 
-    auto vetor = graph.bfs(map["CDG"],map["OPO"],airlines);
-    if (vetor.second.empty()) cout << "Not found\n";
-
-    else {
-        for (int i = 0; i < vetor.second.size() - 1; i++) {
-            cout << vetor.second[i].getCode() << " --- ( ";
-            cout << vetor.first[i] << " ) --> ";
+    auto vetor = graph.bfs(map["CDG"],map["LIS"],airlines);
+    auto listOfAirports = vetor.first;
+    auto listOfAirlines = vetor.second;
+    for (int i = 0; i < listOfAirlines.size(); i++){
+        auto airports1 = listOfAirports[i];
+        auto airlines1 = listOfAirlines[i];
+        for (int i = 0; i < airlines1.size(); i++) {
+            cout << airports1[i].getCode() << " --- ( ";
+            cout << airlines1[i] << " ) --> ";
         }
-        cout << vetor.second[vetor.second.size() - 1].getName() << '\n';
-        cout << "Number of flights : " << vetor.second.size() - 1 << '\n';
+        cout << airports1[airports1.size() - 1].getName() << '\n';
+        cout << "Number of flights : " << airlines1.size()  << '\n';
     }
     //auto dist = graph.distance(airports.find(Airport(src))->getLatitude(),airports.find(Airport(src))->getLongitude(),airports.find(Airport(dest))->getLatitude(),airports.find(Airport(dest))->getLongitude());
     //cout << dist;
