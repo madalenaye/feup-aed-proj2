@@ -37,6 +37,7 @@ void Supervisor::createAirports() {
 
         Airport airport = Airport(code,name,city,country,latitude,longitude);
         graph.addAirport(i,airport);
+        id_city[{airport.getCountry(),airport.getCity()}].push_back(i);
         id_airports.insert({airport.getCode(),i++});
         airports.insert(airport);
         countries.insert(country);
@@ -87,6 +88,7 @@ void Supervisor::createGraph(){
     }
 }
 
+
 unsigned Supervisor::countFlights(string airport, int flag) {
     int count = 0;
     if (flag == 0){
@@ -115,3 +117,4 @@ bool Supervisor::isCountry(string country){
     if (i == countries.end()) return false;
     return true;
 }
+

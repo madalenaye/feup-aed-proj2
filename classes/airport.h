@@ -21,6 +21,7 @@ public:
     double getLatitude() const;
     double getLongitude() const;
 
+
     void setCode(string);
     void setName(string);
     void setCity(string);

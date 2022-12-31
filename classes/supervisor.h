@@ -18,11 +18,12 @@
 #include "graph.h"
 #include "flight.h"
 
-using namespace std;
+//using namespace std;
 
 class Supervisor {
 public:
     Supervisor();
+
     struct AirlineHash {
         // TODO
         int operator()(const Airline &b) const {
@@ -54,6 +55,16 @@ public:
             return b1.getCode() == b2.getCode();
         }
     };
+
+    struct cityhash{
+        int operator()(const pair<string,string> &b) const {
+            string code = b.second;
+            int v = 0;
+            for (unsigned int i = 0; i < code.size(); i++)
+                v = 37 * v + code[i];
+            return v;
+        }
+
     unordered_set<Airport,AirportHash,AirportHash> const& getAirports() const {return airports;}
     unordered_set<Airline,AirlineHash,AirlineHash> const& getAirlines() const {return airlines;}
 
@@ -66,16 +77,31 @@ public:
 private:
     void createAirports();
 
-    void createAirlines();
 
-    void createGraph();
-    void createFlights();
+        // TODO
+        bool operator()(const pair<string,string> &b1, const pair<string,string> &b2) const {
+            return b1.first == b2.first && b1.second== b2.second;
+        }
+    };
+    unordered_set<Airport, AirportHash, AirportHash> const &getAirports() const { return airports; }
 
-    Graph graph = Graph(3019);
-    unordered_set<Airport, AirportHash,AirportHash> airports;
-    unordered_set<Airline,AirlineHash,AirlineHash> airlines;
-    unordered_map<string, int> id_airports;
-    set<string> countries;
-    vector<Flight> flights;
+    unordered_set<Airline, AirlineHash, AirlineHash> const &getAirlines() const { return airlines; }
+
+    unordered_map<pair<string,string>, vector<int>,cityhash,cityhash> const &getCity() const { return id_city; }
+
+    private:
+        void createAirports();
+        void createAirlines();
+        void createGraph();
+        unordered_map<pair<string,string> ,vector<int>,cityhash,cityhash> id_city;
+        void createGraph();
+        void createFlights();
+        Graph graph = Graph(3019);
+        unordered_set<Airport, AirportHash,AirportHash> airports;
+        unordered_set<Airline,AirlineHash,AirlineHash> airlines;
+        unordered_map<string, int> id_airports;
+        set<string> countries;
+        vector<Flight> flights;
 };
+
 #endif //RENAIR_SUPERVISOR_H
