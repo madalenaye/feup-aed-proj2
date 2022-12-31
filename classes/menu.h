@@ -19,8 +19,10 @@ private:
     void showAirports();
     void showAirlines();
     void showTarget();
+    void numberFlights();
+    void numberAirports();
     string validateCountry(string message);
-    string validateAirline(string message);
+    string validateString(string message);
     Supervisor* supervisor;
 
 };

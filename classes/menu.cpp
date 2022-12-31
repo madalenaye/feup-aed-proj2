@@ -58,19 +58,20 @@ void Menu::showInfo(){
 }
 void Menu::showStatistics() {
     int option;
-    cout << "\n Que dados pretende analisar? \n\n "
-            "[1] Nº de voos\n [2] Nº de aeroportos \n [3] Nº de companhias\n "
-            "[4] Nº de países atingíveis usando um máximo de Y voos\n "
-            "[5] Nº de cidades atingíveis usando um máximo de Y voos\n\n Opção: ";
+    while(true){
+        cout << "\n Que dados pretende analisar? \n\n "
+                "[1] Nº de voos\n [2] Nº de aeroportos \n [3] Nº de companhias\n "
+                "[4] Nº de países atingíveis usando um máximo de Y voos\n "
+                "[5] Nº de cidades atingíveis usando um máximo de Y voos\n\n Opção: ";
 
-    /*while(true){
+
         cin >> option;
         switch(option){
-            case 1: listAirports(); break;
-            case 2: showCompanies(); break;
-            case 3: showAirports(); break;
+            case 1: numberFlights(); break;
+            case 2: numberAirports(); break;
+            case 3:  break;
         }
-    }*/
+    }
 }
 
 void Menu::showAirports(){
@@ -165,30 +166,73 @@ void Menu::showTarget(){
         }
     }
 }
+void Menu::numberFlights(){
+    int option;
+    while(true){
+        cout << "\n Pretende saber quantos voos:\n\n "
+                "[1] Existem no total\n [2] Existem num aeroporto\n  [3] Existem num país\n [4] Voltar\n\n Opção: ";
+        cin >> option;
+        switch (option) {
+            case 1: cout << "\n Nº de voos totais: " << supervisor->getFlights().size() << "\n"; break;
+            case 2:{
+                string airport = validateString(" Insira o código do aeroporto (ex: GKA): ");
+                for (char& c:airport) c = toupper(c);
+                cout << "\n Nº de voos a partir de " << airport << ": " << supervisor->countFlights(airport, 0) << endl;
+                break;
+            }
+
+            case 3:{
+                string country = validateCountry(" Insira o nome do país: ");
+                break; //standby
+            }
+            case 4: return;
+            default:
+                std::cout << "\n Input inválido, tente novamente. \n\n";
+                std::cin.clear();
+                std::cin.ignore(INT_MAX, '\n');
+                break;
+        }
+    }
+}
+void Menu::numberAirports() {
+    int option;
+    while(true){
+        cout << "\n Pretende sabe quantos aeroportos:\n\n "
+                "[1] Existem no total\n [2] Existem num país\n [3] São atingíveis usando um máximo de Y voos\n [4] Voltar\n\n Opção: ";
+        cin >> option;
+        switch (option) {
+            case 1: cout << "\n Nº de aeroportos totais: " << supervisor->getAirports().size() << endl; break;
+            case 2: {
+                string country = validateCountry(" Insira o nome do país: ");
+            }
+        }
+    }
+}
 string Menu::validateCountry(string message){
     string country;
     cout << message; cin >> country;
     while(cin.fail() || !supervisor->isCountry(country)) {
-        cout << " Input inválido" << '\n';
-        cout << " Insira o nome do país: ";
+        cout << " Input inválido ou não existe: " << '\n';
+        cout << message;
         cin.clear();
         cin.ignore(INT_MAX, '\n');
         cin >> country;
     }
     return country;
 }
-string Menu::validateAirline(string message){
-    string airline;
-    cout << message; cin >> airline;
-    while(cin.fail() || airline.size() != 3) {
+string Menu::validateString(string message){
+    string s;
+    cout << message; cin >> s;
+    while(cin.fail() || s.size() != 3) {
         cout << " Input inválido" << '\n';
-        cout << " Insira o código da companhia aérea: ";
+        cout << message;
         cin.clear();
         cin.ignore(INT_MAX, '\n');
-        cin >> airline;
+        cin >> s;
     }
-    return airline;
+    return s;
 }
+
 //close menu
 void Menu::end() {
     printf("\n");
