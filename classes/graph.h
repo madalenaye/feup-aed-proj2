@@ -8,7 +8,13 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <stack>
+#include <queue>
+#include <iostream>
+#include <cmath>
 #include "airport.h"
+#include "airline.h"
+
 
 using namespace std;
 
@@ -23,6 +29,9 @@ class Graph {
         list<Edge> adj; // The list of outgoing edges (to adjacent nodes)
         bool visited; // As the node been visited on a search?
         Airport airport = Airport("XXX","XXX","XXX","XXX",0,0);
+        double dist;
+        vector<Airport> visitedAirports;
+        vector<string> visitedAirlines;
     };
 
     int size;              // Graph size (vertices are numbered from 1 to n)
@@ -31,15 +40,24 @@ class Graph {
 public:
     // Constructor: nr nodes and direction (default: directed)
     Graph(int nodes);
-    Graph();
 
     // Add edge from source to destination with a certain weight
-    void addEdge(int src, int dest, string airline);
+    void addEdge(int src, int dest, string airline, double distance);
 
     void addAirport(int src, Airport airport);
 
     // Depth-First Search: example implementation
     //void dfs(string v);
+    //void bfs(int v);
+    //pair<vector<string>,vector<Airport>> bfs(int src, int dest, vector<string> airlines);
+    pair<vector<vector<Airport>>,vector<vector<string>>> bfs(int src, int dest, vector<string> airlines);
+
+    int nrFlights(int src, int dest, vector<string> airlines);
+    double flownDistance(int src, int dest, vector<string> airlines);
+    list<queue<Airport>> usedAirports(int src, int dest, vector<string> airlines);
+
+    list<queue<string>> usedAirlines(int src, int dest, vector<string> airlines);
+    double distance(double lat1, double lon1,double lat2, double lon2);
 
 };
 

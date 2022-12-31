@@ -11,6 +11,12 @@ Supervisor::Supervisor() {
     createGraph();
 }
 
+unordered_map<string,int> Supervisor::getMap() const{
+    return id_airports;
+}
+
+Graph Supervisor::getGraph() const {return graph;}
+
 void Supervisor::createAirports() {
     ifstream myFile;
     string currentLine, code, name, city, country, x;
@@ -46,7 +52,7 @@ void Supervisor::createAirlines() {
         istringstream is(line);
         getline(is,code,',');
         getline(is,name,',');
-        getline(is, callsign,',');
+        getline(is,callsign,',');
         getline(is,country,',');
         Airline a = Airline(code, name, callsign, country);
         airlines.insert(a);
@@ -75,7 +81,9 @@ void Supervisor::createGraph(){
         getline(is,source,',');
         getline(is,target,',');
         getline(is,airline,',');
-        graph.addEdge(id_airports[source],id_airports[target],airline);
+        auto d = graph.distance(airports.find(Airport(source))->getLatitude(),airports.find(Airport(source))->getLongitude()
+                                ,airports.find(Airport(target))->getLatitude(),airports.find(Airport(target))->getLongitude());
+        graph.addEdge(id_airports[source],id_airports[target],airline,d);
     }
 }
 

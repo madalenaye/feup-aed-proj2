@@ -11,15 +11,15 @@ using namespace std;
 
 class Airport {
 public:
-    Airport();
+    Airport(string);
     Airport(string, string, string, string, double, double);
 
     string getCode() const;
-    string getName();
-    string getCity();
-    string getCountry();
-    double getLatitude();
-    double getLongitude();
+    string getName() const;
+    string getCity() const;
+    string getCountry() const;
+    double getLatitude() const;
+    double getLongitude() const;
 
     void setCode(string);
     void setName(string);
