@@ -12,9 +12,16 @@ public:
     Menu();
     void init();
     void end();
-    void showOperations();
-    void showStatistics();
 private:
+    void showOperations();
+    void showInfo();
+    void showStatistics();
+    void showAirports();
+    void showAirlines();
+    void showTarget();
+    string validateCountry(string message);
+    string validateAirline(string message);
     Supervisor* supervisor;
+
 };
 #endif //RENAIR_MENU_H

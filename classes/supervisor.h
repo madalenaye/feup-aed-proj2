@@ -8,6 +8,7 @@
 
 #include <unordered_set>
 #include <unordered_map>
+#include <set>
 #include <vector>
 #include <fstream>
 #include <istream>
@@ -54,19 +55,19 @@ public:
     };
     unordered_set<Airport,AirportHash,AirportHash> const& getAirports() const {return airports;}
     unordered_set<Airline,AirlineHash,AirlineHash> const& getAirlines() const {return airlines;}
+    set<string> getCountries(){return countries;}
+    bool isCountry(string country);
 private:
     void createAirports();
 
     void createAirlines();
 
-    Graph graph = Graph(3019);
-
     void createGraph();
 
+    Graph graph = Graph(3019);
     unordered_set<Airport, AirportHash,AirportHash> airports;
     unordered_set<Airline,AirlineHash,AirlineHash> airlines;
     unordered_map<string, int> id_airports;
-
-
+    set<string> countries;
 };
 #endif //RENAIR_SUPERVISOR_H

@@ -13,4 +13,5 @@ int main() {
     cout << supervisor.getAirports().size();*/
     Menu menu;
     menu.init();
+    return 0;
 }

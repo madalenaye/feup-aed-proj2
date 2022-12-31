@@ -31,8 +31,8 @@ void Supervisor::createAirports() {
         Airport airport = Airport(code,name,city,country,latitude,longitude);
         graph.addAirport(i,airport);
         id_airports.insert({airport.getCode(),i++});
-
         airports.insert(airport);
+        countries.insert(country);
     }
 }
 
@@ -64,4 +64,9 @@ void Supervisor::createGraph(){
         getline(is,airline,',');
         graph.addEdge(id_airports[source],id_airports[target],airline);
     }
+}
+bool Supervisor::isCountry(string country){
+    auto i = find(countries.begin(), countries.end(), country);
+    if (i == countries.end()) return false;
+    return true;
 }
