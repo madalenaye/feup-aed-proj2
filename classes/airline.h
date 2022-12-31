@@ -8,7 +8,7 @@ using namespace std;
 #define RENAIR_AIRLINE_H
 class Airline{
     public:
-        Airline();
+        Airline(string code);
         Airline(string code, string name, string callSign, string country);
         string getCode() const;
         string getName();
