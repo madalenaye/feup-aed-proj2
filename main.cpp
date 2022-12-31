@@ -1,7 +1,10 @@
 #include <iostream>
 #include "classes/supervisor.h"
 
+#include "classes/menu.h"
+
 int main() {
+  
     Supervisor supervisor;
     Graph graph = supervisor.getGraph();
     /*
@@ -145,7 +148,9 @@ int main() {
         cout << vetor.second[vetor.second.size() - 1].getName() << '\n';
         cout << "Number of flights : " << vetor.second.size() - 1;
     }
-     */
-    //createMenu();
-    //endMenu();
+
+    cout << supervisor.getAirports().size();*/
+    Menu menu;
+    menu.init();
+    return 0;
 }

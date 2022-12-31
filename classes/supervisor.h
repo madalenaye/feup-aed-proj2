@@ -8,6 +8,7 @@
 
 #include <unordered_set>
 #include <unordered_map>
+#include <set>
 #include <vector>
 #include <fstream>
 #include <istream>
@@ -15,6 +16,7 @@
 #include "airport.h"
 #include "airline.h"
 #include "graph.h"
+#include "flight.h"
 
 using namespace std;
 
@@ -54,21 +56,26 @@ public:
     };
     unordered_set<Airport,AirportHash,AirportHash> const& getAirports() const {return airports;}
     unordered_set<Airline,AirlineHash,AirlineHash> const& getAirlines() const {return airlines;}
+
     Graph getGraph() const;
     unordered_map<string,int> getMap() const;
+    set<string> getCountries(){return countries;}
+    vector<Flight> getFlights(){return flights;}
+    unsigned countFlights(string airport, int flag);
+    bool isCountry(string country);
 private:
     void createAirports();
 
     void createAirlines();
 
-    Graph graph = Graph(3019);
-
     void createGraph();
+    void createFlights();
 
+    Graph graph = Graph(3019);
     unordered_set<Airport, AirportHash,AirportHash> airports;
     unordered_set<Airline,AirlineHash,AirlineHash> airlines;
     unordered_map<string, int> id_airports;
-
-
+    set<string> countries;
+    vector<Flight> flights;
 };
 #endif //RENAIR_SUPERVISOR_H
