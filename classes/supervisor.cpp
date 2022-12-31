@@ -7,8 +7,15 @@
 Supervisor::Supervisor() {
     createAirports();
     createAirlines();
+    createFlights();
     createGraph();
 }
+
+unordered_map<string,int> Supervisor::getMap() const{
+    return id_airports;
+}
+
+Graph Supervisor::getGraph() const {return graph;}
 
 void Supervisor::createAirports() {
     ifstream myFile;
@@ -33,6 +40,7 @@ void Supervisor::createAirports() {
         id_city[{airport.getCountry(),airport.getCity()}].push_back(i);
         id_airports.insert({airport.getCode(),i++});
         airports.insert(airport);
+        countries.insert(country);
     }
 }
 
@@ -45,13 +53,25 @@ void Supervisor::createAirlines() {
         istringstream is(line);
         getline(is,code,',');
         getline(is,name,',');
-        getline(is, callsign,',');
+        getline(is,callsign,',');
         getline(is,country,',');
         Airline a = Airline(code, name, callsign, country);
         airlines.insert(a);
     }
 }
-
+void Supervisor::createFlights() {
+    ifstream inFile;
+    string source, target, airline, line;
+    inFile.open("../data/flights.csv");
+    getline(inFile, line);
+    while(getline(inFile, line)){
+        istringstream is(line);
+        getline(is,source,',');
+        getline(is,target,',');
+        getline(is,airline,',');
+        flights.push_back(Flight(source, target, airline));
+    }
+}
 void Supervisor::createGraph(){
     ifstream inFile;
     string source, target, airline, line;
@@ -62,7 +82,39 @@ void Supervisor::createGraph(){
         getline(is,source,',');
         getline(is,target,',');
         getline(is,airline,',');
-        graph.addEdge(id_airports[source],id_airports[target],airline);
+        auto d = graph.distance(airports.find(Airport(source))->getLatitude(),airports.find(Airport(source))->getLongitude()
+                                ,airports.find(Airport(target))->getLatitude(),airports.find(Airport(target))->getLongitude());
+        graph.addEdge(id_airports[source],id_airports[target],airline,d);
     }
+}
+
+
+unsigned Supervisor::countFlights(string airport, int flag) {
+    int count = 0;
+    if (flag == 0){
+        for (auto i : flights){
+            if (i.getSource() == airport) count++;
+        }
+    }
+    else if (flag == 1){
+        unordered_set<string> diffAirlines;
+        for (auto i : flights){
+            diffAirlines.insert(i.getAirline());
+        }
+        count = diffAirlines.size();
+    }
+    else{
+        unordered_set<string> diffDestination;
+        for (auto i:flights){
+            diffDestination.insert(i.getTarget());
+        }
+        count = diffDestination.size();
+    }
+    return count;
+}
+bool Supervisor::isCountry(string country){
+    auto i = find(countries.begin(), countries.end(), country);
+    if (i == countries.end()) return false;
+    return true;
 }
 

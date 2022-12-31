@@ -13,13 +13,17 @@ Airport::Airport(string code, string name, string city, string country, double l
     this->latitude = latitude;
     this->longitude = longitude;
 }
+Airport::Airport(string code) {
+    this->code = code;
+}
 
 string Airport::getCode() const {return code;}
-string Airport::getName() {return name;}
+string Airport::getName() const {return name;}
 string Airport::getCity() const {return city;}
 string Airport::getCountry() const {return country;}
-double Airport::getLatitude() {return latitude;}
-double Airport::getLongitude() {return longitude;}
+double Airport::getLatitude() const {return latitude;}
+double Airport::getLongitude() const {return longitude;}
+
 
 void Airport::setCode(string code) {this->code = code;}
 void Airport::setName(string name) {this->name = name;}

@@ -5,4 +5,25 @@
 #ifndef RENAIR_MENU_H
 #define RENAIR_MENU_H
 
+#include "supervisor.h"
+
+class Menu{
+public:
+    Menu();
+    void init();
+    void end();
+private:
+    void showOperations();
+    void showInfo();
+    void showStatistics();
+    void showAirports();
+    void showAirlines();
+    void showTarget();
+    void numberFlights();
+    void numberAirports();
+    string validateCountry(string message);
+    string validateString(string message);
+    Supervisor* supervisor;
+
+};
 #endif //RENAIR_MENU_H

@@ -8,6 +8,7 @@
 
 #include <unordered_set>
 #include <unordered_map>
+#include <set>
 #include <vector>
 #include <fstream>
 #include <istream>
@@ -15,6 +16,7 @@
 #include "airport.h"
 #include "airline.h"
 #include "graph.h"
+#include "flight.h"
 
 //using namespace std;
 
@@ -53,6 +55,7 @@ public:
             return b1.getCode() == b2.getCode();
         }
     };
+
     struct cityhash{
         int operator()(const pair<string,string> &b) const {
             string code = b.second;
@@ -61,6 +64,19 @@ public:
                 v = 37 * v + code[i];
             return v;
         }
+
+    unordered_set<Airport,AirportHash,AirportHash> const& getAirports() const {return airports;}
+    unordered_set<Airline,AirlineHash,AirlineHash> const& getAirlines() const {return airlines;}
+
+    Graph getGraph() const;
+    unordered_map<string,int> getMap() const;
+    set<string> getCountries(){return countries;}
+    vector<Flight> getFlights(){return flights;}
+    unsigned countFlights(string airport, int flag);
+    bool isCountry(string country);
+private:
+    void createAirports();
+
 
         // TODO
         bool operator()(const pair<string,string> &b1, const pair<string,string> &b2) const {
@@ -75,17 +91,17 @@ public:
 
     private:
         void createAirports();
-
         void createAirlines();
-
-        Graph graph = Graph(3019);
-
         void createGraph();
-
-        unordered_set<Airport, AirportHash, AirportHash> airports;
-        unordered_set<Airline, AirlineHash, AirlineHash> airlines;
-        unordered_map<string, int> id_airports;
         unordered_map<pair<string,string> ,vector<int>,cityhash,cityhash> id_city;
+        void createGraph();
+        void createFlights();
+        Graph graph = Graph(3019);
+        unordered_set<Airport, AirportHash,AirportHash> airports;
+        unordered_set<Airline,AirlineHash,AirlineHash> airlines;
+        unordered_map<string, int> id_airports;
+        set<string> countries;
+        vector<Flight> flights;
+};
 
-    };
 #endif //RENAIR_SUPERVISOR_H
