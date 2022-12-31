@@ -21,7 +21,7 @@ int main() {
     airlines.push_back("AAL");
     airlines.push_back("AZA");
     airlines.push_back("AFR");
-
+/*
     auto vetor = graph.bfs(map["CDG"],map["LIS"],airlines);
     auto listOfAirports = vetor.first;
     auto listOfAirlines = vetor.second;
@@ -34,6 +34,33 @@ int main() {
         }
         cout << airports1[airports1.size() - 1].getName() << '\n';
         cout << "Number of flights : " << airlines1.size()  << '\n';
+    }
+*/
+    cout << "Number of flights between CDG and SJD: " << graph.nrFlights(map["CDG"],map["SJD"],airlines) << '\n';
+    cout << "Distance between CDG and SJD: " << graph.flownDistance(map["CDG"],map["SJD"],airlines) << '\n';
+
+    int i = 1;
+    auto a = graph.usedAirports(map["CDG"],map["SJD"],airlines);
+    for (auto x : a) {
+        cout << i << ": ";
+        while (!x.empty()) {
+             cout << x.front().getName() << " - ";
+            x.pop();
+        }
+        i++;
+        cout << "\n\n";
+    }
+
+    int j = 1;
+    auto b = graph.usedAirlines(map["CDG"],map["SJD"],airlines);
+    for (auto x : b) {
+        cout << j << ": ";
+        while (!x.empty()) {
+            cout << x.front() << " - ";
+            x.pop();
+        }
+        j++;
+        cout << "\n\n";
     }
     //auto dist = graph.distance(airports.find(Airport(src))->getLatitude(),airports.find(Airport(src))->getLongitude(),airports.find(Airport(dest))->getLatitude(),airports.find(Airport(dest))->getLongitude());
     //cout << dist;
