@@ -170,21 +170,10 @@ void Menu::numberFlights(){
     int option;
     while(true){
         cout << "\n Pretende saber quantos voos:\n\n "
-                "[1] Existem no total\n [2] Existem num aeroporto\n  [3] Existem num país\n [4] Voltar\n\n Opção: ";
+                "[1] Existem no total\n [2] Existem num aeroporto\n [3] Existem num país\n [4] Voltar\n\n Opção: ";
         cin >> option;
         switch (option) {
-            case 1: cout << "\n Nº de voos totais: " << supervisor->getFlights().size() << "\n"; break;
-            case 2:{
-                string airport = validateString(" Insira o código do aeroporto (ex: GKA): ");
-                for (char& c:airport) c = toupper(c);
-                cout << "\n Nº de voos a partir de " << airport << ": " << supervisor->countFlights(airport, 0) << endl;
-                break;
-            }
-
-            case 3:{
-                string country = validateCountry(" Insira o nome do país: ");
-                break; //standby
-            }
+            case 1: break;
             case 4: return;
             default:
                 std::cout << "\n Input inválido, tente novamente. \n\n";
@@ -208,7 +197,7 @@ void Menu::numberAirports() {
         }
     }
 }
-string Menu::validateCountry(string message){
+string Menu::validateCountry(const string& message){
     string country;
     cout << message; cin >> country;
     while(cin.fail() || !supervisor->isCountry(country)) {
@@ -220,7 +209,7 @@ string Menu::validateCountry(string message){
     }
     return country;
 }
-string Menu::validateString(string message){
+string Menu::validateString(const string& message){
     string s;
     cout << message; cin >> s;
     while(cin.fail() || s.size() != 3) {

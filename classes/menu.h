@@ -21,8 +21,8 @@ private:
     void showTarget();
     void numberFlights();
     void numberAirports();
-    string validateCountry(string message);
-    string validateString(string message);
+    string validateCountry(const string& message);
+    string validateString(const string& message);
     Supervisor* supervisor;
 
 };

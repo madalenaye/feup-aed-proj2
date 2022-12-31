@@ -4,16 +4,16 @@
 #include "classes/menu.h"
 
 int main() {
-  
+  /*
     Supervisor supervisor;
     Graph graph = supervisor.getGraph();
-    /*
+
     string src, dest;
     cout << "Source: ";
     cin >> src;
 
     cout << "Target: ";
-    cin >> dest;*/
+    cin >> dest;
 
 
     auto map = supervisor.getMap();
@@ -24,7 +24,7 @@ int main() {
     airlines.push_back("AAL");
     airlines.push_back("AZA");
     airlines.push_back("AFR");
-/*
+
     auto vetor = graph.bfs(map["CDG"],map["LIS"],airlines);
     auto listOfAirports = vetor.first;
     auto listOfAirlines = vetor.second;
@@ -38,7 +38,7 @@ int main() {
         cout << airports1[airports1.size() - 1].getName() << '\n';
         cout << "Number of flights : " << airlines1.size()  << '\n';
     }
-*/
+
     cout << "Number of flights between CDG and SJD: " << graph.nrFlights(map["CDG"],map["SJD"],airlines) << '\n';
     cout << "Distance between CDG and SJD: " << graph.flownDistance(map["CDG"],map["SJD"],airlines) << '\n';
 
@@ -67,7 +67,7 @@ int main() {
     }
     //auto dist = graph.distance(airports.find(Airport(src))->getLatitude(),airports.find(Airport(src))->getLongitude(),airports.find(Airport(dest))->getLatitude(),airports.find(Airport(dest))->getLongitude());
     //cout << dist;
-    /*
+
 
     cout << "Source airports: \n";
     double latitude, longitude, radius;
