@@ -7,7 +7,6 @@
 Supervisor::Supervisor() {
     createAirports();
     createAirlines();
-    createFlights();
     createGraph();
 }
 
@@ -59,19 +58,7 @@ void Supervisor::createAirlines() {
         airlines.insert(a);
     }
 }
-void Supervisor::createFlights() {
-    ifstream inFile;
-    string source, target, airline, line;
-    inFile.open("../data/flights.csv");
-    getline(inFile, line);
-    while(getline(inFile, line)){
-        istringstream is(line);
-        getline(is,source,',');
-        getline(is,target,',');
-        getline(is,airline,',');
-        flights.push_back(Flight(source, target, airline));
-    }
-}
+
 void Supervisor::createGraph(){
     ifstream inFile;
     string source, target, airline, line;
@@ -88,30 +75,6 @@ void Supervisor::createGraph(){
     }
 }
 
-
-unsigned Supervisor::countFlights(string airport, int flag) {
-    int count = 0;
-    if (flag == 0){
-        for (auto i : flights){
-            if (i.getSource() == airport) count++;
-        }
-    }
-    else if (flag == 1){
-        unordered_set<string> diffAirlines;
-        for (auto i : flights){
-            diffAirlines.insert(i.getAirline());
-        }
-        count = diffAirlines.size();
-    }
-    else{
-        unordered_set<string> diffDestination;
-        for (auto i:flights){
-            diffDestination.insert(i.getTarget());
-        }
-        count = diffDestination.size();
-    }
-    return count;
-}
 bool Supervisor::isCountry(string country){
     auto i = find(countries.begin(), countries.end(), country);
     if (i == countries.end()) return false;
