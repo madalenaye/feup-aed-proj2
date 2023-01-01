@@ -76,7 +76,7 @@ void Supervisor::createGraph(){
 }
 
 bool Supervisor::isCountry(string country){
-    auto i = find(countries.begin(), countries.end(), country);
+    auto i = countries.find(country);
     if (i == countries.end()) return false;
     return true;
 }

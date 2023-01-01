@@ -1,7 +1,7 @@
 //
 // Created by Madalena Ye on 27/12/2022.
 //
-#include "Menu.h"
+#include "menu.h"
 
 //initial menu
 Menu::Menu() {
@@ -201,7 +201,7 @@ string Menu::validateCountry(const string& message){
     string country;
     cout << message; cin >> country;
     while(cin.fail() || !supervisor->isCountry(country)) {
-        cout << " Input inválido ou não existe: " << '\n';
+        cout << " Input inválido ou não existe" << '\n';
         cout << message;
         cin.clear();
         cin.ignore(INT_MAX, '\n');
