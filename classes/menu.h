@@ -16,9 +16,12 @@ private:
     void showOperations();
     void showInfo();
     void showStatistics();
+    void showFlights();
     void showAirports();
     void showAirlines();
-    void showTarget();
+    void showCountries();
+    int showTop();
+    int customTop();
     void numberFlights();
     void numberAirports();
     string validateCountry(const string& message);

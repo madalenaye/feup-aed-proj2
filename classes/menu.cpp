@@ -16,13 +16,13 @@ void Menu::init() {
     int option;
     while(true) {
         cout << " O que deseja fazer hoje?\n\n "
-                "[1] Realizar operação\n [2] Consultar informação\n [3] Ver estatísticas\n [4] Sair\n\n Opção: ";
+                "[1] Realizar operação\n [2] Consultar informação\n [3] Ver estatísticas\n [0] Sair\n\n Opção: ";
         cin >> option;
         switch (option) {
             case 1 : showOperations(); break;
             case 2 : showInfo(); break;
             case 3 : showStatistics(); break;
-            case 4 : end(); return;
+            case 0 : return;
             default: {
                 std::cout << "\n Input inválido, tente novamente. \n\n";
                 std::cin.clear();
@@ -36,17 +36,18 @@ void Menu::init() {
 void Menu::showOperations() {
     cout << "standby";
 }
+
 void Menu::showInfo(){
     int option;
     while(true){
         cout << "\n Que tipo de informação deseja ver? \n\n "
-            "[1] Aeroportos\n [2] Companhias Aéreas\n [3] Destinos\n [4] Voltar\n\n Opção: ";
+            "[1] Aeroportos\n [2] Companhias Aéreas\n [3] Países\n [0] Voltar\n\n Opção: ";
         cin >> option;
         switch (option) {
             case 1: showAirports(); break;
             case 2: showAirlines(); break;
-            case 3: showTarget(); break;
-            case 4: cout<< "\n"; return;
+            case 3: showCountries(); break;
+            case 0: cout<< "\n"; return;
             default:{
                 std::cout << "\n Input inválido, tente novamente. \n\n";
                 std::cin.clear();
@@ -56,13 +57,14 @@ void Menu::showInfo(){
         }
     }
 }
+
 void Menu::showStatistics() {
     int option;
     while(true){
         cout << "\n Que dados pretende analisar? \n\n "
                 "[1] Nº de voos\n [2] Nº de aeroportos \n [3] Nº de companhias\n "
                 "[4] Nº de países atingíveis usando um máximo de Y voos\n "
-                "[5] Nº de cidades atingíveis usando um máximo de Y voos\n\n Opção: ";
+                "[5] Nº de cidades atingíveis usando um máximo de Y voos\n [0] Voltar\n\n Opção: ";
 
 
         cin >> option;
@@ -70,6 +72,9 @@ void Menu::showStatistics() {
             case 1: numberFlights(); break;
             case 2: numberAirports(); break;
             case 3:  break;
+            case 4: break;
+            case 5: break;
+            case 0: cout << "\n"; return;
         }
     }
 }
@@ -78,7 +83,7 @@ void Menu::showAirports(){
     int option;
     while(true){
         cout << "\n Pretende ver os aeroportos:\n\n "
-                "[1] Totais\n [2] De um país\n [3] Com mais voos\n [4] Com mais companhias aéreas\n [5] Voltar\n\n Opção: ";
+                "[1] Totais\n [2] De um país\n [3] Com mais voos\n [4] Com mais companhias aéreas\n [0] Voltar\n\n Opção: ";
         cin >> option;
         switch (option) {
             case 1: {
@@ -94,19 +99,36 @@ void Menu::showAirports(){
                 break;
             }
             case 3: {
-                //standby
+                Graph graph = supervisor->getGraph();
+                int option = showTop(), top;
+                if (option == 1) top = 10;
+                else if (option == 2) top = 20;
+                else if (option == 3) top = customTop();
+                else return;
+                int j = 1;
+                for (int i = 0; i < top; i++){
+                    cout << "\n " << j << ". " << graph.flightsPerAirport()[i].second
+                    << " - " << graph.flightsPerAirport()[i].first << " voos\n";
+                    j++;
+                }
                 break;
             }
             case 4: {
-                //standby
-                /*
-                string company = validateAirline(" Insira o código de uma companhia aérea (ex: RYR): ");
-                for (char& c: company) c = toupper(c);
-                for (auto i : supervisor->getAirports()){
-                }*/
+                Graph graph = supervisor->getGraph();
+                int option = showTop(), top;
+                if (option == 1) top = 10;
+                else if (option == 2) top = 20;
+                else if (option == 3) top = customTop();
+                else return;
+                int j = 1;
+                for (int i = 0; i < top; i++){
+                    cout << "\n " << j << ". " << graph.airlinesPerAirport()[i].second
+                         << " - " << graph.airlinesPerAirport()[i].first << " companhias aéreas\n";
+                    j++;
+                }
                 break;
             }
-            case 5: return;
+            case 0: return;
             default: {
                 std::cout << "\n Input inválido, tente novamente. \n\n";
                 std::cin.clear();
@@ -121,7 +143,7 @@ void Menu::showAirlines(){
     int option;
     while(true){
         cout << "\n Pretende ver as companhias aéreas:\n\n "
-                "[1] Totais\n [2] De um país\n [3] Com os voos mais longos\n [4] Voltar\n\n Opção: ";
+                "[1] Totais\n [2] De um país\n [3] Com os voos mais longos\n [0] Voltar\n\n Opção: ";
         cin >> option;
         switch (option) {
             case 1: {
@@ -137,7 +159,7 @@ void Menu::showAirlines(){
                 break;
             }
             case 3: break; //standby
-            case 4: return;
+            case 0: return;
             default: {
                 std::cout << "\n Input inválido, tente novamente. \n\n";
                 std::cin.clear();
@@ -147,16 +169,16 @@ void Menu::showAirlines(){
         }
     }
 }
-void Menu::showTarget(){
+void Menu::showCountries(){
     int option;
     while(true){
-        cout << " Pretende ver os destinos:\n "
-                "[1] Mais populares para visitar\n [2] Menos populares para visitar\n [3] Voltar\n\n Opção: ";
+        cout << " Pretende ver os países:\n "
+                "[1] Com mais aeroportos\n [2] Com mais companhias aéreas\n [0] Voltar\n\n Opção: ";
         cin >> option;
         switch (option) {
             case 1: break;
             case 2: break;
-            case 3: return;
+            case 0: return;
             default:{
                 std::cout << "\n Input inválido, tente novamente. \n\n";
                 std::cin.clear();
@@ -170,11 +192,11 @@ void Menu::numberFlights(){
     int option;
     while(true){
         cout << "\n Pretende saber quantos voos:\n\n "
-                "[1] Existem no total\n [2] Existem num aeroporto\n [3] Existem num país\n [4] Voltar\n\n Opção: ";
+                "[1] Existem no total\n [2] Existem num aeroporto\n [3] Existem num país\n [0] Voltar\n\n Opção: ";
         cin >> option;
         switch (option) {
             case 1: break;
-            case 4: return;
+            case 0: return;
             default:
                 std::cout << "\n Input inválido, tente novamente. \n\n";
                 std::cin.clear();
@@ -187,7 +209,7 @@ void Menu::numberAirports() {
     int option;
     while(true){
         cout << "\n Pretende sabe quantos aeroportos:\n\n "
-                "[1] Existem no total\n [2] Existem num país\n [3] São atingíveis usando um máximo de Y voos\n [4] Voltar\n\n Opção: ";
+                "[1] Existem no total\n [2] Existem num país\n [3] São atingíveis usando um máximo de Y voos\n [0] Voltar\n\n Opção: ";
         cin >> option;
         switch (option) {
             case 1: cout << "\n Nº de aeroportos totais: " << supervisor->getAirports().size() << endl; break;
@@ -221,7 +243,30 @@ string Menu::validateString(const string& message){
     }
     return s;
 }
-
+int Menu::showTop(){
+    cout << "\n Deseja consultar:\n\n "
+                "[1] Top 10\n [2] Top 20\n [3] Outro\n [0] Voltar\n\n Opção: ";
+    int option;
+    cin >> option;
+    while (!(option == 1 || option == 2 || option == 3 || option == 0)){
+        cout << " Input inválido\n Tente novamente: ";
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+        cin >> option;
+    }
+   return option;
+}
+int Menu::customTop() {
+    cout << "\n Selecione um valor para o Top: ";
+    int option; cin >> option;
+    while (cin.fail() || option < 1 || option > 3020){
+        cout << " Input entre 1 e 3020\n Tente novamente: ";
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+        cin >> option;
+    }
+    return option;
+}
 //close menu
 void Menu::end() {
     printf("\n");

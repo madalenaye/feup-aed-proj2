@@ -23,3 +23,4 @@ void Airline::setCode(string code){this->code=code;}
 void Airline::setName(string name){this->name=name;}
 void Airline::setCallSign(string callSign){this->callSign=callSign;}
 void Airline::setCountry(string country){this->country=country;}
+

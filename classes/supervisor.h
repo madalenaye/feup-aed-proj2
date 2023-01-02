@@ -74,7 +74,7 @@ public:
     unordered_map<string,int> getMap() const;
     set<string> getCountries(){return countries;}
     bool isCountry(string country);
-    unsigned countFlights(string airport, int flag);
+
 private:
     void createAirports();
 

@@ -80,4 +80,3 @@ bool Supervisor::isCountry(string country){
     if (i == countries.end()) return false;
     return true;
 }
-

@@ -29,6 +29,7 @@ public:
     void setLatitude(double);
     void setLongitude(double);
 
+
 private:
     string code;
     string name;

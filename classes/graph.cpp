@@ -1,8 +1,8 @@
 #include "graph.h"
-
+#include <set>
 // Constructor: nr nodes and direction (default: undirected)
 Graph::Graph(int size) : nodes(size+1){
-    this->size = size+1;
+    this->size = size;
 }
 
 // Add edge from source to destination with a certain weight
@@ -142,4 +142,30 @@ double Graph::distance(double lat1, double lon1, double lat2, double lon2) {
     double rad = 6371;
     double c = 2 * asin(sqrt(a));
     return rad * c;
+}
+
+bool cmp( pair<int,string> a, pair<int,string> b){
+    return a.first > b.first;
+}
+
+vector<pair<int, string>> Graph::flightsPerAirport() {
+    vector<pair<int,string>> n;
+    for (int i = 1; i <= size; i++){
+        int nrFlights = nodes[i].adj.size();
+        n.push_back({nrFlights, nodes[i].airport.getCode()});
+    }
+    sort(n.begin(), n.end(), cmp);
+    return n;
+}
+vector<pair<int,string>> Graph::airlinesPerAirport() {
+    vector<pair<int,string>> nrAirlines;
+    for (int i = 1; i <= size; i++){
+        set<string> n;
+        for (Edge e : nodes[i].adj){
+            n.insert(e.airline.getCode());
+        }
+        nrAirlines.push_back({n.size(), nodes[i].airport.getCode()});
+    }
+    sort(nrAirlines.begin(), nrAirlines.end(), cmp);
+    return nrAirlines;
 }

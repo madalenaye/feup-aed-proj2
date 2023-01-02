@@ -48,7 +48,8 @@ public:
     list<queue<Airline>> usedAirlines(int src, int dest, vector<Airline> airlines);
 
     double distance(double lat1, double lon1,double lat2, double lon2);
-
+    vector<pair<int,string>> flightsPerAirport();
+    vector<pair<int,string>> airlinesPerAirport();
 };
 
 #endif //GRAPH_H
