@@ -13,20 +13,37 @@ public:
     void init();
     void end();
 private:
-    void showOperations();
+    void Operations();
+    void chooseSource();
+    void chooseTarget();
+    void chooseAirlines();
+    void processOperation();
+
+    void showPath(list<queue<Airport>>, list<queue<Airline>>);
     void showInfo();
-    void showStatistics();
-    void showFlights();
     void showAirports();
     void showAirlines();
+    void showTarget();
     void showCountries();
+
+    void showStatistics();
+
     int showTop();
     int customTop();
     void numberFlights();
     void numberAirports();
-    string validateCountry(const string& message);
-    string validateString(const string& message);
-    Supervisor* supervisor;
 
+    string validateCountry();
+    int validateOption(const string& message);
+    Airline validateAirline();
+    double validateLatitude();
+    double validateLongitude();
+    double validateRadius();
+    string validateCity(string country);
+    string validateAirport();
+    Supervisor* supervisor;
+    vector<string> src;
+    vector<string> dest;
+    unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines;
 };
 #endif //RENAIR_MENU_H

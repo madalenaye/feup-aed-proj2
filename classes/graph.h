@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_set>
 #include <list>
 #include <queue>
 #include <iostream>
@@ -33,21 +34,31 @@ class Graph {
     vector<Node> nodes;
 
 public:
+
     Graph(int nodes);
 
     void addEdge(int src, int dest, Airline airline, double distance);
 
     void addAirport(int src, Airport airport);
 
-    int nrFlights(int src, int dest, vector<Airline> airlines);
+    int nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
 
-    double flownDistance(int src, int dest, vector<Airline> airlines);
+    int diameter(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
 
-    list<queue<Airport>> usedAirports(int src, int dest, vector<Airline> airlines);
+    double flownDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
 
-    list<queue<Airline>> usedAirlines(int src, int dest, vector<Airline> airlines);
+    list<queue<Airport>> usedAirportsFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
+
+    list<queue<Airline>> usedAirlinesFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
+
+    list<queue<Airport>> usedAirportsDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
+
+    list<queue<Airline>> usedAirlinesDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
 
     double distance(double lat1, double lon1,double lat2, double lon2);
+
+    vector<Node> getNodes() const;
+
     vector<pair<int,string>> flightsPerAirport();
     vector<pair<int,string>> airlinesPerAirport();
 };
