@@ -22,37 +22,6 @@ using namespace std;
 class Supervisor {
 public:
     Supervisor();
-    struct AirlineHash {
-        // TODO
-        int operator()(const Airline &b) const {
-            string code = b.getCode();
-            int v = 0;
-            for (unsigned int i = 0; i < code.size(); i++)
-                v = 37 * v + code[i];
-            return v;
-        }
-
-        // TODO
-        bool operator()(const Airline &b1, const Airline &b2) const {
-            return b1.getCode() == b2.getCode();
-        }
-    };
-
-    struct AirportHash {
-        // TODO
-        int operator()(const Airport &b) const {
-            string code = b.getCode();
-            int v = 0;
-            for (unsigned int i = 0; i < code.size(); i++)
-                v = 37 * v + code[i];
-            return v;
-        }
-
-        // TODO
-        bool operator()(const Airport &b1, const Airport &b2) const {
-            return b1.getCode() == b2.getCode();
-        }
-    };
     struct CityHash{
         int operator()(const pair<string,string> &b) const {
             string code = b.second;
@@ -67,14 +36,21 @@ public:
             return b1.first == b2.first && b1.second== b2.second;
         }
     };
-    unordered_set<Airport,AirportHash,AirportHash> const& getAirports() const {return airports;}
-    unordered_set<Airline,AirlineHash,AirlineHash> const& getAirlines() const {return airlines;}
-    unordered_map<pair<string,string>, vector<int>,CityHash,CityHash> const &getCity() const {return id_city;}
+
+    unordered_set<Airport,Airport::AirportHash,Airport::AirportHash> const& getAirports() const {return airports;}
+    unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> const& getAirlines() const {return airlines;}
+    unordered_map<pair<string,string>, vector<string>,CityHash,CityHash> const &getCity() const {return id_city;}
     Graph getGraph() const;
     unordered_map<string,int> getMap() const;
     set<string> getCountries(){return countries;}
+
     bool isCountry(string country);
-    unsigned countFlights(string airport, int flag);
+    bool isAirport(Airport airport);
+    bool isAirline(Airline airline);
+    bool isCity(string city);
+    bool isValidCity(string country, string city);
+    vector<string> localAiports(double, double, double);
+
 private:
     void createAirports();
 
@@ -84,11 +60,12 @@ private:
 
     void createGraph();
 
-    unordered_set<Airport, AirportHash,AirportHash> airports;
-    unordered_set<Airline,AirlineHash,AirlineHash> airlines;
+    unordered_set<Airport, Airport::AirportHash,Airport::AirportHash> airports;
+    unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines;
     unordered_map<string, int> id_airports;
-    unordered_map<pair<string,string> ,vector<int>,CityHash,CityHash> id_city;
+    unordered_map<pair<string,string> ,vector<string>,CityHash,CityHash> id_city;
     set<string> countries;
-
+    set<string> cities;
+    unordered_map<string, list<string>> citiesPerCountry;
 };
 #endif //RENAIR_SUPERVISOR_H

@@ -152,5 +152,7 @@ int main() {
     cout << supervisor.getAirports().size();*/
     Menu menu;
     menu.init();
+    menu.end();
+
     return 0;
 }

@@ -36,10 +36,12 @@ void Supervisor::createAirports() {
 
         Airport airport = Airport(code,name,city,country,latitude,longitude);
         graph.addAirport(i,airport);
-        id_city[{airport.getCountry(),airport.getCity()}].push_back(i);
+        id_city[{airport.getCountry(),airport.getCity()}].push_back(code);
         id_airports.insert({airport.getCode(),i++});
         airports.insert(airport);
         countries.insert(country);
+        cities.insert(city);
+        citiesPerCountry[country].push_back(city);
     }
 }
 
@@ -70,14 +72,49 @@ void Supervisor::createGraph(){
         getline(is,target,',');
         getline(is,airline,',');
         auto d = graph.distance(airports.find(Airport(source))->getLatitude(),airports.find(Airport(source))->getLongitude()
-                                ,airports.find(Airport(target))->getLatitude(),airports.find(Airport(target))->getLongitude());
+                ,airports.find(Airport(target))->getLatitude(),airports.find(Airport(target))->getLongitude());
         graph.addEdge(id_airports[source],id_airports[target],airline,d);
     }
 }
 
 bool Supervisor::isCountry(string country){
-    auto i = find(countries.begin(), countries.end(), country);
+    auto i = countries.find(country);
     if (i == countries.end()) return false;
     return true;
 }
 
+bool Supervisor::isAirport(Airport airport){
+    auto i = airports.find(airport);
+    if (i == airports.end()) return false;
+    return true;
+}
+
+bool Supervisor::isAirline(Airline airline) {
+    auto i = airlines.find(airline);
+    if (i == airlines.end()) return false;
+    return true;
+}
+
+bool Supervisor::isCity(string city) {
+    auto i = cities.find(city);
+    if (i == cities.end()) return false;
+    return true;
+}
+bool Supervisor::isValidCity(string country, string city) {
+    for (auto c : citiesPerCountry[country]){
+        if (city == c) return true;
+    }
+    return false;
+}
+
+vector<string> Supervisor::localAiports(double latitude, double longitude, double radius) {
+    vector<string> airports;
+
+    for (auto node : graph.getNodes()){
+        double latitude1 = node.airport.getLatitude();
+        double longitude1 = node.airport.getLongitude();
+        if (graph.distance(latitude,longitude,latitude1,longitude1) <= radius)
+            airports.push_back(node.airport.getCode());
+    }
+    return airports;
+}
