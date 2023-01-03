@@ -130,7 +130,7 @@ void Menu::chooseTarget() {
                 if (choice == 1) chooseAirlines();
                 return;
             }
-            case 0: cout<< "\n"; return;
+            case 0: cout<< "\n"; Operations(); return;
             default:{
                 std::cout << "\n Input inválido, tente novamente. \n\n";
                 std::cin.clear();
@@ -201,7 +201,7 @@ void Menu::processOperation() {
             }
     }
     printf("\n \033[44m===========================================================\033[0m\n\n");
-    init();
+    airlines = unordered_set<Airline, Airline::AirlineHash,Airline::AirlineHash>();
 }
 
 
@@ -239,6 +239,9 @@ void Menu::showStatistics() {
             case 1: numberFlights(); break;
             case 2: numberAirports(); break;
             case 3:  break;
+            case 4:  break;
+            case 5:  break;
+            case 0: return;
         }
     }
 }
@@ -442,6 +445,7 @@ void Menu::numberAirports() {
             case 2: {
                 string country = validateCountry();
             }
+            case 0: return;
         }
     }
 }

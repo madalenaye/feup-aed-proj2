@@ -3,7 +3,7 @@
 #include <unordered_set>
 #include "graph.h"
 #include <climits>
-#include "Supervisor.h"
+#include "supervisor.h"
 
 // Constructor: nr nodes and direction (default: undirected)
 Graph::Graph(int size) : nodes(size+1){

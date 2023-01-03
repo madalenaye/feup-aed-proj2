@@ -13,10 +13,11 @@
 #include <fstream>
 #include <istream>
 #include <sstream>
+#include <set>
+#include <algorithm>
 #include "airport.h"
 #include "airline.h"
 #include "graph.h"
-#include <set>
 
 using namespace std;
 
