@@ -43,7 +43,7 @@ public:
 
     int nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
 
-    int diameter(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
+    pair<int, string> diameter(int src, Airline airline);
 
     double flownDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
 

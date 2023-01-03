@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <unordered_set>
 #include "graph.h"
+#include <climits>
 
 // Constructor: nr nodes and direction (default: undirected)
 Graph::Graph(int size) : nodes(size+1){
@@ -48,13 +49,14 @@ int Graph::nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHa
 }
 
 
-int Graph::diameter(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
+pair<int,string> Graph::diameter(int src, Airline airline){
     for (int i=1; i<=size; i++)
         nodes[i].visited = false;
 
     queue<int> q;
     q.push(src);
 
+    Airport airport("");
     int diameter = INTMAX_MIN;
     nodes[src].nrFlights = 0;
     nodes[src].visited = true;
@@ -62,19 +64,20 @@ int Graph::diameter(int src, int dest, unordered_set<Airline,Airline::AirlineHas
     while(!q.empty()){
         int u = q.front(); q.pop();
         for (Edge e : nodes[u].adj){
-            if (!airlines.empty() && airlines.find(e.airline) == airlines.end()) continue;
+            if (e.airline.getCode() != airline.getCode()) continue;
             int w = e.dest;
             if (!nodes[w].visited){
                 q.push(w);
                 nodes[w].visited = true;
                 nodes[w].nrFlights = nodes[u].nrFlights + 1;
-
             }
-            if (w == dest && nodes[u].nrFlights+1 > diameter)
-                diameter = nodes[u].nrFlights+1;
+            if (nodes[u].nrFlights+1 > diameter) {
+                diameter = nodes[u].nrFlights + 1;
+                airport = nodes[w].airport;
+            }
         }
     }
-    return diameter;
+    return {diameter,airport.getCode()};
 }
 
 double Graph::flownDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){

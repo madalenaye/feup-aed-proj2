@@ -73,7 +73,7 @@ void Menu::chooseSource() {
                 }
                 return;
             }
-            case 0: cout<< "\n"; return;
+            case 0: cout << "\n"; init(); return;
             default:{
                 std::cout << "\n Input inválido, tente novamente. \n\n";
                 std::cin.clear();
@@ -154,7 +154,6 @@ void Menu::chooseAirlines() {
                                 " [1] Sim\n [2] Não\n\n Opção: ");
     }
 }
-
 void Menu::processOperation() {
     Graph graph = supervisor->getGraph();
     auto map = supervisor->getMap();
@@ -210,12 +209,12 @@ void Menu::showInfo(){
     int option;
     while(true){
         cout << "\n Que tipo de informação deseja ver? \n\n "
-                "[1] Aeroportos\n [2] Companhias Aéreas\n [3] Destinos\n [0] Voltar\n\n Opção: ";
+                "[1] Aeroportos\n [2] Companhias Aéreas\n [3] Países\n [0] Voltar\n\n Opção: ";
         cin >> option;
         switch (option) {
             case 1: showAirports(); break;
             case 2: showAirlines(); break;
-            case 3: showTarget(); break;
+            case 3: showCountries(); break;
             case 0: cout<< "\n"; return;
             default:{
                 std::cout << "\n Input inválido, tente novamente. \n\n";
@@ -291,7 +290,7 @@ void Menu::showAirports(){
                 int choice = showTop(), top;
                 if (choice == 1) top = 10;
                 else if (choice == 2) top = 20;
-                else if (choice == 3) top = customTop();
+                else if (choice == 3) top = customTop(3020);
                 else return;
                 int j = 1;
                 for (int i = 0; i < top; i++){
@@ -306,7 +305,7 @@ void Menu::showAirports(){
                 int choice = showTop(), top;
                 if (choice == 1) top = 10;
                 else if (choice == 2) top = 20;
-                else if (choice == 3) top = customTop();
+                else if (choice == 3) top = customTop(3020);
                 else return;
                 int j = 1;
                 for (int i = 0; i < top; i++){
@@ -330,8 +329,8 @@ void Menu::showAirports(){
 void Menu::showAirlines(){
     int option;
     while(true){
-        cout << "\n Pretende ver as companhias aéreas:\n\n "
-                "[1] Totais\n [2] De um país\n [3] Com os voos mais longos\n [0] Voltar\n\n Opção: ";
+        cout << "\n Pretende ver:\n\n "
+                "[1] Companhias aéreas totais\n [2] Companhias aéreas de um país\n [3] Os voos mais longos de uma companhia aérea\n [0] Voltar\n\n Opção: ";
         cin >> option;
         switch (option) {
             case 1: {
@@ -346,7 +345,10 @@ void Menu::showAirlines(){
                 }
                 break;
             }
-            case 3: break; //standby
+            case 3: {
+
+                break;
+            }
             case 0: return;
             default: {
                 std::cout << "\n Input inválido, tente novamente. \n\n";
@@ -357,15 +359,39 @@ void Menu::showAirlines(){
         }
     }
 }
-void Menu::showTarget(){
+void Menu::showCountries(){
     int option;
+    multimap<int,string> nrAirports = supervisor->countAirportsPerCountry();
     while(true){
-        cout << " Pretende ver os destinos:\n "
-                "[1] Mais populares para visitar\n [2] Menos populares para visitar\n [0] Voltar\n\n Opção: ";
+        cout << "\n Pretende ver os países:\n\n "
+                "[1] Com mais aeroportos\n [2] Com menos aeroportos\n [0] Voltar\n\n Opção: ";
         cin >> option;
         switch (option) {
-            case 1: break;
-            case 2: break;
+            case 1: {
+                int choice = showTop(), top, j = 1;
+                if (choice == 1) top = 10;
+                else if (choice == 2) top = 20;
+                else if (choice == 3) customTop(226);
+                else return;
+                for (auto i = nrAirports.rbegin(); i != nrAirports.rend(); i++){
+                    if (top == 0) break;
+                    cout << "\n " << j<< ". " << i->second << " - " << i->first << " aeroportos\n";
+                    top--; j++;
+                }
+                break;
+            }
+            case 2:{
+                int choice = showTop(), top, j = 1;
+                if (choice == 1) top = 10;
+                else if (choice == 2) top = 20;
+                else if (choice == 3) customTop(226);
+                else return;
+                for (auto i = nrAirports.begin(); i != nrAirports.end(); i++){
+                    if (top == 0) break;
+                    cout << "\n " << j << ". " << i->second << " - " << i->first << " aeroporto(s)\n";
+                    top--; j++;
+                }
+                break;}
             case 0: return;
             default:{
                 std::cout << "\n Input inválido, tente novamente. \n\n";
@@ -376,6 +402,7 @@ void Menu::showTarget(){
         }
     }
 }
+
 void Menu::numberFlights(){
     int option;
     while(true){
@@ -531,11 +558,11 @@ int Menu::showTop(){
     }
    return option;
 }
-int Menu::customTop() {
-    cout << "\n Selecione um valor para o Top: ";
+int Menu::customTop(int n) {
+    cout << "\n Selecione um valor para o seu top: ";
     int option; cin >> option;
-    while (cin.fail() || option < 1 || option > 3020){
-        cout << " Input entre 1 e 3020\n Tente novamente: ";
+    while (cin.fail() || option < 1 || option > n){
+        cout << " Escolha um número entre 1 e " << n << "\n Tente novamente: ";
         cin.clear();
         cin.ignore(INT_MAX, '\n');
         cin >> option;

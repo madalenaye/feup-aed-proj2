@@ -8,6 +8,7 @@
 
 #include <unordered_set>
 #include <unordered_map>
+#include <map>
 #include <vector>
 #include <fstream>
 #include <istream>
@@ -43,13 +44,14 @@ public:
     Graph getGraph() const;
     unordered_map<string,int> getMap() const;
     set<string> getCountries(){return countries;}
-
     bool isCountry(string country);
     bool isAirport(Airport airport);
     bool isAirline(Airline airline);
     bool isCity(string city);
     bool isValidCity(string country, string city);
     vector<string> localAiports(double, double, double);
+    multimap<int, string> countAirportsPerCountry();
+
 
 private:
     void createAirports();
