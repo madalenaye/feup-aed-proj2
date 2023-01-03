@@ -346,7 +346,16 @@ void Menu::showAirlines(){
                 break;
             }
             case 3: {
-
+                Airline airline = validateAirline();
+                string airport = validateAirport();
+                cout << "\n";
+                pair<int, queue<Airport>> longestFlight = supervisor->getGraph().diameter(supervisor->getMap()[airport], airline);
+                while (!longestFlight.second.empty()){
+                    Airport a = longestFlight.second.front();
+                    longestFlight.second.pop();
+                    cout << " " << a.getCode() << " - ";
+                }
+                cout << "diâmetro: " << longestFlight.first << endl;
                 break;
             }
             case 0: return;
@@ -361,7 +370,7 @@ void Menu::showAirlines(){
 }
 void Menu::showCountries(){
     int option;
-    multimap<int,string> nrAirports = supervisor->countAirportsPerCountry();
+    multimap<int,string> nrAirports = supervisor->convertMap(supervisor->getNrAirportsPerCountry());
     while(true){
         cout << "\n Pretende ver os países:\n\n "
                 "[1] Com mais aeroportos\n [2] Com menos aeroportos\n [0] Voltar\n\n Opção: ";
@@ -371,7 +380,7 @@ void Menu::showCountries(){
                 int choice = showTop(), top, j = 1;
                 if (choice == 1) top = 10;
                 else if (choice == 2) top = 20;
-                else if (choice == 3) customTop(226);
+                else if (choice == 3) top = customTop(226);
                 else return;
                 for (auto i = nrAirports.rbegin(); i != nrAirports.rend(); i++){
                     if (top == 0) break;
@@ -384,7 +393,7 @@ void Menu::showCountries(){
                 int choice = showTop(), top, j = 1;
                 if (choice == 1) top = 10;
                 else if (choice == 2) top = 20;
-                else if (choice == 3) customTop(226);
+                else if (choice == 3) top = customTop(226);
                 else return;
                 for (auto i = nrAirports.begin(); i != nrAirports.end(); i++){
                     if (top == 0) break;
@@ -407,10 +416,11 @@ void Menu::numberFlights(){
     int option;
     while(true){
         cout << "\n Pretende saber quantos voos:\n\n "
-                "[1] Existem no total\n [2] Existem num aeroporto\n [3] Existem num país\n [0] Voltar\n\n Opção: ";
+                "[1] Existem no total\n [2] Existem a partir de um aeroporto\n [0] Voltar\n\n Opção: ";
         cin >> option;
         switch (option) {
-            case 1: break;
+            case 1: cout << "\n Existem " << supervisor->nrFlights() << " voos no total\n"; break;
+            case 2: break;
             case 0: return;
             default:
                 std::cout << "\n Input inválido, tente novamente. \n\n";
@@ -420,6 +430,7 @@ void Menu::numberFlights(){
         }
     }
 }
+
 void Menu::numberAirports() {
     int option;
     while(true){

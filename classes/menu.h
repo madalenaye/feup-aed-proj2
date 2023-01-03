@@ -31,7 +31,6 @@ private:
     int customTop(int n);
     void numberFlights();
     void numberAirports();
-
     string validateCountry();
     int validateOption(const string& message);
     Airline validateAirline();
