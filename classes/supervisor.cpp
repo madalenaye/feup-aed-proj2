@@ -8,6 +8,7 @@ Supervisor::Supervisor() {
     createAirports();
     createAirlines();
     createGraph();
+    countAirportsPerCountry();
 }
 
 unordered_map<string,int> Supervisor::getMap() const{
@@ -15,6 +16,8 @@ unordered_map<string,int> Supervisor::getMap() const{
 }
 
 Graph Supervisor::getGraph() const {return graph;}
+
+map<string,int> Supervisor::getNrAirportsPerCountry() const {return nrAirportsPerCountry;}
 
 void Supervisor::createAirports() {
     ifstream myFile;
@@ -117,4 +120,45 @@ vector<string> Supervisor::localAiports(double latitude, double longitude, doubl
             airports.push_back(node.airport.getCode());
     }
     return airports;
+}
+
+void Supervisor::countAirportsPerCountry() {
+    map<string, int> airportsPerCountry;
+    for (auto i : id_city){
+        if (airportsPerCountry.find(i.first.first) == airportsPerCountry.end()){
+            airportsPerCountry[i.first.first] = i.second.size();
+        }
+        else{
+            auto m = airportsPerCountry.find(i.first.first);
+            m->second+= i.second.size();
+        }
+    }
+    nrAirportsPerCountry = airportsPerCountry;
+}
+
+template<typename A, typename B>
+std::pair<B,A> flip_pair(const std::pair<A,B> &p)
+{
+    return std::pair<B,A>(p.second, p.first);
+}
+
+template<typename A, typename B>
+std::multimap<B,A> flip_map(const std::map<A,B> &src)
+{
+    std::multimap<B,A> dst;
+    std::transform(src.begin(), src.end(), std::inserter(dst, dst.begin()),
+                   flip_pair<A,B>);
+    return dst;
+}
+
+multimap<int,string> Supervisor::convertMap(map<string, int> m) {
+    return flip_map(m);
+}
+
+int Supervisor::nrFlights(){
+    int nrFlights = 0;
+    for (auto node: graph.getNodes()){
+        nrFlights += node.adj.size();
+    }
+    return nrFlights;
 }

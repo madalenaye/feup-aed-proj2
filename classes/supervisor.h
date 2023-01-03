@@ -8,6 +8,7 @@
 
 #include <unordered_set>
 #include <unordered_map>
+#include <map>
 #include <vector>
 #include <fstream>
 #include <istream>
@@ -42,14 +43,17 @@ public:
     unordered_map<pair<string,string>, vector<string>,CityHash,CityHash> const &getCity() const {return id_city;}
     Graph getGraph() const;
     unordered_map<string,int> getMap() const;
+    map<string,int> getNrAirportsPerCountry() const;
     set<string> getCountries(){return countries;}
-
     bool isCountry(string country);
     bool isAirport(Airport airport);
     bool isAirline(Airline airline);
     bool isCity(string city);
     bool isValidCity(string country, string city);
     vector<string> localAiports(double, double, double);
+    void countAirportsPerCountry();
+    multimap<int,string> convertMap(map<string,int> m);
+    int nrFlights();
 
 private:
     void createAirports();
@@ -67,5 +71,7 @@ private:
     set<string> countries;
     set<string> cities;
     unordered_map<string, list<string>> citiesPerCountry;
+    map<string, int> nrAirportsPerCountry;
 };
+
 #endif //RENAIR_SUPERVISOR_H
