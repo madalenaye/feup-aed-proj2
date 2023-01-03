@@ -146,7 +146,7 @@ void Menu::chooseAirlines() {
     airlines.insert(airline);
 
     int option = validateOption("\n Deseja inserir mais alguma companhia aérea? \n\n"
-                                " [1] Sim\n [2] Não\n\n Opção: ");;
+                                " [1] Sim\n [2] Não\n\n Opção: ");
     while (option == 1){
         airline = validateAirline();
         airlines.insert(airline);
@@ -158,16 +158,16 @@ void Menu::processOperation() {
     Graph graph = supervisor->getGraph();
     auto map = supervisor->getMap();
     int option = validateOption("\n Indique o critério a usar: \n\n"
-                                " [1] Número mínimo de voos\n [2] Distância mínima percorrida\n\n Opção: ");;
+                                " [1] Número mínimo de voos\n [2] Distância mínima percorrida\n\n Opção: ");
     if (option == 1){
-        for (auto s : src)
-            for (auto d : dest){
-                printf("\n\n \033[40m===========================================================\033[0m\n\n");
+        for (const auto& s : src)
+            for (const auto& d : dest){
+                printf("\n\n\033[1m\033[32m===========================================================\033[0m\n\n");
                 if (graph.nrFlights(map[s],map[d],airlines) == -1)
                     cout << " Não existem voos de " << s << " a " << d << " com as companhias aéreas indicadas\n";
                 else {
                     auto nrFlights = graph.nrFlights(map[s],map[d],airlines);
-                    cout << " Número mínimo de voos entre " << s << " e " << d << " : " << nrFlights << "\n\n";
+                    cout << " Número mínimo de voos entre " << s << " e " << d << ": " << nrFlights << "\n\n";
 
                     auto usedAirports = graph.usedAirportsFlights(map[s],map[d],airlines);
                     auto usedAirlines = graph.usedAirlinesFlights(map[s],map[d],airlines);
@@ -180,15 +180,15 @@ void Menu::processOperation() {
             }
     }
     else{
-        for (auto s : src)
-            for (auto d : dest){
+        for (const auto& s : src)
+            for (const auto& d : dest){
                 if (graph.nrFlights(map[s],map[d],airlines) == -1){
                     cout << "Não existem voos de " << s << " a " << d << " com as companhias aéreas indicadas\n";
                 }
                 else {
-                    printf("\n\n \033[40m===========================================================\033[0m\n\n");
+                    printf("\n\n\033[1m\033[34m===========================================================\033[0m\n\n");
                     auto x = graph.flownDistance(map[s],map[d],airlines);
-                    cout << " Distância mínima percorrida entre " << s << " e " << d << " : " << x << " km\n\n";
+                    cout << " Distância mínima percorrida entre " << s << " e " << d << ": " << x << " km\n\n";
                     auto usedAirports = graph.usedAirportsDistance(map[s],map[d],airlines);
                     auto usedAirlines = graph.usedAirlinesDistance(map[s],map[d],airlines);
 
@@ -200,7 +200,7 @@ void Menu::processOperation() {
                 }
             }
     }
-    printf("\n \033[44m===========================================================\033[0m\n\n");
+    printf("\033[1m\033[36m===========================================================\033[0m\n\n");
     airlines = unordered_set<Airline, Airline::AirlineHash,Airline::AirlineHash>();
 }
 
@@ -239,9 +239,29 @@ void Menu::showStatistics() {
             case 1: numberFlights(); break;
             case 2: numberAirports(); break;
             case 3:  break;
-            case 4:  break;
-            case 5:  break;
+            case 4: {
+                string airport = validateAirport();
+                int y = customTop(" Selecione um valor máximo: ", 63832);
+                int count = supervisor->getGraph().countCountries(supervisor->getMap()[airport], y);
+                cout << "\n A partir de " << airport << " é possível atingir " << count << " países usando um máximo de "
+                     << y << " voos\n";
+                break;
+            }
+            case 5:{
+                string airport = validateAirport();
+                int y = customTop(" Selecione um valor máximo: ", 63832);
+                int count = supervisor->getGraph().countCities(supervisor->getMap()[airport], y);
+                cout << "\n A partir de " << airport << " é possível atingir " << count << " cidades usando um máximo de "
+                     << y << " voos\n";
+                break;
+            }
             case 0: return;
+            default:{
+                std::cout << "\n Input inválido, tente novamente. \n\n";
+                std::cin.clear();
+                std::cin.ignore(INT_MAX, '\n');
+                break;
+            }
         }
     }
 }
@@ -249,22 +269,23 @@ void Menu::showStatistics() {
 void Menu::showPath(list<queue<Airport>> usedAirports, list<queue<Airline>> usedAirlines) {
     auto i = usedAirports.begin();
     auto j = usedAirlines.begin();
+    cout << "\n";
     for (int nrPath = 0; nrPath < usedAirports.size(); nrPath ++) {
 
-        cout << " Trajeto nº" << nrPath+1 << " : ";
+        cout << " Trajeto nº" << nrPath+1 << ": ";
 
         auto airports = *i;
         auto airlines = *j;
         while (!airports.empty() && !airlines.empty()){
-            printf(" \033[44m%s\033[0m",airports.front().getCode().c_str());
+            printf("\033[1m\033[46m %s \033[0m",airports.front().getCode().c_str());
             cout <<" --- (";
-            printf(" \033[41m%s\033[0m",airlines.front().getCode().c_str());
+            printf("\033[1m\033[32m %s \033[0m",airlines.front().getCode().c_str());
             cout << ") --- ";
             airports.pop();
             airlines.pop();
         }
-        printf(" \033[44m%s\033[0m",airports.front().getCode().c_str());
-        cout << "\n";
+        printf("\033[1m\033[46m %s \033[0m",airports.front().getCode().c_str());
+        cout << "\n\n";
         i++;
         j++;
     }
@@ -277,13 +298,13 @@ void Menu::showAirports(){
         cin >> option;
         switch (option) {
             case 1: {
-                for (auto i: supervisor->getAirports()) cout << " " << i.getCode() << " - " << i.getName() << endl;
+                for (const auto& i: supervisor->getAirports()) cout << " " << i.getCode() << " - " << i.getName() << endl;
                 break;
             }
             case 2: {
                 string country = validateCountry();
                 cout << "\n";
-                for (auto i : supervisor->getAirports()){
+                for (const auto& i : supervisor->getAirports()){
                     if (i.getCountry() == country) cout << " " << i.getCode() << " - " << i.getName() << endl;
                 }
                 break;
@@ -293,11 +314,12 @@ void Menu::showAirports(){
                 int choice = showTop(), top;
                 if (choice == 1) top = 10;
                 else if (choice == 2) top = 20;
-                else if (choice == 3) top = customTop(3020);
+                else if (choice == 3) top = customTop("\n Selecione um valor para o top: ", 3020);
                 else return;
                 int j = 1;
                 for (int i = 0; i < top; i++){
-                    cout << "\n " << j << ". " << graph.flightsPerAirport()[i].second
+                    printf("\n\033[1m\033[36m %i\033[0m", j);
+                    cout << ". " << graph.flightsPerAirport()[i].second
                          << " - " << graph.flightsPerAirport()[i].first << " voos\n";
                     j++;
                 }
@@ -308,11 +330,12 @@ void Menu::showAirports(){
                 int choice = showTop(), top;
                 if (choice == 1) top = 10;
                 else if (choice == 2) top = 20;
-                else if (choice == 3) top = customTop(3020);
+                else if (choice == 3) top = customTop("\n Selecione um valor para o top: ",3020);
                 else return;
                 int j = 1;
                 for (int i = 0; i < top; i++){
-                    cout << "\n " << j << ". " << graph.airlinesPerAirport()[i].second
+                    printf("\n\033[1m\033[32m %i\033[0m", j);
+                    cout<< ". " << graph.airlinesPerAirport()[i].second
                          << " - " << graph.airlinesPerAirport()[i].first << " companhias aéreas\n";
                     j++;
                 }
@@ -333,7 +356,7 @@ void Menu::showAirlines(){
     int option;
     while(true){
         cout << "\n Pretende ver:\n\n "
-                "[1] Companhias aéreas totais\n [2] Companhias aéreas de um país\n [3] Os voos mais longos de uma companhia aérea\n [0] Voltar\n\n Opção: ";
+                "[1] Companhias aéreas totais\n [2] Companhias aéreas de um país\n [3] O voo mais longo de uma companhia aérea\n [0] Voltar\n\n Opção: ";
         cin >> option;
         switch (option) {
             case 1: {
@@ -355,10 +378,13 @@ void Menu::showAirlines(){
                 pair<int, queue<Airport>> longestFlight = supervisor->getGraph().diameter(supervisor->getMap()[airport], airline);
                 while (!longestFlight.second.empty()){
                     Airport a = longestFlight.second.front();
+                    string code = a.getCode();
                     longestFlight.second.pop();
-                    cout << " " << a.getCode() << " - ";
+                    printf(" \033[1m\033[44m %s \033[0m",a.getCode().c_str());
+                    cout << " - ";
                 }
-                cout << "diâmetro: " << longestFlight.first << endl;
+                printf(" \033[1m\033[42m diâmetro: %i \033[0m " , longestFlight.first);
+                cout << "\n";
                 break;
             }
             case 0: return;
@@ -383,11 +409,12 @@ void Menu::showCountries(){
                 int choice = showTop(), top, j = 1;
                 if (choice == 1) top = 10;
                 else if (choice == 2) top = 20;
-                else if (choice == 3) top = customTop(226);
+                else if (choice == 3) top = customTop("\n Selecione um valor para o top: ", 226);
                 else return;
                 for (auto i = nrAirports.rbegin(); i != nrAirports.rend(); i++){
                     if (top == 0) break;
-                    cout << "\n " << j<< ". " << i->second << " - " << i->first << " aeroportos\n";
+                    printf("\n\033[1m\033[36m %i\033[0m", j);
+                    cout << ". " << i->second << " - " << i->first << " aeroportos\n";
                     top--; j++;
                 }
                 break;
@@ -396,11 +423,12 @@ void Menu::showCountries(){
                 int choice = showTop(), top, j = 1;
                 if (choice == 1) top = 10;
                 else if (choice == 2) top = 20;
-                else if (choice == 3) top = customTop(226);
+                else if (choice == 3) top = customTop("\n Selecione um valor para o top: ", 226);
                 else return;
-                for (auto i = nrAirports.begin(); i != nrAirports.end(); i++){
+                for (auto & nrAirport : nrAirports){
                     if (top == 0) break;
-                    cout << "\n " << j << ". " << i->second << " - " << i->first << " aeroporto(s)\n";
+                    printf("\n\033[1m\033[32m %i\033[0m", j);
+                    cout << ". " << nrAirport.second << " - " << nrAirport.first << " aeroporto(s)\n";
                     top--; j++;
                 }
                 break;}
@@ -437,15 +465,31 @@ void Menu::numberFlights(){
 void Menu::numberAirports() {
     int option;
     while(true){
-        cout << "\n Pretende sabe quantos aeroportos:\n\n "
+        cout << "\n Pretende saber quantos aeroportos:\n\n "
                 "[1] Existem no total\n [2] Existem num país\n [3] São atingíveis usando um máximo de Y voos\n [0] Voltar\n\n Opção: ";
         cin >> option;
         switch (option) {
             case 1: cout << "\n Nº de aeroportos totais: " << supervisor->getAirports().size() << endl; break;
             case 2: {
                 string country = validateCountry();
+                int count = supervisor->getNrAirportsPerCountry()[country];
+                cout << "\n Neste país (" << country << ") existem " << count << " aeroportos\n\n";
+            }
+            case 3: {
+                string airport = validateAirport();
+                int y = customTop("\n Selecione um valor para o máximo: ", 63832);
+                int count = supervisor->getGraph().countAirports(supervisor->getMap()[airport], y);
+                cout << "\n A partir de " << airport << " é possível atingir " << count << " aeroportos usando um máximo de "
+                << y << " voos\n";
+                break;
             }
             case 0: return;
+            default:{
+                std::cout << "\n Input inválido, tente novamente. \n\n";
+                std::cin.clear();
+                std::cin.ignore(INT_MAX, '\n');
+                break;
+            }
         }
     }
 }
@@ -531,9 +575,9 @@ Airline Menu::validateAirline() {
         cin.ignore(INT_MAX, '\n');
         cin >> code;
     }
-    return Airline(code);
+    return {code};
 }
-string Menu::validateCity(string country) {
+string Menu::validateCity(const string& country) {
     string city;
     cout << " Insira o nome da cidade (ex: Porto): ";
 
@@ -573,8 +617,8 @@ int Menu::showTop(){
     }
    return option;
 }
-int Menu::customTop(int n) {
-    cout << "\n Selecione um valor para o seu top: ";
+int Menu::customTop(const string& message, int n) {
+    cout << message;
     int option; cin >> option;
     while (cin.fail() || option < 1 || option > n){
         cout << " Escolha um número entre 1 e " << n << "\n Tente novamente: ";

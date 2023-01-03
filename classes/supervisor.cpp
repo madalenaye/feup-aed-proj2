@@ -80,31 +80,31 @@ void Supervisor::createGraph(){
     }
 }
 
-bool Supervisor::isCountry(string country){
+bool Supervisor::isCountry(const string& country){
     auto i = countries.find(country);
     if (i == countries.end()) return false;
     return true;
 }
 
-bool Supervisor::isAirport(Airport airport){
+bool Supervisor::isAirport(const Airport& airport){
     auto i = airports.find(airport);
     if (i == airports.end()) return false;
     return true;
 }
 
-bool Supervisor::isAirline(Airline airline) {
+bool Supervisor::isAirline(const Airline& airline) {
     auto i = airlines.find(airline);
     if (i == airlines.end()) return false;
     return true;
 }
 
-bool Supervisor::isCity(string city) {
+bool Supervisor::isCity(const string& city) {
     auto i = cities.find(city);
     if (i == cities.end()) return false;
     return true;
 }
-bool Supervisor::isValidCity(string country, string city) {
-    for (auto c : citiesPerCountry[country]){
+bool Supervisor::isValidCity(const string& country, const string& city) {
+    for (const auto& c : citiesPerCountry[country]){
         if (city == c) return true;
     }
     return false;
@@ -113,7 +113,7 @@ bool Supervisor::isValidCity(string country, string city) {
 vector<string> Supervisor::localAiports(double latitude, double longitude, double radius) {
     vector<string> airports;
 
-    for (auto node : graph.getNodes()){
+    for (const auto& node : graph.getNodes()){
         double latitude1 = node.airport.getLatitude();
         double longitude1 = node.airport.getLongitude();
         if (graph.distance(latitude,longitude,latitude1,longitude1) <= radius)
@@ -124,7 +124,7 @@ vector<string> Supervisor::localAiports(double latitude, double longitude, doubl
 
 void Supervisor::countAirportsPerCountry() {
     map<string, int> airportsPerCountry;
-    for (auto i : id_city){
+    for (const auto& i : id_city){
         if (airportsPerCountry.find(i.first.first) == airportsPerCountry.end()){
             airportsPerCountry[i.first.first] = i.second.size();
         }
@@ -151,13 +151,13 @@ std::multimap<B,A> flip_map(const std::map<A,B> &src)
     return dst;
 }
 
-multimap<int,string> Supervisor::convertMap(map<string, int> m) {
+multimap<int,string> Supervisor::convertMap(const map<string, int>& m) {
     return flip_map(m);
 }
 
 int Supervisor::nrFlights(){
     int nrFlights = 0;
-    for (auto node: graph.getNodes()){
+    for (const auto& node: graph.getNodes()){
         nrFlights += node.adj.size();
     }
     return nrFlights;
