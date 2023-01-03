@@ -43,7 +43,7 @@ public:
 
     int nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
 
-    pair<int, queue<Airport>> diameter(int src, Airline airline);
+    pair<int, queue<Airport>> diameter(int src, const Airline& airline);
 
     double flownDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
 
@@ -55,7 +55,7 @@ public:
 
     list<queue<Airline>> usedAirlinesDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
 
-    double distance(double lat1, double lon1,double lat2, double lon2);
+    static double distance(double lat1, double lon1,double lat2, double lon2);
 
     vector<Node> getNodes() const;
 

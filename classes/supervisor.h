@@ -46,14 +46,14 @@ public:
     unordered_map<string,int> getMap() const;
     map<string,int> getNrAirportsPerCountry() const;
     set<string> getCountries(){return countries;}
-    bool isCountry(string country);
-    bool isAirport(Airport airport);
-    bool isAirline(Airline airline);
-    bool isCity(string city);
-    bool isValidCity(string country, string city);
+    bool isCountry(const string& country);
+    bool isAirport(const Airport& airport);
+    bool isAirline(const Airline& airline);
+    bool isCity(const string& city);
+    bool isValidCity(const string& country, const string& city);
     vector<string> localAiports(double, double, double);
     void countAirportsPerCountry();
-    multimap<int,string> convertMap(map<string,int> m);
+    multimap<int,string> convertMap(const map<string,int>& m);
     int nrFlights();
 
 private:

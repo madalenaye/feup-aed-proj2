@@ -11,7 +11,7 @@ class Menu{
 public:
     Menu();
     void init();
-    void end();
+    static void end();
 private:
     void Operations();
     void chooseSource();
@@ -19,7 +19,7 @@ private:
     void chooseAirlines();
     void processOperation();
 
-    void showPath(list<queue<Airport>>, list<queue<Airline>>);
+    static void showPath(list<queue<Airport>>, list<queue<Airline>>);
     void showInfo();
     void showAirports();
     void showAirlines();
@@ -27,17 +27,17 @@ private:
 
     void showStatistics();
 
-    int showTop();
-    int customTop(int n);
+    static int showTop();
+    static int customTop(const string& message, int n);
     void numberFlights();
     void numberAirports();
     string validateCountry();
-    int validateOption(const string& message);
+    static int validateOption(const string& message);
     Airline validateAirline();
-    double validateLatitude();
-    double validateLongitude();
-    double validateRadius();
-    string validateCity(string country);
+    static double validateLatitude();
+    static double validateLongitude();
+    static double validateRadius();
+    string validateCity(const string& country);
     string validateAirport();
     Supervisor* supervisor;
     vector<string> src;

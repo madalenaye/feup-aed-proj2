@@ -11,7 +11,7 @@ using namespace std;
 
 class Airport {
 public:
-    Airport(string);
+    explicit Airport(string);
     Airport(string, string, string, string, double, double);
 
     string getCode() const;
