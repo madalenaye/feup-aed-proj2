@@ -1,7 +1,9 @@
+
 //
 // Created by Madalena Ye on 27/12/2022.
 //
 
+#include <climits>
 #include "supervisor.h"
 
 Supervisor::Supervisor() {
@@ -122,12 +124,20 @@ vector<string> Supervisor::localAiports(double latitude, double longitude, doubl
     return airports;
 }
 
+int Supervisor::countAirlinesPerCountry(string country) {
+    int count = 0;
+    for (auto airline : airlines){
+        if (airline.getCountry() == country)
+            count++;
+    }
+    return count;
+}
+
 void Supervisor::countAirportsPerCountry() {
     map<string, int> airportsPerCountry;
     for (const auto& i : id_city){
-        if (airportsPerCountry.find(i.first.first) == airportsPerCountry.end()){
+        if (airportsPerCountry.find(i.first.first) == airportsPerCountry.end())
             airportsPerCountry[i.first.first] = i.second.size();
-        }
         else{
             auto m = airportsPerCountry.find(i.first.first);
             m->second+= i.second.size();
@@ -157,8 +167,60 @@ multimap<int,string> Supervisor::convertMap(const map<string, int>& m) {
 
 int Supervisor::nrFlights(){
     int nrFlights = 0;
-    for (const auto& node: graph.getNodes()){
+    for (const auto& node: graph.getNodes())
         nrFlights += node.adj.size();
-    }
     return nrFlights;
+}
+
+list<pair<string,string>> Supervisor::processFlight(vector<string> src, vector<string> dest,
+                         unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
+    int bestFlight = INT_MAX;
+    int nrFlights;
+    string bestSource, bestTarget;
+    list<pair<string,string>> res;
+    for (const auto &s: src)
+        for (const auto &d: dest) {
+            if (src == dest)
+                continue;
+            nrFlights = graph.nrFlights(id_airports[s], id_airports[d], airlines);
+            if (nrFlights != -1 && nrFlights < bestFlight)
+                bestFlight = nrFlights;
+        }
+    for (const auto &s: src)
+        for (const auto &d: dest) {
+            if (src == dest)
+                continue;
+            nrFlights = graph.nrFlights(id_airports[s], id_airports[d], airlines);
+            if (nrFlights  == bestFlight){
+                res.push_back({s,d});
+            }
+        }
+    return res;
+}
+
+list<pair<string,string>> Supervisor::processDistance(vector<string> src, vector<string> dest,
+                                                    unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
+    double bestDistance = 99999999999999;
+    double distance;
+    string bestSource, bestTarget;
+    list<pair<string,string>> res;
+    for (const auto &s: src)
+        for (const auto &d: dest) {
+            if (src == dest)
+                continue;
+            distance = graph.flownDistance(id_airports[s], id_airports[d], airlines);
+            if (distance < bestDistance)
+                bestDistance = distance;
+        }
+
+    for (const auto &s: src)
+        for (const auto &d: dest) {
+            if (s == d)
+                continue;
+            distance = graph.flownDistance(id_airports[s], id_airports[d], airlines);
+            if (bestDistance  == distance){
+                res.push_back({s,d});
+            }
+        }
+    return res;
 }
