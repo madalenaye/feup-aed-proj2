@@ -16,10 +16,7 @@ Airline::Airline(string code){
 
 string Airline::getCode() const {return this->code;}
 string Airline::getName(){return this->name;}
-string Airline::getCallSign(){return this->callSign;}
 string Airline::getCountry(){return this->country;}
 
-void Airline::setCode(string code){this->code=code;}
-void Airline::setName(string name){this->name=name;}
-void Airline::setCallSign(string callSign){this->callSign=callSign;}
-void Airline::setCountry(string country){this->country=country;}
+
+

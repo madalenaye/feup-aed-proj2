@@ -5,7 +5,7 @@
 Menu::Menu() {
     printf("\n");
     printf(" \033[44m===========================================================\033[0m\t\t");
-    cout << "\n\n" << " Bem-vindo!" << endl;
+    cout << "\n\n" << " Bem-vindo!\n (Pressione [0] sempre que quiser voltar atrás)\n" << endl;
     supervisor = new Supervisor();
 }
 
@@ -13,8 +13,9 @@ Menu::Menu() {
 void Menu::init() {
     int option;
     while(true) {
-        cout << " O que deseja fazer hoje?\n\n "
-                "[1] Realizar operação\n [2] Consultar informação\n [3] Ver estatísticas\n\n Opção: ";
+        cout << " O que deseja fazer hoje?\n\n"
+                " [1] Realizar operação\n [2] Consultar informação\n [3] Ver estatísticas\n [4] Sair\n\n Opção: ";
+
         cin >> option;
 
         if (option == 1)
@@ -26,8 +27,11 @@ void Menu::init() {
         else if (option == 3)
             showStatistics();
 
+        else if (option == 4){
+            end(); return;
+        }
         else if (!cin.fail() && option == 0)
-            {end();return;}
+        {cout << " Não é possível voltar mais atrás! ";return;}
 
         else{
             cout << "\n Input inválido, tente novamente. \n\n";
@@ -35,12 +39,6 @@ void Menu::init() {
             cin.ignore(INT_MAX, '\n');
         }
     }
-}
-
-void Menu::operations() {
-    chooseSource();
-    chooseTarget();
-    processOperation();
 }
 
 void Menu::chooseSource() {
@@ -51,7 +49,6 @@ void Menu::chooseSource() {
         cout << "\n Pretende partir de: \n\n "
                 "[1] Um aeroporto em específico\n [2] Uma cidade\n [3] Uma localização\n\n Opção: ";
         cin >> option;
-
         if (option == 1){
             string airport = validateAirport();
             if (airport == "0") return;
@@ -100,7 +97,6 @@ void Menu::chooseTarget() {
         cout << "\n Pretende chegar a: \n\n "
                 "[1] Um aeroporto em específico\n [2] Uma cidade\n [3] Uma localização\n\n Opção: ";
         cin >> option;
-
         if (option == 1){
             string destination = validateAirport();
             if (destination == "0") return;
@@ -571,13 +567,13 @@ vector<string> Menu::validateLocal() {
     double latitude = validateLatitude();
     double longitude = validateLongitude();
     double radius = validateRadius();
-    vector<string> local = supervisor->localAiports(latitude,longitude,radius);
+    vector<string> local = supervisor->localAirports(latitude,longitude,radius);
     while (local.empty()){
         cout << " Não existem aeroportos no local indicado, tente novamente\n";
         latitude = validateLatitude();
         longitude = validateLongitude();
         radius = validateRadius();
-        local = supervisor->localAiports(latitude,longitude,radius);
+        local = supervisor->localAirports(latitude,longitude,radius);
     }
     return local;
 }

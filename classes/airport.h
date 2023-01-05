@@ -21,20 +21,13 @@ public:
     double getLatitude() const;
     double getLongitude() const;
 
-
-    void setCode(string);
-    void setName(string);
-    void setCity(string);
-    void setCountry(string);
-    void setLatitude(double);
-    void setLongitude(double);
     struct AirportHash {
         // TODO
         int operator()(const Airport &b) const {
-            string code = b.getCode();
+            string c = b.getCode();
             int v = 0;
-            for (unsigned int i = 0; i < code.size(); i++)
-                v = 37 * v + code[i];
+            for (char i : c)
+                v = 37 * v + i;
             return v;
         }
 
@@ -43,13 +36,14 @@ public:
             return b1.getCode() == b2.getCode();
         }
     };
+
 private:
     string code;
     string name;
     string city;
     string country;
-    double latitude;
-    double longitude;
+    double latitude{};
+    double longitude{};
 };
 
 #endif //RENAIR_AIRPORT_H

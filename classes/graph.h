@@ -14,10 +14,11 @@
 using namespace std;
 
 class Graph {
+
     struct Edge {
-        int dest;
+        int dest{};
         Airline airline;
-        double distance;
+        double distance{};
     };
 
     struct Node {
@@ -41,26 +42,22 @@ public:
 
     void addAirport(int src, Airport airport);
 
-    int nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
+    vector<Node> getNodes() const;
 
     pair<int, queue<Airport>> diameter(int src, const Airline& airline);
+    static double distance(double lat1, double lon1,double lat2, double lon2);
 
+    int nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
     double flownDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
 
     list<queue<Airport>> usedAirportsFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
-
     list<queue<Airline>> usedAirlinesFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
-
     list<queue<Airport>> usedAirportsDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
-
     list<queue<Airline>> usedAirlinesDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
-
-    static double distance(double lat1, double lon1,double lat2, double lon2);
-
-    vector<Node> getNodes() const;
 
     vector<pair<int,string>> flightsPerAirport();
     vector<pair<int,string>> airlinesPerAirport();
+
     int countCountries(int nI, int max);
     int countAirports(int nI, int max);
     int countCities(int nI, int max);
