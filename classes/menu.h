@@ -31,7 +31,7 @@ private:
 
     void numberFlights();
     void numberAirports();
-
+    void numberAirlines();
 
     string validateCountry();
     static int validateOption(const string& message);
