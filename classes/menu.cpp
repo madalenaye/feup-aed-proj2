@@ -484,7 +484,8 @@ void Menu::numberAirports() {
             case 2: {
                 string country = validateCountry();
                 int count = supervisor->getNrAirportsPerCountry()[country];
-                cout << "\n Neste país (" << country << ") existem " << count << " aeroportos\n\n";
+                cout << "\n Neste país (" << country << ") existem " << count << " aeroportos\n";
+                break;
             }
             case 3: {
                 string airport = validateAirport();
