@@ -43,6 +43,20 @@ public:
             return b1.getCode() == b2.getCode();
         }
     };
+    struct CityHash{
+        int operator()(const pair<string,string> &b) const {
+            string code = b.second;
+            int v = 0;
+            for (unsigned int i = 0; i < code.size(); i++)
+                v = 37 * v + code[i];
+            return v;
+        }
+
+        // TODO
+        bool operator()(const pair<string,string> &b1, const pair<string,string> &b2) const {
+            return b1.first == b2.first && b1.second== b2.second;
+        }
+    };
 private:
     string code;
     string name;

@@ -11,6 +11,7 @@
 #include "airport.h"
 #include "airline.h"
 
+
 using namespace std;
 
 class Graph {
@@ -64,6 +65,20 @@ public:
     int countCountries(int nI, int max);
     int countAirports(int nI, int max);
     int countCities(int nI, int max);
+
+    list<Edge> FlightsFromAirport(int i);
+
+    set<string> diffAirlinesFromAirport(int i);
+
+    set<pair<string, string>> diffDestiniesFromAirport(int i);
+
+    unordered_set<string> diffCountriesFromAirport(int i);
+
+    unordered_set<Airport, Airport::AirportHash, Airport::AirportHash> listAirports(int nI, int max);
+
+    unordered_set<pair<string, string>, Airport::CityHash, Airport::CityHash> listCities(int nI, int max);
+
+    set<string> listCountries(int nI, int max);
 };
 
 #endif //GRAPH_H

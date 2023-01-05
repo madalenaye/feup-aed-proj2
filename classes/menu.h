@@ -21,6 +21,7 @@ private:
 
     static void showPath(list<queue<Airport>>, list<queue<Airline>>);
     void showInfo();
+    void showAirport();
     void showAirports();
     void showAirlines();
     void showCountries();
@@ -43,5 +44,7 @@ private:
     vector<string> src;
     vector<string> dest;
     unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines;
+
+    void showOptions();
 };
 #endif //RENAIR_MENU_H
