@@ -76,9 +76,9 @@ void Supervisor::createGraph(){
         getline(is,source,',');
         getline(is,target,',');
         getline(is,airline,',');
-        auto d = graph.distance(airports.find(Airport(source))->getLatitude(),airports.find(Airport(source))->getLongitude()
+        auto d = Graph::distance(airports.find(Airport(source))->getLatitude(),airports.find(Airport(source))->getLongitude()
                 ,airports.find(Airport(target))->getLatitude(),airports.find(Airport(target))->getLongitude());
-        graph.addEdge(id_airports[source],id_airports[target],airline,d);
+        graph.addEdge(id_airports[source],id_airports[target],Airline(airline),d);
     }
 }
 
@@ -112,13 +112,12 @@ bool Supervisor::isValidCity(const string& country, const string& city) {
     return false;
 }
 
-vector<string> Supervisor::localAiports(double latitude, double longitude, double radius) {
+vector<string> Supervisor::localAirports(double latitude, double longitude, double radius) {
     vector<string> airports;
-
     for (const auto& node : graph.getNodes()){
         double latitude1 = node.airport.getLatitude();
         double longitude1 = node.airport.getLongitude();
-        if (graph.distance(latitude,longitude,latitude1,longitude1) <= radius)
+        if (Graph::distance(latitude,longitude,latitude1,longitude1) <= radius)
             airports.push_back(node.airport.getCode());
     }
     return airports;

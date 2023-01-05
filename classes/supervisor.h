@@ -5,7 +5,6 @@
 #ifndef RENAIR_SUPERVISOR_H
 #define RENAIR_SUPERVISOR_H
 
-
 #include <unordered_set>
 #include <unordered_map>
 #include <map>
@@ -24,12 +23,13 @@ using namespace std;
 class Supervisor {
 public:
     Supervisor();
+
     struct CityHash{
         int operator()(const pair<string,string> &b) const {
             string code = b.second;
             int v = 0;
-            for (unsigned int i = 0; i < code.size(); i++)
-                v = 37 * v + code[i];
+            for (char i : code)
+                v = 37 * v + i;
             return v;
         }
 
@@ -45,19 +45,20 @@ public:
     Graph getGraph() const;
     unordered_map<string,int> getMap() const;
     map<string,int> getNrAirportsPerCountry() const;
-    set<string> getCountries(){return countries;}
+
     bool isCountry(const string& country);
     bool isAirport(const Airport& airport);
     bool isAirline(const Airline& airline);
     bool isCity(const string& city);
     bool isValidCity(const string& country, const string& city);
-    vector<string> localAiports(double, double, double);
+
+    vector<string> localAirports(double, double, double);
     void countAirportsPerCountry();
-    multimap<int,string> convertMap(const map<string,int>& m);
     int nrFlights();
     int countAirlinesPerCountry(string country);
     list<pair<string,string>> processFlight(vector<string>,vector<string>,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>);
     list<pair<string,string>> processDistance(vector<string>,vector<string>,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>);
+    multimap<int,string> convertMap(const map<string,int>& m);
 
 private:
     void createAirports();

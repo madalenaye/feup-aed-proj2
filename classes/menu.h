@@ -13,13 +13,13 @@ public:
     void init();
     static void end();
 private:
-    void operations();
     void chooseSource();
     void chooseTarget();
     void chooseAirlines();
     void processOperation();
 
     static void showPath(list<queue<Airport>>, list<queue<Airline>>);
+
     void showInfo();
     void showAirports();
     void showAirlines();
@@ -28,9 +28,11 @@ private:
 
     static int showTop();
     static int customTop(const string& message, int n);
+
     void numberFlights();
     void numberAirports();
     void numberAirlines();
+
     string validateCountry();
     static int validateOption(const string& message);
     string validateAirline();
@@ -40,6 +42,7 @@ private:
     string validateCity(const string& country);
     string validateAirport();
     vector<string> validateLocal();
+
     Supervisor* supervisor;
     vector<string> src;
     vector<string> dest;
