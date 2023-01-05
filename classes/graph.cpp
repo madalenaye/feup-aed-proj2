@@ -22,6 +22,10 @@ void Graph::addAirport(int src, Airport airport) {
     nodes[src].airport = std::move(airport);
 }
 
+vector<Graph::Node> Graph::getNodes() const{
+    return nodes;
+}
+
 int Graph::nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
     for (int i=1; i<=size; i++)
         nodes[i].visited = false;
@@ -50,6 +54,20 @@ int Graph::nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHa
     return nrFlights;
 }
 
+double Graph::distance(double lat1, double lon1, double lat2, double lon2) {
+    double dLat = (lat2 - lat1) * M_PI / 180.0;
+    double dLon = (lon2 - lon1) * M_PI / 180.0;
+
+    // convert to radians
+    lat1 = (lat1) * M_PI / 180.0;
+    lat2 = (lat2) * M_PI / 180.0;
+
+    // apply formulae
+    double a = pow(sin(dLat / 2), 2) + pow(sin(dLon / 2), 2) * cos(lat1) * cos(lat2);
+    double rad = 6371;
+    double c = 2 * asin(sqrt(a));
+    return rad * c;
+}
 
 pair<int, queue<Airport>> Graph::diameter(int src, const Airline& airline){
     for (int i=1; i<=size; i++)
@@ -90,6 +108,7 @@ pair<int, queue<Airport>> Graph::diameter(int src, const Airline& airline){
     return d;
 }
 
+
 double Graph::flownDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
     for (int i=1; i<=size; i++)
         nodes[i].visited = false;
@@ -118,6 +137,7 @@ double Graph::flownDistance(int src, int dest, unordered_set<Airline,Airline::Ai
     }
     return minDistance;
 }
+
 
 list<queue<Airport>> Graph::usedAirportsFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
     for (int i=1; i<=size; i++)
@@ -188,7 +208,6 @@ list<queue<Airline>> Graph::usedAirlinesFlights(int src, int dest, unordered_set
     return res;
 }
 
-
 list<queue<Airport>> Graph::usedAirportsDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
 
     double distance = flownDistance(src,dest,airlines);
@@ -241,7 +260,6 @@ list<queue<Airline>> Graph::usedAirlinesDistance(int src, int dest, unordered_se
     queue<int> q;
     q.push(src);
 
-
     nodes[src].visited = true;
     nodes[src].distance = 0;
     nodes[src].visitedAirlines = queue<Airline>();
@@ -270,29 +288,10 @@ list<queue<Airline>> Graph::usedAirlinesDistance(int src, int dest, unordered_se
 }
 
 
-double Graph::distance(double lat1, double lon1, double lat2, double lon2) {
-    double dLat = (lat2 - lat1) * M_PI / 180.0;
-    double dLon = (lon2 - lon1) * M_PI / 180.0;
-
-    // convert to radians
-    lat1 = (lat1) * M_PI / 180.0;
-    lat2 = (lat2) * M_PI / 180.0;
-
-    // apply formulae
-    double a = pow(sin(dLat / 2), 2) + pow(sin(dLon / 2), 2) * cos(lat1) * cos(lat2);
-    double rad = 6371;
-    double c = 2 * asin(sqrt(a));
-    return rad * c;
-}
-
-vector<Graph::Node> Graph::getNodes() const{
-    return nodes;
-}
 
 bool cmp( const pair<int,string>& a, const pair<int,string>& b){
     return a.first > b.first;
 }
-
 vector<pair<int, string>> Graph::flightsPerAirport() {
     vector<pair<int,string>> n;
     for (int i = 1; i <= size; i++){
@@ -314,6 +313,8 @@ vector<pair<int,string>> Graph::airlinesPerAirport() {
     sort(nrAirlines.begin(), nrAirlines.end(), cmp);
     return nrAirlines;
 }
+
+
 int Graph::countCountries(int nI, int max) {
     for (Node& node: nodes) node.visited = false;
     std::set<std::string> countries;
