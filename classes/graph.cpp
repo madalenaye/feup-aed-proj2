@@ -359,7 +359,7 @@ int Graph::countAirports(int nI, int max) {
 }
 int Graph::countCities(int nI, int max) {
     for (Node& node: nodes) node.visited = false;
-    unordered_set<pair<string,string>, Supervisor::CityHash,Supervisor::CityHash> cities;
+    unordered_set<pair<string,string>, Airport::CityHash,Airport::CityHash> cities;
     std::queue<int> q; // queue of unvisited nodes
     q.push(nI);
     nodes[nI].visited = true;
@@ -377,4 +377,97 @@ int Graph::countCities(int nI, int max) {
         }
     }
     return cities.size();
+}
+
+list<Graph::Edge> Graph::FlightsFromAirport(int i) {
+    return nodes[i].adj;
+}
+set<string> Graph::diffAirlinesFromAirport(int i) {
+    set<string> ans;
+    for(auto e:nodes[i].adj){
+        ans.insert(e.airline.getCode());
+    }
+    return ans;
+}
+
+set<pair<string, string>> Graph::diffDestiniesFromAirport(int i){
+    set<pair<string,string>> ans;
+    for (auto e:nodes[i].adj){
+        int w = e.dest;
+        ans.insert({nodes[w].airport.getCountry(),nodes[w].airport.getCity()});
+    }
+    return ans;
+}
+
+unordered_set<string> Graph::diffCountriesFromAirport(int i) {
+    unordered_set<string> ans;
+    for(auto e:nodes[i].adj){
+        int w=e.dest;
+        ans.insert(nodes[w].airport.getCountry());
+    }
+    return ans;
+}
+
+unordered_set<Airport, Airport::AirportHash, Airport::AirportHash> Graph::listAirports(int nI, int max) {
+    for (Node& node: nodes) node.visited = false;
+    unordered_set<Airport,Airport::AirportHash, Airport::AirportHash> airports;
+    std::queue<int> q; // queue of unvisited nodes
+    q.push(nI);
+    nodes[nI].visited = true;
+    nodes[nI].nrFlights = 0;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        for (const auto& e : nodes[u].adj) {
+            int w = e.dest;
+            if (!nodes[w].visited) {
+                q.push(w);
+                nodes[w].visited = true;
+                nodes[w].nrFlights = nodes[u].nrFlights +1;
+                if (nodes[w].nrFlights<=max) airports.insert(nodes[w].airport);
+            }
+        }
+    }
+    return airports;
+}
+unordered_set<pair<string,string>,Airport::CityHash,Airport::CityHash> Graph::listCities(int nI, int max) {
+    for (Node& node: nodes) node.visited = false;
+    unordered_set<pair<string,string>, Airport::CityHash,Airport::CityHash> cities;
+    std::queue<int> q; // queue of unvisited nodes
+    q.push(nI);
+    nodes[nI].visited = true;
+    nodes[nI].nrFlights = 0;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        for (const auto& e : nodes[u].adj) {
+            int w = e.dest;
+            if (!nodes[w].visited) {
+                q.push(w);
+                nodes[w].visited = true;
+                nodes[w].nrFlights = nodes[u].nrFlights +1;
+                if (nodes[w].nrFlights<=max) cities.insert({nodes[w].airport.getCountry(),nodes[w].airport.getCity()});
+            }
+        }
+    }
+    return cities;
+}
+set<string> Graph::listCountries(int nI, int max) {
+    for (Node& node: nodes) node.visited = false;
+    std::set<std::string> countries;
+    std::queue<int> q; // queue of unvisited nodes
+    q.push(nI);
+    nodes[nI].visited = true;
+    nodes[nI].nrFlights = 0;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        for (const auto& e : nodes[u].adj) {
+            int w = e.dest;
+            if (!nodes[w].visited) {
+                q.push(w);
+                nodes[w].visited = true;
+                nodes[w].nrFlights = nodes[u].nrFlights +1;
+                if (nodes[w].nrFlights<=max) countries.insert(nodes[w].airport.getCountry());
+            }
+        }
+    }
+    return countries;
 }
