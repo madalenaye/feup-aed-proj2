@@ -169,6 +169,7 @@ void Menu::chooseAirlines() {
 void Menu::processOperation() {
     Graph graph = supervisor->getGraph();
     auto map = supervisor->getMap();
+    printf("\033[1m\033[32m===========================================================\033[0m\n\n");
     int option = validateOption("\n Indique o critério a usar: \n\n"
                                " [1] Número mínimo de voos\n [2] Distância mínima percorrida\n\n Opção: ");;
     while (option == 0) {
