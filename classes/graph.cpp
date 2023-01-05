@@ -241,7 +241,6 @@ list<queue<Airline>> Graph::usedAirlinesDistance(int src, int dest, unordered_se
     queue<int> q;
     q.push(src);
 
-
     nodes[src].visited = true;
     nodes[src].distance = 0;
     nodes[src].visitedAirlines = queue<Airline>();

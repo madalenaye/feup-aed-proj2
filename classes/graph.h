@@ -35,7 +35,7 @@ class Graph {
 
 public:
 
-    Graph(int nodes);
+    explicit Graph(int nodes);
 
     void addEdge(int src, int dest, Airline airline, double distance);
 

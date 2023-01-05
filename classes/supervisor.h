@@ -55,6 +55,9 @@ public:
     void countAirportsPerCountry();
     multimap<int,string> convertMap(const map<string,int>& m);
     int nrFlights();
+    int countAirlinesPerCountry(string country);
+    list<pair<string,string>> processFlight(vector<string>,vector<string>,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>);
+    list<pair<string,string>> processDistance(vector<string>,vector<string>,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>);
 
 private:
     void createAirports();
