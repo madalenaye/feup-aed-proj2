@@ -22,18 +22,18 @@ private:
 
     void showInfo();
     void showAirport();
+    void showOptions(string airport);
     void showAirports();
     void showAirlines();
     void showCountries();
+
     void showStatistics();
-
-    static int showTop();
-    static int customTop(const string& message, int n);
-
     void numberFlights();
     void numberAirports();
     void numberAirlines();
 
+    static int showTop();
+    static int customTop(const string& message, int n);
     string validateCountry();
     static int validateOption(const string& message);
     string validateAirline();
@@ -49,6 +49,6 @@ private:
     vector<string> dest;
     unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines;
 
-    void showOptions();
+
 };
 #endif //RENAIR_MENU_H

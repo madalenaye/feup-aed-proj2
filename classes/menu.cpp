@@ -216,7 +216,7 @@ void Menu::showInfo(){
     int option;
     while(true){
         cout << "\n Que tipo de informação deseja ver? \n\n "
-                "[1] Aeroporto\n [2] Aeroportos\n [3] Companhias Aéreas\n [4] Países\n [0] Voltar\n\n Opção: ";
+                "[1] Aeroporto específico\n [2] Aeroportos\n [3] Companhias Aéreas\n [4] Países\n [0] Voltar\n\n Opção: ";
         cin >> option;
         switch (option) {
             case 1: showAirport();break;
@@ -273,39 +273,41 @@ void Menu::showStatistics() {
         }
     }
 }
-void Menu::showOptions() {
-    int max_voos= customTop("\n Que número máximo de voos pretende realizar ", 63832);
+void Menu::showOptions(string airport) {
+    int maxFlight = customTop(" Que número máximo de voos pretende realizar: ", 63832);
     int option;
     while(true){
         cout << "\n O que pretende ver?\n\n"
                 " [1] Aeroportos\n [2] Cidades\n [3] Países\n\n Opção: ";
         cin >> option;
-        string airport = validateAirport();
-        if(option==1) {
-                auto res = supervisor->getGraph().listAirports(supervisor->getMap()[airport], max_voos);
+        if (option == 1) {
+                auto res = supervisor->getGraph().listAirports(supervisor->getMap()[airport], maxFlight);
                 cout << "\nA partir de " << airport << " é possível alcançar o(s) seguinte(s) aeroporto(s)" << '\n';
                 for(auto airports:res){
-                    cout <<  airports.getCode() << ": " << airports.getName() << '\n';
+                    printf("\033[1m\033[32m %s \033[0m", airports.getCode().c_str());
+                    cout << "- " << airports.getName() << '\n';
                 }
                 break;
             }
-        else if(option==2) {
-                auto res = supervisor->getGraph().listCities(supervisor->getMap()[airport], max_voos);
+        else if (option == 2) {
+                auto res = supervisor->getGraph().listCities(supervisor->getMap()[airport], maxFlight);
                 cout << "\nA partir de " << airport << " é possível alcançar a(s) seguinte(s) cidades(s)" << '\n';
                 for(auto city:res){
-                    cout <<  city.first << ": "<< city.second << '\n';
+                    printf("\033[1m\033[32m %s \033[0m", city.second.c_str());
+                    cout << "- "<< city.first << '\n';
                 }
                 break;
             }
-        else if(option==3){
-                auto res = supervisor->getGraph().listCountries(supervisor->getMap()[airport], max_voos);
+        else if (option == 3){
+                auto res = supervisor->getGraph().listCountries(supervisor->getMap()[airport], maxFlight);
                 cout << "\nA partir de " << airport << " é possível alcançar o(s) seguinte(s) países(s)" << '\n';
                 for(auto country:res){
-                    cout <<  country << '\n';
+                    printf("\033[1m\033[32m - \033[0m");
+                    cout << " " << country << '\n';
                 }
                 break;
             }
-        else if(option==4) return;
+        else if (option == 4) return;
          else {
             std::cout << "\n Input inválido, tente novamente. \n\n";
             std::cin.clear();
@@ -343,49 +345,50 @@ void Menu::showAirport(){
 
     int option;
     while(true){
-        cout << "\n Pretende ver:\n\n "
-                "[1] Voos existentes\n [2] Companhias aéreas\n [3] Destinos\n [4] Para quantos países\n [5] Possível de alcançar com X voos:\n [0] Voltar\n\n Opção: ";
+        cout << "\n A partir de um aeroporto, pretende ver:\n\n "
+                "[1] Voos existentes\n [2] Companhias aéreas existentes\n [3] Destinos alcançáveis\n [4] Países alcançáveis\n [5] Aeroportos/Cidades/Países possíveis de alcançar com X voos\n\n Opção: ";
         cin >> option;
+        string airport = validateAirport();
         switch (option) {
             case 1: {
-                string airport=validateAirport();
                 cout << '\n';
-                auto src=supervisor->getMap()[airport];
+                auto src = supervisor->getMap()[airport];
                 for (const auto& i: supervisor->getGraph().FlightsFromAirport(src)){
                     string dest=supervisor->getGraph().getNodes()[i.dest].airport.getCode();
-                    cout << " " << airport << "---("<< i.airline.getCode() << ")---" <<  dest << endl;
+                    cout << " " << airport << " ---( "<< i.airline.getCode() << " )--- " <<  dest << endl;
                 }
                 break;
             }
             case 2: {
-                string airport=validateAirport();
                 cout << "\n";
                 auto src=supervisor->getMap()[airport];
                 for (const auto& i: supervisor->getGraph().diffAirlinesFromAirport(src)){
+                    printf("\033[1m\033[35m -\033[0m");
                     cout << " " << i << endl;
                 }
                 break;
             }
             case 3: {
-                string airport=validateAirport();
                 cout << "\n";
                 auto src=supervisor->getMap()[airport];
                 for (const auto& i: supervisor->getGraph().diffDestiniesFromAirport(src)){
-                    cout << " " << i.first << ": "<< i.second << endl;
+                    printf("\033[1m\033[36m %s \033[0m", i.second.c_str()) ;
+                    cout <<  "- "<< i.first << endl;
                 }
                 break;
             }
             case 4: {
-                string airport=validateAirport();
                 cout << "\n";
                 auto src=supervisor->getMap()[airport];
                 for (const auto& i: supervisor->getGraph().diffCountriesFromAirport(src)){
-                    cout << " " << i <<  endl;
+                    printf("\033[1m\033[32m -\033[0m");
+                    cout << " " << i << endl;
                 }
+
                 break;
             }
             case 5: {
-                showOptions();
+                showOptions(airport);
                 break;
             }
             case 0: return;
