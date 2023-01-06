@@ -45,9 +45,8 @@ public:
 
     vector<Node> getNodes() const;
 
-    pair<int, queue<Airport>> diameter(int src, const Airline& airline);
+    pair<int, queue<Airport>> longestFlight(int src, const Airline& airline);
     static double distance(double lat1, double lon1,double lat2, double lon2);
-
     int nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
     double flownDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
 
@@ -59,23 +58,16 @@ public:
     vector<pair<int,string>> flightsPerAirport();
     vector<pair<int,string>> airlinesPerAirport();
 
-    int countCountries(int nI, int max);
-    int countAirports(int nI, int max);
-    int countCities(int nI, int max);
-
-    list<Edge> FlightsFromAirport(int i);
-
-    set<string> diffAirlinesFromAirport(int i);
-
-    set<pair<string, string>> diffDestiniesFromAirport(int i);
-
-    unordered_set<string> diffCountriesFromAirport(int i);
-
     unordered_set<Airport, Airport::AirportHash, Airport::AirportHash> listAirports(int nI, int max);
-
     unordered_set<pair<string, string>, Airport::CityHash, Airport::CityHash> listCities(int nI, int max);
-
     set<string> listCountries(int nI, int max);
+
+    list<Edge> flightsFromAirport(int i);
+    set<string> airlinesFromAirport(int i);
+    set<pair<string, string>> targetsFromAirport(int i);
+    unordered_set<string> countriesFromAirport(int i);
+
+
 };
 
 #endif //GRAPH_H

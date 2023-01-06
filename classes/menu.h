@@ -18,24 +18,27 @@ private:
     void chooseAirlines();
     void processOperation();
 
-    static void showPath(list<queue<Airport>>, list<queue<Airline>>);
+    static void showPath(list<queue<Airport>>, list<queue<Airline>>, int& nrPath);
 
-    void showInfo();
+    void info();
     void showAirport();
+    void showOptions(const string& airport);
     void showAirports();
     void showAirlines();
     void showCountries();
-    void showStatistics();
+
+    void statistics();
+    void numberFlights();
+    void numberAirports();
+    void numberAirlines();
+    void airportStats();
+    void maxReach();
 
     static int showTop();
     static int customTop(const string& message, int n);
 
-    void numberFlights();
-    void numberAirports();
-    void numberAirlines();
-
     string validateCountry();
-    static int validateOption(const string& message);
+    static string validateOption(const string& message);
     string validateAirline();
     static double validateLatitude();
     static double validateLongitude();
@@ -49,6 +52,6 @@ private:
     vector<string> dest;
     unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines;
 
-    void showOptions();
+
 };
 #endif //RENAIR_MENU_H
