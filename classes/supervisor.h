@@ -13,6 +13,7 @@
 #include <istream>
 #include <sstream>
 #include <set>
+#include <climits>
 #include <algorithm>
 #include "airport.h"
 #include "airline.h"
@@ -39,10 +40,10 @@ public:
     vector<string> localAirports(double, double, double);
     void countAirportsPerCountry();
     int nrFlights();
-    int countAirlinesPerCountry(string country);
-    list<pair<string,string>> processFlight(vector<string>,vector<string>,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>);
-    list<pair<string,string>> processDistance(vector<string>,vector<string>,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>);
-    multimap<int,string> convertMap(const map<string,int>& m);
+    int countAirlinesPerCountry(const string& country);
+    list<pair<string,string>> processFlight(const vector<string>&,const vector<string>&,const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>&);
+    list<pair<string,string>> processDistance(const vector<string>&,const vector<string>&,const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>&);
+    static multimap<int,string> convertMap(const map<string,int>& m);
 
 private:
     void createAirports();
