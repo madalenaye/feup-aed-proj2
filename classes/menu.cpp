@@ -180,12 +180,12 @@ void Menu::processOperation() {
                                 " [1] Número mínimo de voos\n [2] Distância mínima percorrida\n\n Opção: ");
     }
     if (option == "1"){
-        printf("\n\033[1m\033[32m===========================================================\033[0m\n\n");
+        printf("\n\033[1m\033[32m===============================================================\033[0m\n\n");
         auto flightPath = supervisor->processFlight(src,dest,airlines);
         if (flightPath.empty()) {
             cout << " Não existem voos\n\n" ;}
         else {
-            int nrPath = 1;
+            int nrPath = 0;
             for (auto c: flightPath) {
                 auto nrFlights = graph.nrFlights(map[c.first], map[c.second], airlines);
                 auto usedAirports = graph.usedAirportsFlights(map[c.first], map[c.second], airlines);
@@ -197,12 +197,12 @@ void Menu::processOperation() {
         }
     }
     else{
-        printf("\n\033[1m\033[35m===========================================================\033[0m\n\n");
+        printf("\n\033[1m\033[35m===============================================================\033[0m\n\n");
         auto flightPath = supervisor->processDistance(src,dest,airlines);
         if (flightPath.empty()) {
             cout << " Não existem voos\n\n" ;}
         else {
-            int nrPath = 1;
+            int nrPath = 0;
             for (auto c: flightPath) {
                 auto x = graph.flownDistance(map[c.first], map[c.second], airlines);
                 cout << " Distância mínima percorrida entre " << c.first << " e " << c.second << ": " << x << "\n\n";
@@ -216,7 +216,7 @@ void Menu::processOperation() {
         }
     }
 
-    printf("\033[1m\033[36m===========================================================\033[0m\n\n");
+    printf("\033[1m\033[36m===============================================================\033[0m\n\n");
     airlines = unordered_set<Airline, Airline::AirlineHash,Airline::AirlineHash>();
 }
 void Menu::showPath(list<queue<Airport>> usedAirports, list<queue<Airline>> usedAirlines, int& nrPath) {
@@ -224,7 +224,7 @@ void Menu::showPath(list<queue<Airport>> usedAirports, list<queue<Airline>> used
     auto j = usedAirlines.begin();
     for (int n = 0; n < usedAirports.size(); n ++) {
 
-        cout << " Trajeto nº" << nrPath++ << ": ";
+        cout << " Trajeto nº" << ++nrPath << ": ";
 
         auto airports = *i;
         auto airlines = *j;
@@ -288,7 +288,7 @@ void Menu::showAirport(){
             if (airport == "0") continue;
             source = supervisor->getMap()[airport];
             cout << "\n";
-            for (const auto& i: supervisor->getGraph().flightsFromAirport(source)){
+            for (const auto& i: supervisor->getGraph().getNodes()[source].adj){
                 string dest = supervisor->getGraph().getNodes()[i.dest].airport.getCode();
                 cout << " " << airport << " ---( "<< i.airline.getCode() << " )--- " <<  dest << endl;
             }
@@ -599,7 +599,7 @@ void Menu::airportStats() {
             if (airport == "0") continue;
             source = supervisor->getMap()[airport];
             cout << "\n Nº de voos existentes a partir de " << airport << " : ";
-            printf("\033[1m\033[36m %lu \n\033[0m", supervisor->getGraph().flightsFromAirport(source).size()) ;
+            printf("\033[1m\033[36m %lu \n\033[0m", supervisor->getGraph().listAirports(source,1).size()) ;
         }
         else if (option == "2"){
             airport = validateAirport();
@@ -634,6 +634,7 @@ void Menu::airportStats() {
 void Menu::maxReach() {
     string option;
     string airport = validateAirport();
+    if (airport == "0") return;
     int maxFlight = customTop(" Que número máximo de voos pretende realizar: ", 63832);
     while(true){
         cout << "\n O que pretende ver?\n\n"
