@@ -111,43 +111,56 @@ double Graph::distance(double lat1, double lon1, double lat2, double lon2) {
     return rad * c;
 }
 
-pair<int, queue<Airport>> Graph::longestFlight(int src, const Airline& airline){
-    for (int i=1; i<=size; i++)
-        nodes[i].visited = false;
-    pair<int, queue<Airport>> d;
-    queue<int> q;
-    q.push(src);
+list<pair<int, queue<Airport>>> Graph::longestFlight(const Airline& airline){
+    list<pair<int, queue<Airport>>> res;
+    for (int v = 1; v <= size; v++) {
+        for (int i = 1; i <= size; i++) nodes[i].visited = false;
 
-    Airport airport("");
-    int distance = INT_MIN;
-    nodes[src].nrFlights = 0;
-    nodes[src].visited = true;
-    nodes[src].visitedAirports = queue<Airport>();
-    nodes[src].visitedAirports.push(nodes[src].airport);
+        pair<int, queue<Airport>> d;
+        queue<int> q;
+        q.push(v);
 
-    while(!q.empty()){
-        int u = q.front(); q.pop();
-        for (const Edge& e : nodes[u].adj){
-            if (e.airline.getCode() != airline.getCode()) continue;
-            int w = e.dest;
-            if (!nodes[w].visited){
-                q.push(w);
-                nodes[w].visited = true;
-                nodes[w].nrFlights = nodes[u].nrFlights + 1;
-                nodes[w].visitedAirports = nodes[u].visitedAirports;
-                nodes[w].visitedAirports.push(nodes[w].airport);
-                if (nodes[u].nrFlights+1 > distance) {
-                    distance = nodes[u].nrFlights + 1;
-                    queue<Airport> aux = nodes[u].visitedAirports;
-                    aux.push(nodes[w].airport);
-                    d.second = aux;
-                    d.first = distance;
+        Airport airport("");
+        int distance = INT_MIN;
+        nodes[v].nrFlights = 0;
+        nodes[v].visited = true;
+        nodes[v].visitedAirports = queue<Airport>();
+        nodes[v].visitedAirports.push(nodes[v].airport);
+
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+            for (const Edge &e: nodes[u].adj) {
+                if (e.airline.getCode() != airline.getCode()) continue;
+                int w = e.dest;
+                if (!nodes[w].visited) {
+                    q.push(w);
+                    nodes[w].visited = true;
+                    nodes[w].nrFlights = nodes[u].nrFlights + 1;
+                    nodes[w].visitedAirports = nodes[u].visitedAirports;
+                    nodes[w].visitedAirports.push(nodes[w].airport);
+                    if (nodes[u].nrFlights + 1 > distance) {
+                        distance = nodes[u].nrFlights + 1;
+                        queue<Airport> aux = nodes[u].visitedAirports;
+                        aux.push(nodes[w].airport);
+                        d.second = aux;
+                        d.first = distance;
+                    }
+                    if (nodes[u].nrFlights + 1 == distance){
+
+                    }
                 }
             }
         }
+        if (d.first == res.front().first)
+            res.push_back(d);
+        else if (d.first > res.front().first){
+            res.clear();
+            res.push_back(d);
+        }
     }
 
-    return d;
+    return res;
 }
 
 /**
@@ -384,8 +397,12 @@ bool cmp( const pair<int,string>& a, const pair<int,string>& b){
     return a.first > b.first;
 }
 /**
- *
- * @return
+ * Calculates the number of departures of each airport.
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(|V|)</b>, V -> number of nodes
+ * </pre>
+ * @return ordered vector of pair<Number of departures,Airport Code> by descending order of number of flights
  */
 vector<pair<int, string>> Graph::flightsPerAirport() {
     vector<pair<int,string>> n;
@@ -396,6 +413,14 @@ vector<pair<int, string>> Graph::flightsPerAirport() {
     sort(n.begin(), n.end(), cmp);
     return n;
 }
+/**
+ * Calculates the number of airlines that work with each airport.
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(|V|)</b>, V -> number of nodes
+ * </pre>
+ * @return ordered vector of pair<Number of airlines,Airport Code> by descending order of number of airlines
+ */
 vector<pair<int,string>> Graph::airlinesPerAirport() {
     vector<pair<int,string>> nrAirlines;
     for (int i = 1; i <= size; i++){
@@ -408,7 +433,15 @@ vector<pair<int,string>> Graph::airlinesPerAirport() {
     sort(nrAirlines.begin(), nrAirlines.end(), cmp);
     return nrAirlines;
 }
-
+/**
+ * Calculates the differente airlines that cooperate with an airport
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(|E|)</b>, E -> number of edges
+ * </pre>
+ * @param i
+ * @return set of all the differente airlines that work with a specific airport
+ */
 unordered_set<string> Graph::airlinesFromAirport(int i) {
     unordered_set<string> ans;
     for(auto e:nodes[i].adj){

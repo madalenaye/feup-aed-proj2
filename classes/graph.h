@@ -45,7 +45,7 @@ public:
 
     vector<Node> getNodes() const;
 
-    pair<int, queue<Airport>> longestFlight(int src, const Airline& airline);
+    list<pair<int, queue<Airport>>> longestFlight(const Airline& airline);
     static double distance(double lat1, double lon1,double lat2, double lon2);
     int nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
     double flownDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);

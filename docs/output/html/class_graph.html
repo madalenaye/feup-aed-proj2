@@ -92,9 +92,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adc4daf6c35b3e73211dc5503479f8dca"><td class="memItemLeft" align="right" valign="top"><a id="adc4daf6c35b3e73211dc5503479f8dca"></a>
 vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getNodes</b> () const</td></tr>
 <tr class="separator:adc4daf6c35b3e73211dc5503479f8dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a951a45bceb21b449ec150d4361e5d26e"><td class="memItemLeft" align="right" valign="top"><a id="a951a45bceb21b449ec150d4361e5d26e"></a>
-pair&lt; int, queue&lt; <a class="el" href="class_airport.html">Airport</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>longestFlight</b> (int src, const <a class="el" href="class_airline.html">Airline</a> &amp;airline)</td></tr>
-<tr class="separator:a951a45bceb21b449ec150d4361e5d26e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb9235c4ccb8314b776e8ae40df920e8"><td class="memItemLeft" align="right" valign="top"><a id="acb9235c4ccb8314b776e8ae40df920e8"></a>
+list&lt; pair&lt; int, queue&lt; <a class="el" href="class_airport.html">Airport</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>longestFlight</b> (const <a class="el" href="class_airline.html">Airline</a> &amp;airline)</td></tr>
+<tr class="separator:acb9235c4ccb8314b776e8ae40df920e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33c30be67bba8382d32af92ccc0d9c24"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a33c30be67bba8382d32af92ccc0d9c24">nrFlights</a> (int src, int dest, unordered_set&lt; <a class="el" href="class_airline.html">Airline</a>, <a class="el" href="struct_airline_1_1_airline_hash.html">Airline::AirlineHash</a>, <a class="el" href="struct_airline_1_1_airline_hash.html">Airline::AirlineHash</a> &gt; airlines)</td></tr>
 <tr class="separator:a33c30be67bba8382d32af92ccc0d9c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6236630a8e90ade8563eb1631314a838"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a6236630a8e90ade8563eb1631314a838">flownDistance</a> (int src, int dest, unordered_set&lt; <a class="el" href="class_airline.html">Airline</a>, <a class="el" href="struct_airline_1_1_airline_hash.html">Airline::AirlineHash</a>, <a class="el" href="struct_airline_1_1_airline_hash.html">Airline::AirlineHash</a> &gt; airlines)</td></tr>
@@ -348,7 +348,10 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<p>Calculates the number of flights of each airport. <b>Complexity<br  />
+</b> </p><pre>
+     <b>O(|V|)</b>, V -&gt; number of nodes
+</pre> <dl class="section return"><dt>Returns</dt><dd>ordered vector by descending order of number of flights </dd></dl>
 
 </div>
 </div>
