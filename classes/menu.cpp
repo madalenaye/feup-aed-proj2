@@ -471,7 +471,17 @@ void Menu::showAirlines(){
             string airline = validateAirline();
             if (airline == "0") continue;
             cout << "\n";
-            list<pair<int, queue<Airport>>> longest = supervisor->getGraph().longestFlight(Airline(airline));
+            auto longest = supervisor->getGraph().longestFlight(Airline(airline));
+            int nrFlights = longest.size()-1;
+            while (!longest.empty()){
+                Airport a = longest.top();
+                string code = a.getCode();
+                printf(" \033[1m\033[44m %s \033[0m", a.getCode().c_str());
+                cout << " - ";
+                longest.pop();
+            }
+
+            cout << nrFlights;/*
             for (auto path : longest) {
                 while (!path.second.empty()) {
                     Airport a = path.second.front();
@@ -483,7 +493,7 @@ void Menu::showAirlines(){
                 cout << '\n';
             }
             printf(" \033[1m\033[42mnº de voos: %i \033[0m " , longest.front().first);
-            cout << "\n";
+            cout << "\n";*/
         }
         else if (option == "0")
             return;

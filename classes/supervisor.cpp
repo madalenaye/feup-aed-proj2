@@ -69,6 +69,7 @@ void Supervisor::createAirlines() {
 void Supervisor::createGraph(){
     ifstream inFile;
     string source, target, airline, line;
+    //inFile.open("../data/FLIGHTS.CSV");
     inFile.open("../data/flights.csv");
     getline(inFile, line);
     while(getline(inFile, line)){

@@ -7,6 +7,7 @@
 #include <list>
 #include <queue>
 #include <iostream>
+#include <stack>
 #include <cmath>
 #include "airport.h"
 #include "airline.h"
@@ -45,7 +46,7 @@ public:
 
     vector<Node> getNodes() const;
 
-    list<pair<int, queue<Airport>>> longestFlight(const Airline& airline);
+    stack<Airport> longestFlight(const Airline& airline);
     static double distance(double lat1, double lon1,double lat2, double lon2);
     int nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
     double flownDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
@@ -63,6 +64,7 @@ public:
     set<string> listCountries(int nI, int max);
 
     list<Edge> flightsFromAirport(int i);
+    void dfs(int i, const Airline);
     unordered_set<string> airlinesFromAirport(int i);
     unordered_set<pair<string, string>, Airport::CityHash, Airport::CityHash> targetsFromAirport(int i);
     unordered_set<string> countriesFromAirport(int i);
