@@ -177,7 +177,7 @@ list<pair<string,string>> Supervisor::processFlight(const vector<string>& src, c
 
             nrFlights = graph.nrFlights(id_airports[s], id_airports[d], airline);
 
-            if (nrFlights != -1 && nrFlights < bestFlight) bestFlight = nrFlights;
+            if (nrFlights != 0 && nrFlights < bestFlight) bestFlight = nrFlights;
         }
 
     for (const auto &s: src)

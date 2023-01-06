@@ -198,7 +198,8 @@ void Menu::processOperation() {
 
                 showPath(usedAirports, usedAirlines,nrPath);
             }
-            cout << " No total, existem " << nrPath << " trajetos possíveis\n\n";
+            if (nrPath != 1) cout << " No total, existem " << nrPath << " trajetos possíveis\n";
+            else cout << " Apenas existe 1 trajeto possível\n";
             cout << " O número de voos mínimos é " << nrFlights << "\n\n";
         }
     }
@@ -219,7 +220,8 @@ void Menu::processOperation() {
 
                 showPath(usedAirports, usedAirlines,nrPath);
             }
-            cout << " No total, existem " << nrPath << " trajetos possíveis\n";
+            if (nrPath != 1) cout << " No total, existem " << nrPath << " trajetos possíveis\n";
+            else cout << " Apenas existe 1 trajeto possível\n";
             cout << " A distância mínima percorrida é " << distance << " km" << "\n\n";
         }
     }
