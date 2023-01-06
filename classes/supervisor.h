@@ -1,25 +1,14 @@
-//
-// Created by Madalena Ye on 27/12/2022.
-//
+#ifndef SUPERVISOR_H
+#define SUPERVISOR_H
 
-#ifndef RENAIR_SUPERVISOR_H
-#define RENAIR_SUPERVISOR_H
-
-#include <unordered_set>
 #include <unordered_map>
 #include <map>
-#include <vector>
 #include <fstream>
 #include <istream>
 #include <sstream>
-#include <set>
-#include <climits>
-#include <algorithm>
 #include "airport.h"
 #include "airline.h"
 #include "graph.h"
-
-using namespace std;
 
 class Supervisor {
 public:
@@ -64,4 +53,4 @@ private:
     map<string, int> nrAirportsPerCountry;
 };
 
-#endif //RENAIR_SUPERVISOR_H
+#endif //SUPERVISOR_H

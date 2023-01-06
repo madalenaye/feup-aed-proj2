@@ -1,4 +1,3 @@
-#include <climits>
 #include "menu.h"
 
 //initial menu

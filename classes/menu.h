@@ -1,9 +1,5 @@
-//
-// Created by Madalena Ye on 27/12/2022.
-//
-
-#ifndef RENAIR_MENU_H
-#define RENAIR_MENU_H
+#ifndef MENU_H
+#define MENU_H
 
 #include "supervisor.h"
 
@@ -51,7 +47,5 @@ private:
     vector<string> src;
     vector<string> dest;
     unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines;
-
-
 };
-#endif //RENAIR_MENU_H
+#endif //MENU_H

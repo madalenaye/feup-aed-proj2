@@ -16,7 +16,6 @@
 #include "airport.h"
 #include "airline.h"
 
-
 using namespace std;
 
 class Graph {
@@ -35,10 +34,6 @@ class Graph {
         int nrFlights;
         queue<Airport> visitedAirports;
         queue<Airline> visitedAirlines;
-
-        bool in;
-        int num;
-        int low;
     };
 
     int size;
@@ -71,7 +66,6 @@ public:
     unordered_set<pair<string, string>, Airport::CityHash, Airport::CityHash> listCities(int nI, int max);
     set<string> listCountries(int nI, int max);
 
-    list<Edge> flightsFromAirport(int i);
     void dfs(int i, const Airline&);
     unordered_set<string> airlinesFromAirport(int i);
     unordered_set<pair<string, string>, Airport::CityHash, Airport::CityHash> targetsFromAirport(int i);

@@ -1,11 +1,9 @@
+#ifndef AIRLINE_H
+#define AIRLINE_H
+
 #include <iostream>
-//
-// Created by Madalena Ye on 27/12/2022.
-//
 using namespace std;
 
-#ifndef RENAIR_AIRLINE_H
-#define RENAIR_AIRLINE_H
 class Airline{
 public:
 
@@ -38,4 +36,4 @@ private:
     string callSign;
     string country;
 };
-#endif //RENAIR_AIRLINE_H
+#endif //AIRLINE_H
