@@ -9,6 +9,10 @@
 #include <iostream>
 #include <stack>
 #include <cmath>
+#include <set>
+#include <algorithm>
+#include <climits>
+#include <utility>
 #include "airport.h"
 #include "airline.h"
 
@@ -31,6 +35,10 @@ class Graph {
         int nrFlights;
         queue<Airport> visitedAirports;
         queue<Airline> visitedAirlines;
+
+        bool in;
+        int num;
+        int low;
     };
 
     int size;
@@ -64,11 +72,10 @@ public:
     set<string> listCountries(int nI, int max);
 
     list<Edge> flightsFromAirport(int i);
-    void dfs(int i, const Airline);
+    void dfs(int i, const Airline&);
     unordered_set<string> airlinesFromAirport(int i);
     unordered_set<pair<string, string>, Airport::CityHash, Airport::CityHash> targetsFromAirport(int i);
     unordered_set<string> countriesFromAirport(int i);
-
 
 };
 
