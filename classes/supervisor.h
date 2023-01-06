@@ -1,24 +1,14 @@
-//
-// Created by Madalena Ye on 27/12/2022.
-//
+#ifndef SUPERVISOR_H
+#define SUPERVISOR_H
 
-#ifndef RENAIR_SUPERVISOR_H
-#define RENAIR_SUPERVISOR_H
-
-#include <unordered_set>
 #include <unordered_map>
 #include <map>
-#include <vector>
 #include <fstream>
 #include <istream>
 #include <sstream>
-#include <set>
-#include <algorithm>
 #include "airport.h"
 #include "airline.h"
 #include "graph.h"
-
-using namespace std;
 
 class Supervisor {
 public:
@@ -39,10 +29,10 @@ public:
     vector<string> localAirports(double, double, double);
     void countAirportsPerCountry();
     int nrFlights();
-    int countAirlinesPerCountry(string country);
-    list<pair<string,string>> processFlight(vector<string>,vector<string>,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>);
-    list<pair<string,string>> processDistance(vector<string>,vector<string>,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>);
-    multimap<int,string> convertMap(const map<string,int>& m);
+    int countAirlinesPerCountry(const string& country);
+    list<pair<string,string>> processFlight(const vector<string>&,const vector<string>&,const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>&);
+    list<pair<string,string>> processDistance(const vector<string>&,const vector<string>&,const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>&);
+    static multimap<int,string> convertMap(const map<string,int>& m);
 
 private:
     void createAirports();
@@ -63,4 +53,4 @@ private:
     map<string, int> nrAirportsPerCountry;
 };
 
-#endif //RENAIR_SUPERVISOR_H
+#endif //SUPERVISOR_H
