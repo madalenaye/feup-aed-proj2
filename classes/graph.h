@@ -63,8 +63,8 @@ public:
     set<string> listCountries(int nI, int max);
 
     list<Edge> flightsFromAirport(int i);
-    set<string> airlinesFromAirport(int i);
-    set<pair<string, string>> targetsFromAirport(int i);
+    unordered_set<string> airlinesFromAirport(int i);
+    unordered_set<pair<string, string>, Airport::CityHash, Airport::CityHash> targetsFromAirport(int i);
     unordered_set<string> countriesFromAirport(int i);
 
 
