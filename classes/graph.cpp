@@ -111,58 +111,56 @@ double Graph::distance(double lat1, double lon1, double lat2, double lon2) {
     return rad * c;
 }
 
-list<pair<int, queue<Airport>>> Graph::longestFlight(const Airline& airline){
-    list<pair<int, queue<Airport>>> res;
-    for (int v = 1; v <= size; v++) {
-        for (int i = 1; i <= size; i++) nodes[i].visited = false;
+stack<Airport> Graph::longestFlight(const Airline& airline){
 
-        pair<int, queue<Airport>> d;
-        queue<int> q;
-        q.push(v);
-
-        Airport airport("");
-        int distance = INT_MIN;
-        nodes[v].nrFlights = 0;
-        nodes[v].visited = true;
-        nodes[v].visitedAirports = queue<Airport>();
-        nodes[v].visitedAirports.push(nodes[v].airport);
-
-        while (!q.empty()) {
-            int u = q.front();
-            q.pop();
-            for (const Edge &e: nodes[u].adj) {
-                if (e.airline.getCode() != airline.getCode()) continue;
-                int w = e.dest;
-                if (!nodes[w].visited) {
-                    q.push(w);
-                    nodes[w].visited = true;
-                    nodes[w].nrFlights = nodes[u].nrFlights + 1;
-                    nodes[w].visitedAirports = nodes[u].visitedAirports;
-                    nodes[w].visitedAirports.push(nodes[w].airport);
-                    if (nodes[u].nrFlights + 1 > distance) {
-                        distance = nodes[u].nrFlights + 1;
-                        queue<Airport> aux = nodes[u].visitedAirports;
-                        aux.push(nodes[w].airport);
-                        d.second = aux;
-                        d.first = distance;
-                    }
-                    if (nodes[u].nrFlights + 1 == distance){
-
-                    }
-                }
-            }
-        }
-        if (d.first == res.front().first)
-            res.push_back(d);
-        else if (d.first > res.front().first){
-            res.clear();
-            res.push_back(d);
-        }
+    for (int i = 1; i <= size; i++) {
+        nodes[i].nrFlights = 0;
+        nodes[i].visited = false;
     }
 
-    return res;
+    for (int i = 1; i <= size; i++)
+        if (!nodes[i].visited)
+            dfs(i, airline);
+
+    int ans = 0;
+    stack<Airport> used;
+
+    for (int i = 1; i <= size; i++)
+        if (nodes[i].nrFlights > ans) {
+            ans = nodes[i].nrFlights;
+            used = stack<Airport>();
+            while (!nodes[i].visitedAirports.empty()) {
+                used.push(nodes[i].visitedAirports.front());
+                nodes[i].visitedAirports.pop();
+            }
+        }
+
+   return used;
 }
 
+
+void Graph::dfs(int v, const Airline airline){
+    nodes[v].visited = true ;
+    //auto aux = nodes[v].visitedAirports;
+    //aux.push(nodes[v].airport);
+    for ( auto e : nodes[v].adj) {
+        Airline a = e.airline;
+        if (a.getCode() != airline.getCode()) continue;
+
+        int w = e.dest;
+        if (!nodes[w].visited) {
+            dfs(w, airline);
+        }
+        if (1+nodes[w].nrFlights > nodes[v].nrFlights) {
+            auto aux = nodes[w].visitedAirports;
+            aux.push(nodes[v].airport);
+            nodes[v].visitedAirports = aux;
+            nodes[v].nrFlights = 1 + nodes[w].nrFlights;
+        }
+    }
+    if (nodes[v].nrFlights == 0)
+        nodes[v].visitedAirports.push(nodes[v].airport);
+}
 /**
  * Calculates the minimum flown distance between source airport and target airport using airlines \n \n
  * <b>Complexity\n</b>
