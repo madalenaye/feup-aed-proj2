@@ -18,24 +18,27 @@ private:
     void chooseAirlines();
     void processOperation();
 
-    static void showPath(list<queue<Airport>>, list<queue<Airline>>);
+    static void showPath(list<queue<Airport>>, list<queue<Airline>>, int& nrPath);
 
-    void showInfo();
+    void info();
     void showAirport();
-    void showOptions(string airport);
+    void showOptions(const string& airport);
     void showAirports();
     void showAirlines();
     void showCountries();
 
-    void showStatistics();
+    void statistics();
     void numberFlights();
     void numberAirports();
     void numberAirlines();
+    void airportStats();
+    void maxReach();
 
     static int showTop();
     static int customTop(const string& message, int n);
+
     string validateCountry();
-    static int validateOption(const string& message);
+    static string validateOption(const string& message);
     string validateAirline();
     static double validateLatitude();
     static double validateLongitude();
