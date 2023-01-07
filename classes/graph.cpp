@@ -104,64 +104,6 @@ double Graph::distance(double lat1, double lon1, double lat2, double lon2) {
     double c = 2 * asin(sqrt(a));
     return rad * c;
 }
-/*
-stack<Airport> Graph::longestFlight(const Airline& airline){
-
-    for (int i = 1; i <= size; i++) {
-        nodes[i].distance = 0;
-        nodes[i].visited = false;
-        nodes[i].parents.clear();
-    }
-
-    for (int i = 1; i <= size; i++)
-        if (!nodes[i].visited)
-            dfs(i, airline);
-
-    int ans = 0;
-    stack<Airport> used;
-
-    for (int i = 1; i <= size; i++)
-        if (nodes[i].distance > ans) {
-            ans = nodes[i].distance;
-            nodes[i].parents.push_back(i);
-            used = stack<Airport>();
-            while (!nodes[i].visitedAirports.empty()) {
-                used.push(nodes[i].visitedAirports.front());
-                nodes[i].visitedAirports.pop();
-            }
-        }
-
-    return used;
-}
-/**
- * Calculates the biggest distance from a node to it's child
- * <b>Complexity\n</b>
- * <pre>
- *      <b>O(|V|+|E|)</b>, V -> number of nodes, E -> number of edges
- * </pre>
- * @param v -> source node
- * @param airline -> wanted airline
- */
-/*
-void Graph::dfs(int v, const Airline& airline){
-    nodes[v].visited = true;
-
-    for (const Edge& e : nodes[v].adj) {
-        Airline a = e.airline;
-        if (a.getCode() != airline.getCode()) continue;
-
-        int w = e.dest;
-        if (!nodes[w].visited)
-            dfs(w, airline);
-
-        if (1+nodes[w].distance > nodes[v].distance) {
-            nodes[v].distance = 1 + nodes[w].distance;
-        }
-    }
-    if (nodes[v].distance == 0)
-        nodes[v].visitedAirports.push(nodes[v].airport);
-
-}*/
 /**
  * Finds the nodes that are articulation points and inserts them in a list\n\n
  * <b>Complexity\n</b>

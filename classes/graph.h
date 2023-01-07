@@ -53,8 +53,6 @@ public:
 
     vector<Node> getNodes() const;
 
-    stack<Airport> longestFlight(const Airline &airline);
-
     static double distance(double lat1, double lon1, double lat2, double lon2);
 
     int nrFlights(int src, int dest, Airline::AirlineH airlines);
@@ -68,8 +66,6 @@ public:
     Airport::CityH2 listCities(int nI, int max);
 
     set<string> listCountries(int nI, int max);
-
-    void dfs(int i, const Airline &);
 
     unordered_set<string> airlinesFromAirport(int i);
 

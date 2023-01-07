@@ -435,7 +435,7 @@ void Menu::showAirlines(){
     string option;
     while(true){
         cout << "\n Pretende ver:\n\n "
-                "[1] Companhias aéreas totais\n [2] Companhias aéreas de um país\n [3] O voo mais longo de uma companhia aérea\n\n Opção: ";
+                "[1] Companhias aéreas totais\n [2] Companhias aéreas de um país\n\n Opção: ";
         cin >> option;
         if (option == "1")
             for (auto i : supervisor->getAirlines()){
@@ -453,22 +453,6 @@ void Menu::showAirlines(){
                     cout << " - " << i.getName() << endl;
                 }
         }
-        /*
-        else if (option == "3"){
-            string airline = validateAirline();
-            if (airline == "0") continue;
-            cout << "\n";
-            auto longest = supervisor->getGraph().longestFlight(Airline(airline));
-            int nrFlights = longest.size()-1;
-            while (!longest.empty()){
-                Airport airport = longest.top();
-                printf(" \033[1m\033[44m %s \033[0m", airport.getCode().c_str());
-                cout << " - ";
-                longest.pop();
-            }
-            printf(" \033[1m\033[42mnº de voos: %i \033[0m " ,nrFlights);
-            cout << "\n";
-        }*/
         else if (option == "0")
             return;
         else {
