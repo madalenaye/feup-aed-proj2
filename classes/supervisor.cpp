@@ -63,7 +63,6 @@ void Supervisor::createAirlines() {
 void Supervisor::createGraph(){
     ifstream inFile;
     string source, target, airline, line;
-    //inFile.open("../data/FLIGHTS.CSV");
     inFile.open("../data/flights.csv");
     getline(inFile, line);
     while(getline(inFile, line)){
@@ -77,6 +76,25 @@ void Supervisor::createGraph(){
     }
 }
 
+/*
+void Supervisor::createGraph(){
+    ifstream inFile;
+    string source, target, airline, line;
+    //inFile.open("../data/flights.csv");
+    inFile.open("../data/FLIGHTS.CSV");
+    getline(inFile, line);
+    vector<double> a = {4,0.5,2,10,0.5};
+    int i = 0;
+    while(getline(inFile, line)){
+        istringstream is(line);
+        getline(is,source,',');
+        getline(is,target,',');
+        getline(is,airline,',');
+        auto d = Graph::distance(airports.find(Airport(source))->getLatitude(),airports.find(Airport(source))->getLongitude()
+                ,airports.find(Airport(target))->getLatitude(),airports.find(Airport(target))->getLongitude());
+        graph.addEdge(id_airports[source],id_airports[target],Airline(airline),a[i++]);
+    }
+}*/
 bool Supervisor::isCountry(const string& country){
     auto i = countries.find(country);
     if (i == countries.end()) return false;
@@ -212,10 +230,8 @@ list<pair<string,string>> Supervisor::processDistance(const vector<string>& src,
             if (s == d)
                 continue;
             distance = graph.flownDistance(id_airports[s], id_airports[d], airline);
-            if (bestDistance  == distance){
+            if (bestDistance  == distance)
                 res.emplace_back(s,d);
-            }
         }
     return res;
 }
-

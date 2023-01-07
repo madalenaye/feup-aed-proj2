@@ -6,3 +6,4 @@ int main() {
     Menu::end();
     return 0;
 }
+

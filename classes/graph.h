@@ -15,6 +15,9 @@
 #include <utility>
 #include "airport.h"
 #include "airline.h"
+#include "minHeap.h"
+
+#define INF (INT_MAX/2)
 
 using namespace std;
 
@@ -49,28 +52,44 @@ public:
 
     vector<Node> getNodes() const;
 
-    stack<Airport> longestFlight(const Airline& airline);
-    static double distance(double lat1, double lon1,double lat2, double lon2);
-    int nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
-    double flownDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
+    stack<Airport> longestFlight(const Airline &airline);
 
-    list<queue<Airport>> usedAirportsFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
-    list<queue<Airline>> usedAirlinesFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
-    list<queue<Airport>> usedAirportsDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
-    list<queue<Airline>> usedAirlinesDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines);
+    static double distance(double lat1, double lon1, double lat2, double lon2);
 
-    vector<pair<int,string>> flightsPerAirport();
-    vector<pair<int,string>> airlinesPerAirport();
+    int nrFlights(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
+
+    double flownDistance(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
+
+    list<queue<Airport>>
+    usedAirportsFlights(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
+
+    list<queue<Airline>>
+    usedAirlinesFlights(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
+
+    list<queue<Airport>> usedAirportsDistance(int src, int dest,
+                                              unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
+
+    list<queue<Airline>> usedAirlinesDistance(int src, int dest,
+                                              unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
+
+    vector<pair<int, string>> flightsPerAirport();
+
+    vector<pair<int, string>> airlinesPerAirport();
 
     unordered_set<Airport, Airport::AirportHash, Airport::AirportHash> listAirports(int nI, int max);
+
     unordered_set<pair<string, string>, Airport::CityHash, Airport::CityHash> listCities(int nI, int max);
+
     set<string> listCountries(int nI, int max);
 
-    void dfs(int i, const Airline&);
+    void dfs(int i, const Airline &);
+
     unordered_set<string> airlinesFromAirport(int i);
+
     unordered_set<pair<string, string>, Airport::CityHash, Airport::CityHash> targetsFromAirport(int i);
+
     unordered_set<string> countriesFromAirport(int i);
+    Node dijkstra(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
 
 };
-
 #endif //GRAPH_H
