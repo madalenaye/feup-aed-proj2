@@ -673,6 +673,8 @@ void Graph::printPaths(int start, int end, unordered_set<Airline, Airline::Airli
         cout << "Não existem voos\n";
         return;
     }
+    int nrPath = 0;
+    int nrFlights = paths.front().size()-1;
     Supervisor supervisor;
     auto map = supervisor.getMap();
     for (auto v : paths) {
@@ -683,8 +685,9 @@ void Graph::printPaths(int start, int end, unordered_set<Airline, Airline::Airli
         reverse(v.begin(), v.end());
         vector<vector<string>> usedAirlines;
         // Print node for the current path
-
+        cout << " Trajeto nº" << ++nrPath << ": ";
         for (int i = 0; i < v.size()-1; i++) {
+
             auto possibleAirlines = getAirlines(v[i],v[i+1],airlines);
             printf("\033[1m\033[46m %s \033[0m", nodes[v[i]].airport.getCode().c_str());
             cout <<" --- (";
@@ -694,6 +697,8 @@ void Graph::printPaths(int start, int end, unordered_set<Airline, Airline::Airli
             cout << ") --- ";
         }
         printf("\033[1m\033[46m %s \033[0m\n\n", nodes[v[v.size()-1]].airport.getCode().c_str());
-
     }
+    if (nrPath != 1) cout << " No total, existem " << nrPath << " trajetos possíveis\n\n";
+    else cout << " Apenas existe 1 trajeto possível\n\n";
+    cout << " O número de voos mínimos é " << nrFlights << "\n\n";
 }

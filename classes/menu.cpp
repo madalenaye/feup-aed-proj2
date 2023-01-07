@@ -199,7 +199,6 @@ void Menu::processOperation() {
         for (auto pair : flightPath) {
             string source = pair.first;
             string target = pair.second;
-            //printPath(source,target);
             supervisor->getGraph().printPaths(map[source], map[target],airlines);
         }
         /*auto flightPath = supervisor->processFlight(src,dest,airlines);
