@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['flightsperairport_36',['flightsPerAirport',['../class_graph.html#a81c24e1f675cb8a311b1682b73af96b2',1,'Graph']]],
-  ['flowndistance_37',['flownDistance',['../class_graph.html#a6236630a8e90ade8563eb1631314a838',1,'Graph']]]
+  ['dfs_67',['dfs',['../class_graph.html#a631244eab06c81e905f262abbce81341',1,'Graph']]],
+  ['dfs_5fart_68',['dfs_art',['../class_graph.html#a4a781920d2ae273727794b18ef3b5594',1,'Graph']]],
+  ['distance_69',['distance',['../class_graph.html#a68a2401a1125fd52898c7efd04826c3a',1,'Graph']]]
 ];

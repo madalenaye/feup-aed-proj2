@@ -109,7 +109,7 @@ void Menu::chooseTarget() {
             dest.clear();
             dest.push_back(destination);
 
-            chooseAirlines();
+            chooseAirlines(true);
             return;
         }
 
@@ -123,13 +123,13 @@ void Menu::chooseTarget() {
             auto airportsPerCity = supervisor->getCity();
             dest = airportsPerCity[{country,city}];
 
-            chooseAirlines();
+            chooseAirlines(true);
             return;
         }
 
         if (option == "3"){
             dest = validateLocal();
-            chooseAirlines();
+            chooseAirlines(true);
             return;
         }
 
@@ -143,7 +143,7 @@ void Menu::chooseTarget() {
         cin.ignore(INT_MAX, '\n');
     }
 }
-void Menu::chooseAirlines() {
+void Menu::chooseAirlines(bool op) {
 
     string choice = validateOption("\n Pretende escolher as companhias aéreas a usar? \n\n"
                                 " [1] Sim\n [2] Não\n\n Opção: ");
@@ -167,14 +167,14 @@ void Menu::chooseAirlines() {
                                     " [1] Sim\n [2] Não\n\n Opção: ");
         }
     }
-    processOperation();
+    if (op) processOperation();
 }
 
 void Menu::processOperation() {
     Graph graph = supervisor->getGraph();
     auto map = supervisor->getMap();
     string option = validateOption("\n Indique o critério a usar: \n\n"
-                                " [1] Número mínimo de voos\n [2] Distância mínima percorrida\n\n Opção: ");;
+                                " [1] Número mínimo de voos\n [2] Distância mínima percorrida\n\n Opção: ");
     while (option == "0") {
         cout << "\n Input inválido, tente novamente. \n\n";
         option = validateOption("\n Indique o critério a usar: \n\n"
@@ -220,7 +220,7 @@ void Menu::info(){
     string option;
     while(true){
         cout << "\n Que tipo de informação deseja ver? \n\n "
-                "[1] Aeroporto específico\n [2] Aeroportos\n [3] Companhias Aéreas\n [4] Países\n\n Opção: ";
+                "[1] Aeroporto específico\n [2] Aeroportos\n [3] Companhias Aéreas\n [4] Países\n [5] Pontos de articulação\n [6] Diâmetro da rede\n\n Opção: ";
         cin >> option;
         if (option == "1")
             showAirport();
@@ -233,6 +233,12 @@ void Menu::info(){
 
         else if (option == "4")
             showCountries();
+
+        else if (option == "5")
+            showArticulation();
+
+        else if (option == "6")
+        cout << "\n Diâmetro da rede: " << supervisor->getGraph().diameter() << endl;
 
         else if (option == "0") {
             cout << "\n";
@@ -250,7 +256,7 @@ void Menu::showAirport(){
 
     while(true){
         cout << "\n A partir de um aeroporto, pretende ver:\n\n "
-                "[1] Voos existentes\n [2] Companhias aéreas existentes\n [3] Destinos alcançáveis\n [4] Países alcançáveis\n [5] Aeroportos/cidades/países possíveis de alcançar com X voos\n\n Opção: ";
+                "[1] Voos existentes\n [2] Companhias aéreas existentes\n [3] Aeroportos alcançáveis\n [4] Destinos alcançáveis\n [5] Países alcançáveis\n [6] Aeroportos/cidades/países possíveis de alcançar com X voos\n\n Opção: ";
         cin >> option;
         string airport;
         int source;
@@ -259,7 +265,8 @@ void Menu::showAirport(){
             if (airport == "0") continue;
             source = supervisor->getMap()[airport];
             cout << "\n";
-            for (const auto& i: supervisor->getGraph().getNodes()[source].adj){
+            auto edges = supervisor->getGraph().getNodes()[source].adj;
+            for (const auto& i: edges){
                 string target = supervisor->getGraph().getNodes()[i.dest].airport.getCode();
                 cout << " " << airport << " ---( "<< i.airline.getCode() << " )--- " <<  target << endl;
             }
@@ -278,13 +285,24 @@ void Menu::showAirport(){
             airport = validateAirport();
             if (airport == "0") continue;
             source = supervisor->getMap()[airport];
+            cout << "\n Nº de aeroportos distintos alcancáveis a partir de " << airport << " :\n";
+            auto airports=supervisor->getGraph().airportsFromAirport(source);
+            for(const auto& a: airports){
+                    printf("\033[1m\033[36m %s\033[0m", a.first.c_str());
+                    cout << ": " << a.second << endl;
+            }
+        }
+        else if (option == "4"){
+            airport = validateAirport();
+            if (airport == "0") continue;
+            source = supervisor->getMap()[airport];
             cout << "\n";
             for (const auto& i: supervisor->getGraph().targetsFromAirport(source)){
                 printf("\033[1m\033[36m %s \033[0m", i.second.c_str()) ;
                 cout <<  "- "<< i.first << endl;
             }
         }
-        else if (option == "4"){
+        else if (option == "5"){
             airport = validateAirport();
             if (airport == "0") continue;
             source = supervisor->getMap()[airport];
@@ -294,7 +312,7 @@ void Menu::showAirport(){
                 cout << " " << i << endl;
             }
         }
-        else if (option == "5"){
+        else if (option == "6"){
             airport = validateAirport();
             if (airport == "0") continue;
             showOptions(airport);
@@ -504,13 +522,22 @@ void Menu::showCountries(){
         }
     }
 }
+void Menu::showArticulation() {
+    chooseAirlines(false);
+    auto res = supervisor->getGraph().articulationPoints(airlines);
+    for(auto index: res){
+        auto airport=supervisor->getGraph().getNodes()[index].airport;
+        printf("\033[1m\033[32m %s\033[0m", airport.getCode().c_str());
+        cout << " : " << airport.getName() << endl;
+    }
 
+}
 //statistics
 void Menu::statistics() {
     string option;
     while(true){
         cout << "\n Que dados pretende analisar? \n\n "
-                "[1] Estatísticas de um aeroporto\n [2] Nº de voos\n [3] Nº de aeroportos \n [4] Nº de companhias\n\n Opção: ";
+                "[1] Estatísticas de um aeroporto\n [2] Nº de voos\n [3] Nº de aeroportos \n [4] Nº de companhias\n [5] Nº de pontos de articulação\n\n Opção: ";
 
         cin >> option;
         if (option == "1")
@@ -526,23 +553,12 @@ void Menu::statistics() {
             numberAirlines();
 
         else if (option == "5"){
-            string airport = validateAirport();
-            if (airport == "0") continue;
-            int y = customTop(" Selecione um valor máximo: ", 63832);
-            if (y == 0) continue;
-            int count = supervisor->getGraph().listCountries(supervisor->getMap()[airport], y).size();
-            cout << "\n A partir de " << airport << " é possível atingir " << count << " países usando um máximo de "
-                 << y << " voos\n";
-        }
-
-        else if (option == "6") {
-            string airport = validateAirport();
-            if (airport == "0") continue;
-            int y = customTop(" Selecione um valor máximo: ", 63832);
-            if (y == 0) continue;
-            int count = supervisor->getGraph().listCities(supervisor->getMap()[airport], y).size();
-            cout << "\n A partir de " << airport << " é possível atingir " << count << " cidades usando um máximo de "
-                 << y << " voos\n";
+            chooseAirlines(false);
+            auto res = supervisor->getGraph().articulationPoints(airlines);
+            cout << "Existem" ;
+            printf("\033[1m\033[36m %lu \033[0m", res.size()) ;
+            cout << "pontos de articulação";
+            airlines.clear();
         }
 
         else if (option == "0") {
@@ -561,8 +577,8 @@ void Menu::airportStats() {
     string option;
     while(true){
         cout << "\n A partir de um aeroporto, pretende saber: \n\n"
-            " [1] Nº de voos existentes\n [2] Nº de companhias aéreas\n [3] Nº de destinos alcançáveis\n"
-            " [4] Nº de países atíngiveis\n [5] Nº de aeroportos/cidades/países possíveis de alcançar com um máximo de X voos"
+            " [1] Nº de voos existentes\n [2] Nº de companhias aéreas\n [3] Nº de cidades alcançáveis\n [4] Nº de aeroportos alcançáveis\n"
+            " [5] Nº de países atíngiveis\n [6] Nº de aeroportos/cidades/países possíveis de alcançar com um máximo de X voos"
             "\n\n Opção: ";
         cin >> option;
         string airport;
@@ -573,7 +589,7 @@ void Menu::airportStats() {
             if (airport == "0") continue;
             source = supervisor->getMap()[airport];
             cout << "\n Nº de voos existentes a partir de " << airport << " : ";
-            printf("\033[1m\033[36m %lu \n\033[0m", supervisor->getGraph().listAirports(source,1).size()) ;
+            printf("\033[1m\033[36m %lu \n\033[0m", supervisor->getGraph().getNodes()[source].adj.size()) ;
         }
 
         else if (option == "2"){
@@ -596,15 +612,18 @@ void Menu::airportStats() {
             airport = validateAirport();
             if (airport == "0") continue;
             source = supervisor->getMap()[airport];
+            cout << "\n Nº de aeroportos distintos alcancáveis a partir de " << airport << " : ";
+            printf("\033[1m\033[36m %lu \n\033[0m", supervisor->getGraph().airportsFromAirport(source).size());
+        }
+        else if (option == "5"){
+            airport = validateAirport();
+            if (airport == "0") continue;
+            source = supervisor->getMap()[airport];
             cout << "\n Nº de países diferentes alcancáveis a partir de " << airport << " : ";
             printf("\033[1m\033[36m %lu \n\033[0m", supervisor->getGraph().countriesFromAirport(source).size());
         }
-        else if (option == "5")
-            maxReach();
-
-        else if (option == "0")
-            return;
-
+        else if (option == "6") maxReach();
+        else if (option == "0") return;
         else{
             cout << "\n Input inválido, tente novamente. \n";
             cin.clear();
@@ -900,3 +919,5 @@ void Menu::end() {
     printf("\n");
     printf("\033[46m===========================================================\033[0m\n");
 }
+
+
