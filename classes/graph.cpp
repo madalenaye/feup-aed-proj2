@@ -142,7 +142,7 @@ stack<Airport> Graph::longestFlight(const Airline& airline){
  * @param v -> source node
  * @param airline -> wanted airline
  */
-
+/*
 void Graph::dfs(int v, const Airline& airline){
     nodes[v].visited = true;
 
@@ -181,18 +181,18 @@ void Graph::dfsArt(int v, int index, list<int>& res,Airline::AirlineH airlines) 
     for (const auto& e : nodes[v].adj){
         auto w = e.dest;
         if(airlines.find(e.airline) != airlines.end() || airlines.empty())
-        if (nodes[w].num == 0){
-            count++;
-            dfsArt(w,index,res,airlines);
-            nodes[v].low = min(nodes[v].low,nodes[w].low);
-            if (nodes[w].low >= nodes[v].num && std::find(res.begin(),res.end(),v) == res.end()) {
-                if (index == 2 && count > 1) res.push_back(1);
-                else if (index != 2 && std::find(res.begin(),res.end(),v)== res.end()) res.push_back(v);
+            if (nodes[w].num == 0){
+                count++;
+                dfsArt(w,index,res,airlines);
+                nodes[v].low = min(nodes[v].low,nodes[w].low);
+                if (nodes[w].low >= nodes[v].num && std::find(res.begin(),res.end(),v) == res.end()) {
+                    if (index == 2 && count > 1) res.push_back(1);
+                    else if (index != 2 && std::find(res.begin(),res.end(),v)== res.end()) res.push_back(v);
+                }
             }
-        }
-        else if (nodes[v].art) {
-            nodes[v].low = min(nodes[v].low, nodes[w].num);
-        }
+            else if (nodes[v].art) {
+                nodes[v].low = min(nodes[v].low, nodes[w].num);
+            }
     }
 }
 /**
@@ -228,9 +228,6 @@ list<int> Graph::articulationPoints(const Airline::AirlineH& airlines) {
  * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  * @return minimum flown distance between source airport and target airport using airlines
  */
-double Graph::flownDistance(int src, int dest, Airline::AirlineH airlines){
-    for (int i=1; i<=size; i++)
-        nodes[i].visited = false;
 
 Graph::Node Graph::dijkstra(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
 
@@ -340,15 +337,13 @@ unordered_set<string> Graph::airlinesFromAirport(int i) {
  * @param i -> node of source
  * @return set of all the different cities
  */
+
 Airport::CityH2 Graph::targetsFromAirport(int i){
     Airport::CityH2 ans;
     for (const auto& e:nodes[i].adj){
         int w = e.dest;
-        if (ans.find({nodes[w].airport.getCountry(),nodes[w].airport.getCity()}) == ans.end()) count++;
-        else repetidos ++;
         ans.insert({nodes[w].airport.getCountry(),nodes[w].airport.getCity()});
     }
-    cout << count;
     return ans;
 }
 /**
@@ -385,7 +380,7 @@ Airport::AirportH Graph::listAirports(int nI, int max) {
     std::queue<int> q; // queue of unvisited nodes
     q.push(nI);
     nodes[nI].visited = true;
-    nodes[nI].nrFlights = 0;
+    nodes[nI].distance = 0;
     while (!q.empty()) {
         int u = q.front(); q.pop();
         for (const auto& e : nodes[u].adj) {
@@ -417,7 +412,7 @@ Airport::CityH2 Graph::listCities(int nI, int max) {
     std::queue<int> q; // queue of unvisited nodes
     q.push(nI);
     nodes[nI].visited = true;
-    nodes[nI].nrFlights = 0;
+    nodes[nI].distance = 0;
     while (!q.empty()) {
         int u = q.front(); q.pop();
         for (const auto& e : nodes[u].adj) {

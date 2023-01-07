@@ -59,16 +59,6 @@ public:
 
     int nrFlights(int src, int dest, Airline::AirlineH airlines);
 
-    double flownDistance(int src, int dest, Airline::AirlineH airlines);
-
-    list <queue<Airport>> usedAirportsFlights(int src, int dest, Airline::AirlineH airlines);
-
-    list <queue<Airline>> usedAirlinesFlights(int src, int dest, Airline::AirlineH airlines);
-
-    list <queue<Airport>> usedAirportsDistance(int src, int dest, Airline::AirlineH airlines);
-
-    list <queue<Airline>> usedAirlinesDistance(int src, int dest, Airline::AirlineH airlines);
-
     vector<pair<int, string>> flightsPerAirport();
 
     vector<pair<int, string>> airlinesPerAirport();
@@ -113,5 +103,8 @@ public:
     void dfsArt(int v, int index,list<int> &res, Airline::AirlineH airlines);
     double bfsDiameter(int v);
     double diameter();
+
+    vector<string>
+    getAirlines(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
 };
 #endif //GRAPH_H
