@@ -6,6 +6,9 @@ Menu::Menu() {
     printf(" \033[44m===========================================================\033[0m\t\t");
     cout << "\n\n" << " Bem-vindo!\n (Pressione [0] sempre que quiser voltar atrás)\n\n";
     supervisor = new Supervisor();
+    /*unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> A;
+    auto x = supervisor->getGraph().dijkstra(1,4,A);
+    supervisor->getGraph().printPathsByDistance(1,4,A);
     /*
     unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> A;
     A.insert(Airline("TAP"));
@@ -13,8 +16,7 @@ Menu::Menu() {
     A.insert(Airline("ICE"));
     A.insert(Airline("GRL"));
     A.insert(Airline("FXI"));
-    /*auto x = supervisor->getGraph().dijkstra(1,4,A);
-    cout << x.distance << endl;
+    /*
     vector<vector<int> > paths;
     vector<int> path;
     auto map = supervisor->getMap();
@@ -200,55 +202,21 @@ void Menu::processOperation() {
         for (auto pair : flightPath) {
             string source = pair.first;
             string target = pair.second;
-            supervisor->getGraph().printPaths(map[source], map[target],airlines);
+            supervisor->getGraph().printPathsByFlights(map[source], map[target],airlines);
         }
-        /*auto flightPath = supervisor->processFlight(src,dest,airlines);
-
-
-        if (flightPath.empty())
-            cout << " Não existem voos\n\n" ;
-        else {
-            int nrPath = 0;
-            int nrFlights;
-            for (const auto& path: flightPath) {
-                string source = path.first;
-                string target = path.second;
-                nrFlights = graph.nrFlights(map[source], map[target], airlines);
-                auto usedAirports = graph.usedAirportsFlights(map[source], map[target], airlines);
-                auto usedAirlines = graph.usedAirlinesFlights(map[source], map[target], airlines);
-
-                showPath(usedAirports, usedAirlines,nrPath);
-            }
-            if (nrPath != 1) cout << " No total, existem " << nrPath << " trajetos possíveis\n";
-            else cout << " Apenas existe 1 trajeto possível\n";
-            cout << " O número de voos mínimos é " << nrFlights << "\n\n";
-        }*/
     }
     else{
-        printf("\n\033[1m\033[35m===============================================================\033[0m\n\n");
+        printf("\n\033[1m\033[32m===============================================================\033[0m\n\n");
         auto flightPath = supervisor->processDistance(src,dest,airlines);
-        if (flightPath.empty())
-            cout << " Não existem voos\n\n";
-        else {
-            int nrPath = 0;
-            double distance;
-            for (auto path: flightPath) {
-                string source = path.first;
-                string target = path.second;
-                distance = graph.flownDistance(map[source], map[target], airlines);
-                auto usedAirports = graph.usedAirportsDistance(map[source], map[target], airlines);
-                auto usedAirlines = graph.usedAirlinesDistance(map[source], map[target], airlines);
-
-                showPath(usedAirports, usedAirlines,nrPath);
-            }
-            if (nrPath != 1) cout << " No total, existem " << nrPath << " trajetos possíveis\n";
-            else cout << " Apenas existe 1 trajeto possível\n";
-            cout << " A distância mínima percorrida é " << distance << " km" << "\n\n";
+        for (auto pair : flightPath) {
+            string source = pair.first;
+            string target = pair.second;
+            supervisor->getGraph().printPathsByDistance(map[source], map[target],airlines);
         }
     }
 
     printf("\033[1m\033[36m===============================================================\033[0m\n\n");
-    airlines = unordered_set<Airline, Airline::AirlineHash,Airline::AirlineHash>();
+    airlines.clear();
 }
 void Menu::showPath(list<queue<Airport>> usedAirports, list<queue<Airline>> usedAirlines, int& nrPath) {
     auto i = usedAirports.begin();

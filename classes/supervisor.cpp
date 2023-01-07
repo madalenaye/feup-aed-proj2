@@ -187,7 +187,6 @@ list<pair<string,string>> Supervisor::processFlight(const vector<string>& src, c
                          const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>& airline) {
     int bestFlight = INT_MAX;
     int nrFlights;
-    string bestSource, bestTarget;
     list<pair<string,string>> res;
     for (const auto &s: src)
         for (const auto &d: dest) {
@@ -207,25 +206,20 @@ list<pair<string,string>> Supervisor::processFlight(const vector<string>& src, c
 
 list<pair<string,string>> Supervisor::processDistance(const vector<string>& src, const vector<string>& dest,
                                                     const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>& airline) {
-    double bestDistance = 99999999999999;
+    double bestDistance = MAXFLOAT;
     double distance;
-    string bestSource, bestTarget;
     list<pair<string,string>> res;
     for (const auto &s: src)
         for (const auto &d: dest) {
             if (src == dest)
                 continue;
-            distance = graph.flownDistance(id_airports[s], id_airports[d], airline);
-            if (distance < bestDistance)
+            auto node = graph.dijkstra(id_airports[s],id_airports[d],airlines);
+            distance = node.distance;
+            if (distance < bestDistance) {
                 bestDistance = distance;
-        }
-
-    for (const auto &s: src)
-        for (const auto &d: dest) {
-            if (s == d)
-                continue;
-            distance = graph.flownDistance(id_airports[s], id_airports[d], airline);
-            if (bestDistance  == distance)
+                res.clear();
+            }
+            else if (distance == bestDistance)
                 res.emplace_back(s,d);
         }
     return res;
