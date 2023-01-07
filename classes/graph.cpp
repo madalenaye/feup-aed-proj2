@@ -586,7 +586,7 @@ set<string> Graph::listCountries(int v, int max) {
 vector<string> Graph::getAirlines(int src, int dest,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
     vector<string> usedAirlines;
     for (auto e: nodes[src].adj)
-        if (e.dest == dest && airlines.find(e.airline) == airlines.end())
+        if (e.dest == dest && airlines.find(e.airline) != airlines.end())
             usedAirlines.push_back(e.airline.getCode());
     return usedAirlines;
 }
@@ -683,8 +683,6 @@ void Graph::printPaths(int start, int end, unordered_set<Airline, Airline::Airli
         reverse(v.begin(), v.end());
         vector<vector<string>> usedAirlines;
         // Print node for the current path
-        for (int i = 0; i < v.size()-1; i++)
-            usedAirlines.push_back(getAirlines(v[i],v[i+1],airlines));
 
         for (int i = 0; i < v.size()-1; i++) {
             auto possibleAirlines = getAirlines(v[i],v[i+1],airlines);
@@ -693,11 +691,7 @@ void Graph::printPaths(int start, int end, unordered_set<Airline, Airline::Airli
             for (int j = 0; j < possibleAirlines.size()-1; j++)
                 printf("\033[1m\033[32m %s \033[0m |",possibleAirlines[j].c_str());
             printf("\033[1m\033[32m %s \033[0m",possibleAirlines[possibleAirlines.size()-1].c_str());
-
-
-            //printf("\033[1m\033[32m %s \033[0m",airline.c_str());
             cout << ") --- ";
-
         }
         printf("\033[1m\033[46m %s \033[0m\n\n", nodes[v[v.size()-1]].airport.getCode().c_str());
 

@@ -7,7 +7,11 @@ Menu::Menu() {
     cout << "\n\n" << " Bem-vindo!\n (Pressione [0] sempre que quiser voltar atrás)\n\n";
     supervisor = new Supervisor();
     unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> A;
-    //A.insert(Airline("TAP"));
+    A.insert(Airline("TAP"));
+    A.insert(Airline("SAT"));
+    A.insert(Airline("ICE"));
+    A.insert(Airline("GRL"));
+    A.insert(Airline("FXI"));
     /*auto x = supervisor->getGraph().dijkstra(1,4,A);
     cout << x.distance << endl;*/
     vector<vector<int> > paths;
