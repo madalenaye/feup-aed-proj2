@@ -6,6 +6,9 @@
 #define RENAIR_AIRPORT_H
 
 #include <string>
+#include <vector>
+#include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
@@ -51,8 +54,9 @@ public:
             return b1.first == b2.first && b1.second== b2.second;
         }
     };
-
-
+    typedef unordered_set<pair<string,string> ,Airport::CityHash,Airport::CityHash> CityH2;
+    typedef unordered_map<pair<string,string> ,vector<string>,Airport::CityHash,Airport::CityHash> CityH;
+    typedef unordered_set<Airport, Airport::AirportHash,Airport::AirportHash> AirportH;
 private:
     string code;
     string name;

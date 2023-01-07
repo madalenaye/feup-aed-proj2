@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['graph_38',['Graph',['../class_graph.html#a284b99bdb07994225dee3c2cdb59c80a',1,'Graph']]]
+  ['flightsperairport_66',['flightsPerAirport',['../class_graph.html#a81c24e1f675cb8a311b1682b73af96b2',1,'Graph']]],
+  ['flowndistance_67',['flownDistance',['../class_graph.html#abc47e7d0a06f36e4800c8855ac1d8fa0',1,'Graph']]]
 ];

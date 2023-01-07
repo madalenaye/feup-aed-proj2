@@ -15,7 +15,7 @@ public:
 private:
     void chooseSource();
     void chooseTarget();
-    void chooseAirlines();
+    void chooseAirlines(bool op);
     void processOperation();
 
     static void showPath(list<queue<Airport>>, list<queue<Airline>>, int& nrPath);
@@ -50,8 +50,9 @@ private:
     Supervisor* supervisor;
     vector<string> src;
     vector<string> dest;
-    unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines;
+    Airline::AirlineH airlines;
 
 
+    void showArticulation();
 };
 #endif //RENAIR_MENU_H

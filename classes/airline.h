@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unordered_set>
 //
 // Created by Madalena Ye on 27/12/2022.
 //
@@ -6,6 +7,8 @@ using namespace std;
 
 #ifndef RENAIR_AIRLINE_H
 #define RENAIR_AIRLINE_H
+
+
 class Airline{
 public:
 
@@ -31,7 +34,7 @@ public:
     string getCode() const;
     string getName();
     string getCountry();
-
+    typedef unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> AirlineH;
 private:
     string code;
     string name;

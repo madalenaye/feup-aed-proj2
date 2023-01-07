@@ -57,7 +57,7 @@ vector<Graph::Node> Graph::getNodes() const{
  * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  * @return minimum number of flights between source airport and target airport using airlines
  */
-int Graph::nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
+int Graph::nrFlights(int src, int dest, Airline::AirlineH airlines){
     for (int i=1; i<=size; i++)
         nodes[i].visited = false;
 
@@ -135,9 +135,17 @@ stack<Airport> Graph::longestFlight(const Airline& airline){
             }
         }
 
-   return used;
+    return used;
 }
-
+/**
+ * Calculates the biggest distance from a node to it's child
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(|V|+|E|)</b>, V -> number of nodes, E -> number of edges
+ * </pre>
+ * @param v -> source node
+ * @param airline -> wanted airline
+ */
 
 void Graph::dfs(int v, const Airline airline){
     nodes[v].visited = true ;
@@ -162,6 +170,60 @@ void Graph::dfs(int v, const Airline airline){
         nodes[v].visitedAirports.push(nodes[v].airport);
 }
 /**
+ * Finds the nodes that are articulation points and inserts them in a list\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O((|E|)*n)</b>,E -> number of edges, n-> list size
+ * </pre>
+ * @param v -> source node
+ * @param index
+ * @param res -> list of articulation points
+ * @param airlines -> unordered_set of Airlines that can be empty(meaning it searches all airlines) or with some specific user input airlines
+ */
+void Graph::dfs_art(int v, int index, list<int>& res,Airline::AirlineH airlines) {
+    nodes[v].num = nodes[v].low = index;
+    index = index+1;
+    nodes[v].art = true;
+    int count = 0;
+    for (auto e : nodes[v].adj){
+        auto w = e.dest;
+        if(airlines.find(e.airline) != airlines.end() || airlines.empty())
+        if (nodes[w].num == 0){
+            count++;
+            dfs_art(w,index,res,airlines);
+            nodes[v].low = min(nodes[v].low,nodes[w].low);
+            if (nodes[w].low >= nodes[v].num && std::find(res.begin(),res.end(),v) == res.end()) {
+                if (index == 2 && count > 1) res.push_back(1);
+                else if (index != 2 && std::find(res.begin(),res.end(),v)== res.end()) res.push_back(v);
+            }
+        }
+        else if (nodes[v].art)
+            nodes[v].low = min(nodes[v].low,nodes[w].num);
+    }
+}
+/**
+ * Calculates the list of articulation points that exist in a specific unordered_set of airlines or in all airlines.\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O((|V|+|E|)*n)</b>, V -> number of nodes, E -> number of edges, n-> list size
+ * </pre>
+ * @param airlines -> unordered_set of Airlines that can be empty(meaning it searches all airlines) or with some specific user input airlines
+ * @return The list of articulation points.
+ */
+list<int> Graph::articulationPoints(Airline::AirlineH airlines) {
+    list<int> answer;
+
+    for (int i = 1; i <= size; i++)
+        nodes[i].visited = nodes[i].art = false;
+
+    int index = 1;
+    for (int i = 1; i <= size; i++)
+        if (nodes[i].num == 0){
+            dfs_art(i,index,answer,airlines);
+        }
+    return answer;
+}
+/**
  * Calculates the minimum flown distance between source airport and target airport using airlines \n \n
  * <b>Complexity\n</b>
  * <pre>
@@ -172,7 +234,7 @@ void Graph::dfs(int v, const Airline airline){
  * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  * @return minimum flown distance between source airport and target airport using airlines
  */
-double Graph::flownDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
+double Graph::flownDistance(int src, int dest, Airline::AirlineH airlines){
     for (int i=1; i<=size; i++)
         nodes[i].visited = false;
 
@@ -212,7 +274,7 @@ double Graph::flownDistance(int src, int dest, unordered_set<Airline,Airline::Ai
  * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  * @return list of queues of used airports between source airport and target airport
  */
-list<queue<Airport>> Graph::usedAirportsFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
+list<queue<Airport>> Graph::usedAirportsFlights(int src, int dest, Airline::AirlineH airlines){
     for (int i=1; i<=size; i++)
         nodes[i].visited = false;
 
@@ -256,7 +318,7 @@ list<queue<Airport>> Graph::usedAirportsFlights(int src, int dest, unordered_set
  * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  * @return list of queues of used airlines between source airport and target airport
  */
-list<queue<Airline>> Graph::usedAirlinesFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
+list<queue<Airline>> Graph::usedAirlinesFlights(int src, int dest, Airline::AirlineH airlines){
     for (int i=1; i<=size; i++)
         nodes[i].visited = false;
 
@@ -301,7 +363,7 @@ list<queue<Airline>> Graph::usedAirlinesFlights(int src, int dest, unordered_set
  * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  * @return list of queues of used airports between source airport and target airport
  */
-list<queue<Airport>> Graph::usedAirportsDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
+list<queue<Airport>> Graph::usedAirportsDistance(int src, int dest, Airline::AirlineH airlines){
 
     double distance = flownDistance(src,dest,airlines);
 
@@ -351,7 +413,7 @@ list<queue<Airport>> Graph::usedAirportsDistance(int src, int dest, unordered_se
  * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  * @return list of queues of used airlines between source airport and target airport
  */
-list<queue<Airline>> Graph::usedAirlinesDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
+list<queue<Airline>> Graph::usedAirlinesDistance(int src, int dest, Airline::AirlineH airlines){
 
     double distance = flownDistance(src,dest,airlines);
 
@@ -432,13 +494,13 @@ vector<pair<int,string>> Graph::airlinesPerAirport() {
     return nrAirlines;
 }
 /**
- * Calculates the differente airlines that cooperate with an airport
+ * Calculates the different airlines that cooperate with an airport
  * <b>Complexity\n</b>
  * <pre>
  *      <b>O(|E|)</b>, E -> number of edges
  * </pre>
- * @param i
- * @return set of all the differente airlines that work with a specific airport
+ * @param i -> node of source
+ * @return set of all the different airlines
  */
 unordered_set<string> Graph::airlinesFromAirport(int i) {
     unordered_set<string> ans;
@@ -447,14 +509,32 @@ unordered_set<string> Graph::airlinesFromAirport(int i) {
     }
     return ans;
 }
-unordered_set<pair<string, string>, Airport::CityHash, Airport::CityHash> Graph::targetsFromAirport(int i){
-    unordered_set<pair<string,string>, Airport::CityHash, Airport::CityHash> ans;
+/**
+ * Calculates the different cities that are reachable from an airport within 1 flight\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(|E|)</b>, E -> number of edges
+ * </pre>
+ * @param i -> node of source
+ * @return set of all the different cities
+ */
+Airport::CityH2 Graph::targetsFromAirport(int i){
+    Airport::CityH2 ans;
     for (auto e:nodes[i].adj){
         int w = e.dest;
         ans.insert({nodes[w].airport.getCountry(),nodes[w].airport.getCity()});
     }
     return ans;
 }
+/**
+ * Calculates the different countries that are reachable from an airport within 1 flight\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(|E|)</b>, E -> number of edges
+ * </pre>
+ * @param i -> node of source
+ * @return set of all the different countries
+ */
 unordered_set<string> Graph::countriesFromAirport(int i) {
     unordered_set<string> ans;
     for(auto e:nodes[i].adj){
@@ -473,9 +553,9 @@ unordered_set<string> Graph::countriesFromAirport(int i) {
  * @param max - number of flights
  * @return set of reachable airports using "max" number of flights
  */
-unordered_set<Airport, Airport::AirportHash, Airport::AirportHash> Graph::listAirports(int nI, int max) {
+Airport::AirportH Graph::listAirports(int nI, int max) {
     for (Node& node: nodes) node.visited = false;
-    unordered_set<Airport,Airport::AirportHash, Airport::AirportHash> airports;
+    Airport::AirportH airports;
     std::queue<int> q; // queue of unvisited nodes
     q.push(nI);
     nodes[nI].visited = true;
@@ -504,9 +584,9 @@ unordered_set<Airport, Airport::AirportHash, Airport::AirportHash> Graph::listAi
  * @param max - number of flights
  * @return unordered_set of reachable cities using "max" number of flights
  */
-unordered_set<pair<string,string>, Airport::CityHash, Airport::CityHash> Graph::listCities(int nI, int max) {
+Airport::CityH2 Graph::listCities(int nI, int max) {
     for (Node& node: nodes) node.visited = false;
-    unordered_set<pair<string,string>, Airport::CityHash, Airport::CityHash> cities;
+    Airport::CityH2 cities;
     std::queue<int> q; // queue of unvisited nodes
     q.push(nI);
     nodes[nI].visited = true;
@@ -555,4 +635,20 @@ set<string> Graph::listCountries(int nI, int max) {
         }
     }
     return countries;
+}
+/**
+ * From a specific airport, calculates all of the airports that are reachable within 1 flight.\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(|E|)</b>,E -> number of edges
+ * </pre>
+ * @param source -> source node
+ * @return unordered_set of airports code and name
+ */
+Graph::PairH Graph::AirportsFromAirport(int source) {
+    Graph::PairH ans;
+    for(auto e:nodes[source].adj){
+        ans.insert({nodes[e.dest].airport.getCode(),nodes[e.dest].airport.getName()});
+    }
+    return ans;
 }

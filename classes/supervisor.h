@@ -20,12 +20,13 @@
 
 using namespace std;
 
+
 class Supervisor {
 public:
     Supervisor();
-    unordered_set<Airport,Airport::AirportHash,Airport::AirportHash> const& getAirports() const {return airports;}
-    unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> const& getAirlines() const {return airlines;}
-    unordered_map<pair<string,string>, vector<string>,Airport::CityHash,Airport::CityHash> const &getCity() const {return id_city;}
+    Airport::AirportH const& getAirports() const {return airports;}
+    Airline::AirlineH const& getAirlines() const {return airlines;}
+    Airport::CityH const &getCity() const {return id_city;}
     Graph getGraph() const;
     unordered_map<string,int> getMap() const;
     map<string,int> getNrAirportsPerCountry() const;
@@ -40,8 +41,8 @@ public:
     void countAirportsPerCountry();
     int nrFlights();
     int countAirlinesPerCountry(string country);
-    list<pair<string,string>> processFlight(vector<string>,vector<string>,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>);
-    list<pair<string,string>> processDistance(vector<string>,vector<string>,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>);
+    list<pair<string,string>> processFlight(vector<string>,vector<string>,Airline::AirlineH);
+    list<pair<string,string>> processDistance(vector<string>,vector<string>,Airline::AirlineH);
     multimap<int,string> convertMap(const map<string,int>& m);
 
 private:
@@ -53,12 +54,12 @@ private:
 
     void createGraph();
 
-    unordered_set<Airport, Airport::AirportHash,Airport::AirportHash> airports;
-    unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines;
+    Airport::AirportH airports;
+    Airline::AirlineH airlines;
+    Airport::CityH id_city;
     unordered_map<string, int> id_airports;
-    unordered_map<pair<string,string> ,vector<string>,Airport::CityHash,Airport::CityHash> id_city;
-    set<string> countries;
-    set<string> cities;
+    unordered_set<string> countries;
+    unordered_set<string> cities;
     unordered_map<string, list<string>> citiesPerCountry;
     map<string, int> nrAirportsPerCountry;
 };

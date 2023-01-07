@@ -5,22 +5,29 @@
 
 #include <climits>
 #include "supervisor.h"
-
+/**
+ * Default Constructor for supervisor
+ */
 Supervisor::Supervisor() {
     createAirports();
     createAirlines();
     createGraph();
     countAirportsPerCountry();
 }
-
 unordered_map<string,int> Supervisor::getMap() const{
     return id_airports;
 }
 
 Graph Supervisor::getGraph() const {return graph;}
-
 map<string,int> Supervisor::getNrAirportsPerCountry() const {return nrAirportsPerCountry;}
-
+/**
+ * Read airports.csv file and stores the airports information in id_city,id_airports,airports,cities,countries,
+ * citiesPerCountry and in the graphs function we store the airports according to an index\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(n)</b>, n -> file lines
+ * </pre>
+ */
 void Supervisor::createAirports() {
     ifstream myFile;
     string currentLine, code, name, city, country, x;
@@ -49,7 +56,13 @@ void Supervisor::createAirports() {
         citiesPerCountry[country].push_back(city);
     }
 }
-
+/**
+ * Read airlines.csv file and stores the information in airlines\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(n)</b>, n -> file lines
+ * </pre>
+ */
 void Supervisor::createAirlines() {
     ifstream inFile;
     string code, name, callsign, country, line;
@@ -65,11 +78,17 @@ void Supervisor::createAirlines() {
         airlines.insert(a);
     }
 }
-
+/**
+ * Read flights.csv file and stores the airports information in graphs about the flights
+ * (airport of departure/arrival and distance between them)\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(n*log(n))</b>, n -> file lines
+ * </pre>
+ */
 void Supervisor::createGraph(){
     ifstream inFile;
     string source, target, airline, line;
-    //inFile.open("../data/FLIGHTS.CSV");
     inFile.open("../data/flights.csv");
     getline(inFile, line);
     while(getline(inFile, line)){
@@ -82,37 +101,89 @@ void Supervisor::createGraph(){
         graph.addEdge(id_airports[source],id_airports[target],Airline(airline),d);
     }
 }
-
+/**
+ * Verifies if a country is in the countries unordered_set\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(1)</b>
+ * </pre>
+ * @param country - wanted country
+ * @return true if country exists in countries
+ */
 bool Supervisor::isCountry(const string& country){
     auto i = countries.find(country);
     if (i == countries.end()) return false;
     return true;
 }
-
+/**
+ * Verifies if a airport is in the airports unordered_set\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(1)</b>
+ * </pre>
+ * @param airport - wanted airport
+ * @return true if airport exists in airports
+ */
 bool Supervisor::isAirport(const Airport& airport){
     auto i = airports.find(airport);
     if (i == airports.end()) return false;
     return true;
 }
-
+/**
+ * Verifies if a airline is in the airline unordered_set\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(1)</b>
+ * </pre>
+ * @param airline - wanted airline
+ * @return true if airline exists in airlines
+ */
 bool Supervisor::isAirline(const Airline& airline) {
     auto i = airlines.find(airline);
     if (i == airlines.end()) return false;
     return true;
 }
-
+/**
+ * Verifies if a city is in cities unordered_set\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(1)</b>
+ * </pre>
+ * @param city -city wanted to verify
+ * @return true if city exists in cities
+ */
 bool Supervisor::isCity(const string& city) {
     auto i = cities.find(city);
     if (i == cities.end()) return false;
     return true;
 }
+/**
+ * Verifies if a country and city is in citiesPerCountry unordered_map\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(n)</b> ,n -> number of cities from the specific country
+ * </pre>
+ * @param country - wanted country
+ * @param city - wanted city
+ * @return true if country,city exists
+ */
 bool Supervisor::isValidCity(const string& country, const string& city) {
     for (const auto& c : citiesPerCountry[country]){
         if (city == c) return true;
     }
     return false;
 }
-
+/**
+ * Calculates the number of airports that exist in a radius of a certain coordinate\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(|V|*log(n))</b>,n -> number of airports that exist in a certain radius, V-> number of nodes
+ * </pre>
+ * @param latitude - latitude of the center of the circumference
+ * @param longitude -longitude of the center of the circumference
+ * @param radius - radius of the circumference
+ * @return vector of codes of airports that exist in that range
+ */
 vector<string> Supervisor::localAirports(double latitude, double longitude, double radius) {
     vector<string> airports;
     for (const auto& node : graph.getNodes()){
@@ -123,7 +194,15 @@ vector<string> Supervisor::localAirports(double latitude, double longitude, doub
     }
     return airports;
 }
-
+/**
+ * Calculates the number of airlines that are founded in each country\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(n)</b>,n -> number of airlines
+ * </pre>
+ * @param country - country that the user wants to get information from
+ * @return number of airlines
+ */
 int Supervisor::countAirlinesPerCountry(string country) {
     int count = 0;
     for (auto airline : airlines){
@@ -132,7 +211,13 @@ int Supervisor::countAirlinesPerCountry(string country) {
     }
     return count;
 }
-
+/**
+ * Calculates the number of airports that belong to each country\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(n*log(m))</b>,n -> number of airlines, m -> number of values in airportsPerCountry map
+ * </pre>
+ */
 void Supervisor::countAirportsPerCountry() {
     map<string, int> airportsPerCountry;
     for (const auto& i : id_city){
@@ -145,18 +230,38 @@ void Supervisor::countAirportsPerCountry() {
     }
     nrAirportsPerCountry = airportsPerCountry;
 }
-
+/**
+ * Swaps key and value.\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(1)</b>
+ * </pre>
+ * @tparam A -> key
+ * @tparam B -> value
+ * @param p
+ * @return pair where key is the value(B) and value is the key(A)
+ */
 template<typename A, typename B>
-std::pair<B,A> flip_pair(const std::pair<A,B> &p)
+pair<B,A> flip_pair(const pair<A,B> &p)
 {
-    return std::pair<B,A>(p.second, p.first);
+    return pair<B,A>(p.second, p.first);
 }
-
+/**
+ * Transforms the map into a multimap and swaps it information\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(n*log(m))</b>,n -> size of map src, insertion of map src key in multimap
+ * </pre>
+ * @tparam A -> key
+ * @tparam B -> value
+ * @param src
+ * @return flipped multimap were all the keys turn to values and values to keys
+ */
 template<typename A, typename B>
-std::multimap<B,A> flip_map(const std::map<A,B> &src)
+multimap<B,A> flip_map(const map<A,B> &src)
 {
-    std::multimap<B,A> dst;
-    std::transform(src.begin(), src.end(), std::inserter(dst, dst.begin()),
+    multimap<B,A> dst;
+    transform(src.begin(), src.end(), inserter(dst, dst.begin()),
                    flip_pair<A,B>);
     return dst;
 }
@@ -164,16 +269,33 @@ std::multimap<B,A> flip_map(const std::map<A,B> &src)
 multimap<int,string> Supervisor::convertMap(const map<string, int>& m) {
     return flip_map(m);
 }
-
+/**
+ * Calculates the total number of flights\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(|V|)</b>, V -> number of nodes
+ * </pre>
+ * @return number of flights
+ */
 int Supervisor::nrFlights(){
     int nrFlights = 0;
     for (const auto& node: graph.getNodes())
         nrFlights += node.adj.size();
     return nrFlights;
 }
-
+/**
+ * Calculates the smallest amount of flights possible to get to a specific airport from another airport\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(n*m*(|V|+|E|))</b>,n -> size of src vector, m -> size of dest vector,V -> number of nodes, E -> number of edges
+ * </pre>
+ * @param src  -> source node
+ * @param dest -> final node
+ * @param airlines -> airlines available for use
+ * @return
+ */
 list<pair<string,string>> Supervisor::processFlight(vector<string> src, vector<string> dest,
-                         unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
+                                                    unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
     int bestFlight = INT_MAX;
     int nrFlights;
     string bestSource, bestTarget;
@@ -199,7 +321,7 @@ list<pair<string,string>> Supervisor::processFlight(vector<string> src, vector<s
 }
 
 list<pair<string,string>> Supervisor::processDistance(vector<string> src, vector<string> dest,
-                                                    unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
+                                                    Airline::AirlineH airlines) {
     double bestDistance = 99999999999999;
     double distance;
     string bestSource, bestTarget;
