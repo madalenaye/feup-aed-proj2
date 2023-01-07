@@ -122,7 +122,7 @@ void Graph::dfsArt(int v, int index, list<int>& res,Airline::AirlineH airlines) 
     int count = 0;
     for (const auto& e : nodes[v].adj){
         auto w = e.dest;
-        if(airlines.find(e.airline) != airlines.end() || airlines.empty())
+        if(airlines.find(e.airline) != airlines.end() || airlines.empty()){
             if (nodes[w].num == 0){
                 count++;
                 dfsArt(w,index,res,airlines);
@@ -135,6 +135,7 @@ void Graph::dfsArt(int v, int index, list<int>& res,Airline::AirlineH airlines) 
             else if (nodes[v].art) {
                 nodes[v].low = min(nodes[v].low, nodes[w].num);
             }
+        }
     }
 }
 /**
@@ -400,8 +401,18 @@ set<string> Graph::listCountries(int v, int max) {
     }
     return countries;
 }
-
-vector<string> Graph::getAirlines(int src, int dest,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
+/**
+ * Searches all the  airlines that can be used to travel between a source and dest with a certain user input of airlines(or none).\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(|E|)</b> E -> number of edges
+ * </pre>
+ * @param src -> source node
+ * @param dest -> final node
+ * @param airlines -> unordered_set of airlines that without user input is empty, if has user input only uses those specific airlines.
+ * @return vector of the possible airlines to use to travel from src to dest
+ */
+vector<string> Graph::getAirlines(int src, int dest,Airline::AirlineH airlines) {
     vector<string> usedAirlines;
     for (auto e: nodes[src].adj)
         if (e.dest == dest && (airlines.empty() ||airlines.find(e.airline) != airlines.end()))
@@ -409,7 +420,16 @@ vector<string> Graph::getAirlines(int src, int dest,unordered_set<Airline, Airli
     return usedAirlines;
 }
 
-
+/**
+ * Verifies if a certain path is possible in a vector of paths.\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(n)</b> n -> paths size
+ * </pre>
+ * @param paths -> vector of paths that are possible
+ * @param path -> path that you want to verify
+ * @param v -> source node
+ */
 void Graph::findPaths(vector<vector<int>>& paths,vector<int>& path, int v){
 
     if (v == -1) {
@@ -424,8 +444,17 @@ void Graph::findPaths(vector<vector<int>>& paths,vector<int>& path, int v){
         path.pop_back();
     }
 }
-
-void Graph::bfs(int src, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines){
+/**
+ * Stores in the parents variable the possible flight candidates using bfs. Parents who also have possible flight candidates
+ * allowing us to get all the possible flights from a certain source.\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(|V|+|E|)</b>, V -> number of nodes, E -> number of edges
+ * </pre>
+ * @param src -> source
+ * @param airlines -> unordered_set of airlines
+ */
+void Graph::bfs(int src, Airline::AirlineH airlines){
 
     for (int i = 1; i <= size; i++) {
         nodes[i].distance = INT_MAX;
@@ -454,7 +483,19 @@ void Graph::bfs(int src, unordered_set<Airline, Airline::AirlineHash, Airline::A
         }
     }
 }
-void Graph::printPathsByFlights(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
+
+/**
+ * Calculates(using bfs) and prints most optimal path of flights(least amount of flights)
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(n*m*p)</b>, n-> parents size , m-> possibleAirlines size
+ * </pre>
+ * @param nrPath
+ * @param start -> source node
+ * @param end -> final node
+ * @param airlines -> unordered_set of airlines
+ */
+void Graph::printPathsByFlights(int& nrPath, int start, int end, Airline::AirlineH airlines) {
     vector<int> path;
     vector<vector<int> > paths;
 
@@ -471,9 +512,19 @@ void Graph::printPathsByFlights(int& nrPath, int start, int end, unordered_set<A
         printPath(v,airlines);
     }
 }
-
+/**
+ * Calculates and prints the most optimal paths based on distance of nodes using the dijkstra algorithm.\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(n*m)</b>, n-> parents size , m-> possibleAirlines size
+ * </pre>
+ * @param nrPath
+ * @param start -> source node
+ * @param end  -> final node
+ * @param airlines ->unordered_set of the airlines
+ */
 void Graph::printPathsByDistance(int& nrPath, int start, int end,
-                                 unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
+                                 Airline::AirlineH airlines) {
     Node node = dijkstra(start,end,airlines);
 
     if (node.parents.empty()) {
@@ -515,7 +566,15 @@ Graph::PairH Graph::airportsFromAirport(int source) {
     }
     return ans;
 }
-
+/**
+ * Calculates the minimum max distance between connected nodes
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(|V|+|E|)</b>, V -> number of nodes, E -> number of edges
+ * </pre>
+ * @param v -> source node
+ * @return the diameter of a connected component
+ */
 double Graph::bfsDiameter(int v) {
     for (Node& node: nodes){node.visited = false; node.distance = -1.0;}
     queue<int> q;
@@ -537,6 +596,10 @@ double Graph::bfsDiameter(int v) {
     }
     return max;
 }
+/**
+ * Calculates the max diameter using a bfs.\n\n
+ * @return max diameter between all connected components.
+ */
 double Graph::diameter() {
     queue<int> waiting;
     waiting.push(1);

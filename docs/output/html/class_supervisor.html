@@ -65,6 +65,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_supervisor-members.html">List of all members</a>  </div>
@@ -113,13 +114,16 @@ map&lt; string, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>g
 <tr class="separator:abe7cf2be220e2c31df9408423614f520"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bd1d31545a70037aa842cbb86d13026"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a2bd1d31545a70037aa842cbb86d13026">countAirlinesPerCountry</a> (const string &amp;country)</td></tr>
 <tr class="separator:a2bd1d31545a70037aa842cbb86d13026"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0479d385e7a858c98b890782e5ccefa2"><td class="memItemLeft" align="right" valign="top">list&lt; pair&lt; string, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a0479d385e7a858c98b890782e5ccefa2">processFlight</a> (vector&lt; string &gt; &amp;, vector&lt; string &gt; &amp;, Airline::AirlineH &amp;)</td></tr>
-<tr class="separator:a0479d385e7a858c98b890782e5ccefa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cd7c6cb4854c7eb6fe25e28c919a0a6"><td class="memItemLeft" align="right" valign="top"><a id="a7cd7c6cb4854c7eb6fe25e28c919a0a6"></a>
-list&lt; pair&lt; string, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>processDistance</b> (vector&lt; string &gt; &amp;, vector&lt; string &gt; &amp;, Airline::AirlineH &amp;)</td></tr>
-<tr class="separator:a7cd7c6cb4854c7eb6fe25e28c919a0a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a686b81dbd1a0a8a9d72a70e1ada63a4e"><td class="memItemLeft" align="right" valign="top">list&lt; pair&lt; string, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a686b81dbd1a0a8a9d72a70e1ada63a4e">processFlight</a> (int &amp;, const vector&lt; string &gt; &amp;, const vector&lt; string &gt; &amp;, const unordered_set&lt; <a class="el" href="class_airline.html">Airline</a>, <a class="el" href="struct_airline_1_1_airline_hash.html">Airline::AirlineHash</a>, <a class="el" href="struct_airline_1_1_airline_hash.html">Airline::AirlineHash</a> &gt; &amp;)</td></tr>
+<tr class="separator:a686b81dbd1a0a8a9d72a70e1ada63a4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36370d53e85a59cb6e97bdd7f1f9fe0d"><td class="memItemLeft" align="right" valign="top"><a id="a36370d53e85a59cb6e97bdd7f1f9fe0d"></a>
+list&lt; pair&lt; string, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>processDistance</b> (double &amp;, const vector&lt; string &gt; &amp;, const vector&lt; string &gt; &amp;, const unordered_set&lt; <a class="el" href="class_airline.html">Airline</a>, <a class="el" href="struct_airline_1_1_airline_hash.html">Airline::AirlineHash</a>, <a class="el" href="struct_airline_1_1_airline_hash.html">Airline::AirlineHash</a> &gt; &amp;)</td></tr>
+<tr class="separator:a36370d53e85a59cb6e97bdd7f1f9fe0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a97891c45f58471f89b96678ba1085dc9"><td class="memItemLeft" align="right" valign="top"><a id="a97891c45f58471f89b96678ba1085dc9"></a>
-multimap&lt; int, string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>convertMap</b> (const map&lt; string, int &gt; &amp;m)</td></tr>
+static multimap&lt; int, string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>convertMap</b> (const map&lt; string, int &gt; &amp;m)</td></tr>
 <tr class="separator:a97891c45f58471f89b96678ba1085dc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
@@ -555,8 +559,8 @@ map&lt; string, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>n
 
 </div>
 </div>
-<a id="a0479d385e7a858c98b890782e5ccefa2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0479d385e7a858c98b890782e5ccefa2">&#9670;&nbsp;</a></span>processFlight()</h2>
+<a id="a686b81dbd1a0a8a9d72a70e1ada63a4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a686b81dbd1a0a8a9d72a70e1ada63a4e">&#9670;&nbsp;</a></span>processFlight()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -564,19 +568,25 @@ map&lt; string, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>n
         <tr>
           <td class="memname">list&lt; pair&lt; string, string &gt; &gt; Supervisor::processFlight </td>
           <td>(</td>
-          <td class="paramtype">vector&lt; string &gt; &amp;&#160;</td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>bestFlight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vector&lt; string &gt; &amp;&#160;</td>
           <td class="paramname"><em>src</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">vector&lt; string &gt; &amp;&#160;</td>
+          <td class="paramtype">const vector&lt; string &gt; &amp;&#160;</td>
           <td class="paramname"><em>dest</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Airline::AirlineH &amp;&#160;</td>
+          <td class="paramtype">const unordered_set&lt; <a class="el" href="class_airline.html">Airline</a>, <a class="el" href="struct_airline_1_1_airline_hash.html">Airline::AirlineHash</a>, <a class="el" href="struct_airline_1_1_airline_hash.html">Airline::AirlineHash</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>airline</em>&#160;</td>
         </tr>
         <tr>

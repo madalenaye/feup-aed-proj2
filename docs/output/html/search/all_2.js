@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['dfs_17',['dfs',['../class_graph.html#a631244eab06c81e905f262abbce81341',1,'Graph']]],
-  ['dfs_5fart_18',['dfs_art',['../class_graph.html#a4a781920d2ae273727794b18ef3b5594',1,'Graph']]],
-  ['distance_19',['distance',['../class_graph.html#a68a2401a1125fd52898c7efd04826c3a',1,'Graph']]]
+  ['dfsart_21',['dfsArt',['../class_graph.html#ae1c2c2e0975f508d58feb716f0fd3860',1,'Graph']]],
+  ['dijkstra_22',['dijkstra',['../class_graph.html#a8fb003b24b7e09bcd632feefdb15e82a',1,'Graph']]],
+  ['distance_23',['distance',['../class_graph.html#a68a2401a1125fd52898c7efd04826c3a',1,'Graph']]]
 ];
