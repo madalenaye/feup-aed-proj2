@@ -13,9 +13,6 @@ private:
     void chooseTarget();
     void chooseAirlines(bool op);
     void processOperation();
-
-    static void showPath(list<queue<Airport>>, list<queue<Airline>>, int& nrPath);
-
     void info();
     void showAirport();
     void showOptions(const string& airport);

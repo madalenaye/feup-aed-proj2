@@ -154,13 +154,14 @@ void Menu::chooseAirlines(bool op) {
 
     if (choice == "1") {
         string airline = validateAirline();
-        if (airline == "0") return;
+        if (airline == "0") { chooseTarget(); return; }
         airlines.insert(Airline(airline));
 
         string option = validateOption("\n Deseja inserir mais alguma companhia aérea? \n\n"
                                     " [1] Sim\n [2] Não\n\n Opção: ");
         while (option == "1") {
             airline = validateAirline();
+            if (airline == "0") { chooseTarget(); return; }
             airlines.insert(Airline(airline));
             option = validateOption("\n Deseja inserir mais alguma companhia aérea? \n\n"
                                     " [1] Sim\n [2] Não\n\n Opção: ");
@@ -182,77 +183,38 @@ void Menu::processOperation() {
 
     if (option == "1"){
         printf("\n\033[1m\033[32m===============================================================\033[0m\n\n");
-        auto flightPath = supervisor->processFlight(src,dest,airlines);
-        if (flightPath.empty())
-            cout << " Não existem voos\n\n" ;
-        else {
-            int nrPath = 0;
-            int nrFlights;
-            for (const auto& path: flightPath) {
-                string source = path.first;
-                string target = path.second;
-                nrFlights = graph.nrFlights(map[source], map[target], airlines);
-                auto usedAirports = graph.usedAirportsFlights(map[source], map[target], airlines);
-                auto usedAirlines = graph.usedAirlinesFlights(map[source], map[target], airlines);
-
-                showPath(usedAirports, usedAirlines,nrPath);
-            }
-            if (nrPath != 1) cout << " No total, existem " << nrPath << " trajetos possíveis\n";
-            else cout << " Apenas existe 1 trajeto possível\n";
-            cout << " O número de voos mínimos é " << nrFlights << "\n\n";
+        int nrPath = 0, nrFlights;
+        auto flightPath = supervisor->processFlight(nrFlights,src,dest,airlines);
+        if (nrFlights == INT_MAX) cout << " Não existem voos \n\n";
+        else{
+        for (auto pair : flightPath) {
+            string source = pair.first;
+            string target = pair.second;
+            supervisor->getGraph().printPathsByFlights(nrPath,map[source], map[target],airlines);
         }
+        if (nrPath != 1) cout << " No total, existem " << nrPath << " trajetos possíveis\n\n";
+        else cout << " Apenas existe 1 trajeto possível\n\n";
+        cout << " O número mínimo de voos é " << nrFlights << "\n\n";}
     }
     else{
-        printf("\n\033[1m\033[35m===============================================================\033[0m\n\n");
-        auto flightPath = supervisor->processDistance(src,dest,airlines);
-        if (flightPath.empty())
-            cout << " Não existem voos\n\n";
-        else {
-            int nrPath = 0;
-            double distance;
-            for (const auto& path: flightPath) {
-                string source = path.first;
-                string target = path.second;
-                distance = graph.flownDistance(map[source], map[target], airlines);
-                auto usedAirports = graph.usedAirportsDistance(map[source], map[target], airlines);
-                auto usedAirlines = graph.usedAirlinesDistance(map[source], map[target], airlines);
+        printf("\n\033[1m\033[32m===============================================================\033[0m\n\n");
+        int nrPath = 0;
+        double distance;
+        auto flightPath = supervisor->processDistance(distance,src,dest,airlines);
+        bool valid;
 
-                showPath(usedAirports, usedAirlines,nrPath);
-            }
-            if (nrPath != 1) cout << " No total, existem " << nrPath << " trajetos possíveis\n";
-            else cout << " Apenas existe 1 trajeto possível\n";
-            cout << " A distância mínima percorrida é " << distance << " km" << "\n\n";
+        for (auto pair : flightPath) {
+            string source = pair.first;
+            string target = pair.second;
+            supervisor->getGraph().printPathsByDistance(nrPath,map[source], map[target],airlines);
         }
+
+        if (nrPath != 0) cout << " A distância mínima é " << distance << " km\n\n";
     }
 
     printf("\033[1m\033[36m===============================================================\033[0m\n\n");
-    airlines = unordered_set<Airline, Airline::AirlineHash,Airline::AirlineHash>();
+    airlines.clear();
 }
-void Menu::showPath(list<queue<Airport>> usedAirports, list<queue<Airline>> usedAirlines, int& nrPath) {
-    auto i = usedAirports.begin();
-    auto j = usedAirlines.begin();
-    for (int n = 0; n < usedAirports.size(); n ++) {
-
-        cout << " Trajeto nº" << ++nrPath << ": ";
-
-        auto airports = *i;
-        auto airlines = *j;
-        while (!airports.empty() && !airlines.empty()){
-            printf("\033[1m\033[46m %s \033[0m",airports.front().getCode().c_str());
-            cout <<" --- (";
-            printf("\033[1m\033[32m %s \033[0m",airlines.front().getCode().c_str());
-            cout << ") --- ";
-            airports.pop();
-            airlines.pop();
-        }
-        printf("\033[1m\033[46m %s \033[0m",airports.front().getCode().c_str());
-        cout << "\n\n";
-        i++;
-        j++;
-    }
-}
-
-
 //info
 void Menu::info(){
     string option;
@@ -491,7 +453,7 @@ void Menu::showAirlines(){
                     cout << " - " << i.getName() << endl;
                 }
         }
-
+        /*
         else if (option == "3"){
             string airline = validateAirline();
             if (airline == "0") continue;
@@ -506,7 +468,7 @@ void Menu::showAirlines(){
             }
             printf(" \033[1m\033[42mnº de voos: %i \033[0m " ,nrFlights);
             cout << "\n";
-        }
+        }*/
         else if (option == "0")
             return;
         else {

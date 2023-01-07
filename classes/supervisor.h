@@ -32,8 +32,8 @@ public:
     int nrFlights();
 
     int countAirlinesPerCountry(const string& country);
-    list<pair<string,string>> processFlight(vector<string>& ,vector<string>& ,Airline::AirlineH&);
-    list<pair<string,string>> processDistance(vector<string>&,vector<string>&,Airline::AirlineH&);
+    list<pair<string,string>> processFlight(int&, const vector<string>&,const vector<string>&,const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>&);
+    list<pair<string,string>> processDistance(double&, const vector<string>&,const vector<string>&,const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>&);
     static multimap<int,string> convertMap(const map<string,int>& m);
 
 

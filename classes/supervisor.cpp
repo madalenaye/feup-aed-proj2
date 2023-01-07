@@ -275,6 +275,7 @@ int Supervisor::nrFlights(){
         nrFlights += node.adj.size();
     return nrFlights;
 }
+
 /**
  * Calculates the smallest amount of flights possible to get to a specific airport from another airport\n\n
  * <b>Complexity\n</b>
@@ -286,58 +287,44 @@ int Supervisor::nrFlights(){
  * @param airlines -> airlines available for use
  * @return
  */
-list<pair<string,string>> Supervisor::processFlight(vector<string>& src,vector<string>& dest,Airline::AirlineH& airline) {
-    int bestFlight = INT_MAX;
+list<pair<string,string>> Supervisor::processFlight(int& bestFlight, const vector<string>& src, const vector<string>& dest,
+                         const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>& airline) {
+    bestFlight = INT_MAX;
     int nrFlights;
-    string bestSource, bestTarget;
     list<pair<string,string>> res;
     for (const auto &s: src)
         for (const auto &d: dest) {
-            if (src == dest) continue;
-
-            nrFlights = graph.nrFlights(id_airports[s], id_airports[d], airlines);
-
-            if (nrFlights != 0 && nrFlights < bestFlight) bestFlight = nrFlights;
-        }
-
-    for (const auto &s: src)
-        for (const auto &d: dest) {
-            if (src == dest)
-                continue;
+            if (s == d) continue;
             nrFlights = graph.nrFlights(id_airports[s], id_airports[d], airline);
-            if (nrFlights  == bestFlight){
+            if (nrFlights != 0 && nrFlights < bestFlight) {
+                bestFlight = nrFlights;
+                res.clear();
                 res.emplace_back(s,d);
             }
+            else if(nrFlights == bestFlight)
+                res.emplace_back(s,d);
         }
     return res;
 }
 
-
-list<pair<string,string>> Supervisor::processDistance(vector<string>& src, vector<string>& dest,
-                                                    Airline::AirlineH& airlines) {
-
-    double bestDistance = 99999999999999;
+list<pair<string,string>> Supervisor::processDistance(double& bestDistance, const vector<string>& src, const vector<string>& dest,
+                                                    const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>& airline) {
+    bestDistance = MAXFLOAT;
     double distance;
-    string bestSource, bestTarget;
     list<pair<string,string>> res;
-    for (const auto &s: src)
-        for (const auto &d: dest) {
-            if (src == dest)
-                continue;
-            distance = graph.flownDistance(id_airports[s], id_airports[d], airlines);
-            if (distance < bestDistance)
-                bestDistance = distance;
-        }
-
     for (const auto &s: src)
         for (const auto &d: dest) {
             if (s == d)
                 continue;
-            distance = graph.flownDistance(id_airports[s], id_airports[d], airlines);
-            if (bestDistance  == distance){
+            auto node = graph.dijkstra(id_airports[s],id_airports[d],airlines);
+            distance = node.distance;
+            if (distance < bestDistance) {
+                bestDistance = distance;
+                res.clear();
                 res.emplace_back(s,d);
             }
+            else if (distance == bestDistance)
+                res.emplace_back(s,d);
         }
     return res;
 }
-

@@ -15,6 +15,9 @@
 #include <utility>
 #include "airport.h"
 #include "airline.h"
+#include "minHeap.h"
+
+#define INF (INT_MAX/2)
 
 using namespace std;
 
@@ -31,9 +34,7 @@ class Graph {
         Airport airport = Airport("");
         bool visited;
         double distance;
-        int nrFlights;
-        queue<Airport> visitedAirports;
-        queue<Airline> visitedAirlines;
+        vector<int> parents;
         int num=0;
         int low;
         bool art;
@@ -78,8 +79,16 @@ public:
 
     set<string> listCountries(int nI, int max);
 
-    void dfs(int i, const Airline&);
+    void dfs(int i, const Airline &);
+
     unordered_set<string> airlinesFromAirport(int i);
+
+    Node dijkstra(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
+
+    void bfs(int src, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
+    void findPaths(vector<vector<int>>& paths,vector<int>& path,int v);
+    void printPathsByFlights(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
+    void printPathsByDistance(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
 
     Airport::CityH2 targetsFromAirport(int i);
 
@@ -105,5 +114,4 @@ public:
     double bfsDiameter(int v);
     double diameter();
 };
-
 #endif //GRAPH_H
