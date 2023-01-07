@@ -153,26 +153,31 @@ void Graph::dfs(int v, const Airline& airline){
 }*/
 
 Graph::Node Graph::dijkstra(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
+
     MinHeap<int, int> q(size, -1);
+
     for (int v=1; v<=size; v++) {
         nodes[v].distance = INF;
         q.insert(v, INF);
         nodes[v].visited = false;
         nodes[v].parents.clear();
     }
+
     nodes[src].distance = 0;
     nodes[src].parents.push_back(src);
     q.decreaseKey(src, 0);
+
     while (q.getSize()>0) {
-
         int u = q.removeMin();
-
-        //cout << "Node " << u << " with dist = " << nodes[u].dist << endl;
         nodes[u].visited = true;
+
         for (auto e : nodes[u].adj) {
+
             if (!airlines.empty() && airlines.find(e.airline) == airlines.end()) continue;
+
             int v = e.dest;
             double w = e.distance;
+
             if (!nodes[v].visited && nodes[u].distance + w < nodes[v].distance) {
                 nodes[v].distance = nodes[u].distance + w;
                 auto aux =nodes[u].parents;
@@ -197,11 +202,14 @@ bool cmp( const pair<int,string>& a, const pair<int,string>& b){
  * @return ordered vector of pair<Number of departures,Airport Code> by descending order of number of flights
  */
 vector<pair<int, string>> Graph::flightsPerAirport() {
+
     vector<pair<int,string>> n;
+
     for (int i = 1; i <= size; i++){
         int nrFlights = nodes[i].adj.size();
         n.emplace_back(nrFlights, nodes[i].airport.getCode());
     }
+
     sort(n.begin(), n.end(), cmp);
     return n;
 }
@@ -214,6 +222,7 @@ vector<pair<int, string>> Graph::flightsPerAirport() {
  * @return ordered vector of pair<Number of airlines,Airport Code> by descending order of number of airlines
  */
 vector<pair<int,string>> Graph::airlinesPerAirport() {
+
     vector<pair<int,string>> nrAirlines;
     for (int i = 1; i <= size; i++){
         set<string> n;
@@ -223,6 +232,7 @@ vector<pair<int,string>> Graph::airlinesPerAirport() {
         nrAirlines.emplace_back(n.size(), nodes[i].airport.getCode());
     }
     sort(nrAirlines.begin(), nrAirlines.end(), cmp);
+
     return nrAirlines;
 }
 /**
@@ -238,7 +248,6 @@ unordered_set<string> Graph::airlinesFromAirport(int i) {
     unordered_set<string> ans;
     for (const Edge& e : nodes[i].adj)
         ans.insert(e.airline.getCode());
-
     return ans;
 }
 unordered_set<pair<string, string>, Airport::CityHash, Airport::CityHash> Graph::targetsFromAirport(int i){
@@ -337,7 +346,7 @@ unordered_set<pair<string,string>, Airport::CityHash, Airport::CityHash> Graph::
 set<string> Graph::listCountries(int v, int max) {
     for (int i = 1; i <= size; i++) nodes[i].visited = false;
     std::set<std::string> countries;
-    std::queue<int> q; // queue of unvisited nodes
+    std::queue<int> q;
     q.push(v);
     nodes[v].visited = true;
     nodes[v].distance = 0;
@@ -374,37 +383,23 @@ void Graph::findPaths(vector<vector<int>>& paths,vector<int>& path, int v){
         return;
     }
 
-    // Loop for all the parents
-    // of the given vertex
     for (auto par : nodes[v].parents) {
-
-        // Insert the current
-        // vertex in path
-        path.push_back(v);
-
-        // Recursive call for its parent
         findPaths(paths,path, par);
-
-        // Remove the current vertex
         path.pop_back();
     }
 }
 
 void Graph::bfs(int src, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines){
-    // dist will contain shortest distance
-    // from start to every other vertex
+
     for (int i = 1; i <= size; i++)
         nodes[i].distance = INT_MAX;
+
     queue<int> q;
 
-    // Insert source vertex in queue and make
-    // its parent -1 and distance 0
     q.push(src);
     nodes[src].parents = {-1};
     nodes[src].distance = 0;
 
-
-    // Until Queue is empty
     while (!q.empty()) {
         int u = q.front();
         q.pop();
@@ -412,23 +407,13 @@ void Graph::bfs(int src, unordered_set<Airline, Airline::AirlineHash, Airline::A
             if (!airlines.empty() && airlines.find(e.airline) == airlines.end()) continue;
             int v = e.dest;
             if (nodes[v].distance > nodes[u].distance + 1) {
-
-                // A shorter distance is found
-                // So erase all the previous parents
-                // and insert new parent u in parent[v]
                 nodes[v].distance = nodes[u].distance + 1;
-
                 q.push(v);
                 nodes[v].parents.clear();
                 nodes[v].parents.push_back(u);
-
             }
-            else if (nodes[v].distance == nodes[u].distance + 1) {
-
-                // Another candidate parent for
-                // shortes path found
+            else if (nodes[v].distance == nodes[u].distance + 1)
                 nodes[v].parents.push_back(u);
-            }
         }
     }
 }
@@ -437,25 +422,17 @@ void Graph::bfs(int src, unordered_set<Airline, Airline::AirlineHash, Airline::A
 void Graph::printPathsByFlights(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
     vector<int> path;
     vector<vector<int> > paths;
-    // Function call to bfs
-    bfs(start,airlines);
 
-    // Function call to find_paths
+    bfs(start,airlines);
     findPaths(paths,path,end);
-    int nrFlights = paths.front().size()-1;
+
     Supervisor supervisor;
     auto map = supervisor.getMap();
     for (auto v : paths) {
-
-        // Since paths contain each
-        // path in reverse order,
-        // so reverse it
         reverse(v.begin(), v.end());
         vector<vector<string>> usedAirlines;
-        // Print node for the current path
         cout << " Trajeto nº" << ++nrPath << ": ";
         for (int i = 0; i < v.size()-1; i++) {
-
             auto possibleAirlines = getAirlines(v[i],v[i+1],airlines);
             printf("\033[1m\033[46m %s \033[0m", nodes[v[i]].airport.getCode().c_str());
             cout <<" --- (";
@@ -466,7 +443,6 @@ void Graph::printPathsByFlights(int& nrPath, int start, int end, unordered_set<A
         }
         printf("\033[1m\033[46m %s \033[0m\n\n", nodes[end].airport.getCode().c_str());
     }
-
 }
 
 void Graph::printPathsByDistance(int& nrPath, int start, int end,

@@ -76,25 +76,6 @@ void Supervisor::createGraph(){
     }
 }
 
-/*
-void Supervisor::createGraph(){
-    ifstream inFile;
-    string source, target, airline, line;
-    //inFile.open("../data/flights.csv");
-    inFile.open("../data/FLIGHTS.CSV");
-    getline(inFile, line);
-    vector<double> a = {1,0.5,2,1,0.5};
-    int i = 0;
-    while(getline(inFile, line)){
-        istringstream is(line);
-        getline(is,source,',');
-        getline(is,target,',');
-        getline(is,airline,',');
-        auto d = Graph::distance(airports.find(Airport(source))->getLatitude(),airports.find(Airport(source))->getLongitude()
-                ,airports.find(Airport(target))->getLatitude(),airports.find(Airport(target))->getLongitude());
-        graph.addEdge(id_airports[source],id_airports[target],Airline(airline),a[i++]);
-    }
-}*/
 bool Supervisor::isCountry(const string& country){
     auto i = countries.find(country);
     if (i == countries.end()) return false;
