@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['node_52',['Node',['../struct_graph_1_1_node.html',1,'Graph']]]
+  ['node_68',['Node',['../struct_graph_1_1_node.html',1,'Graph::Node'],['../struct_min_heap_1_1_node.html',1,'MinHeap&lt; K, V &gt;::Node']]]
 ];

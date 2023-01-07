@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['nrflights_82',['nrFlights',['../class_graph.html#a20fdb9180903e41a424fde68027341ce',1,'Graph::nrFlights()'],['../class_supervisor.html#abe7cf2be220e2c31df9408423614f520',1,'Supervisor::nrFlights()']]]
+  ['maxreach_105',['maxReach',['../class_menu.html#a443a221825a2fe1f03d4068d2af52503',1,'Menu']]],
+  ['menu_106',['Menu',['../class_menu.html#ad466dd83355124a6ed958430450bfe94',1,'Menu']]]
 ];
