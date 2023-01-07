@@ -52,13 +52,14 @@ vector<Graph::Node> Graph::getNodes() const{
  * @return minimum number of flights between source airport and target airport using airlines
  */
 int Graph::nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
-    for (int i = 1; i <= size; i++)
+    for (int i = 1; i <= size; i++) {
         nodes[i].visited = false;
-
+        nodes[i].distance = 0;
+    }
+    
     queue<int> q;
     q.push(src);
 
-    nodes[src].distance = 0;
     nodes[src].visited = true;
 
     while(!q.empty()){
@@ -374,7 +375,6 @@ vector<string> Graph::getAirlines(int src, int dest,unordered_set<Airline, Airli
 }
 
 
-
 void Graph::findPaths(vector<vector<int>>& paths,vector<int>& path, int v){
 
     if (v == -1) {
@@ -384,6 +384,7 @@ void Graph::findPaths(vector<vector<int>>& paths,vector<int>& path, int v){
     }
 
     for (auto par : nodes[v].parents) {
+        path.push_back(v);
         findPaths(paths,path, par);
         path.pop_back();
     }
@@ -391,9 +392,10 @@ void Graph::findPaths(vector<vector<int>>& paths,vector<int>& path, int v){
 
 void Graph::bfs(int src, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines){
 
-    for (int i = 1; i <= size; i++)
+    for (int i = 1; i <= size; i++) {
         nodes[i].distance = INT_MAX;
-
+        nodes[i].parents.clear();
+    }
     queue<int> q;
 
     q.push(src);
@@ -417,7 +419,6 @@ void Graph::bfs(int src, unordered_set<Airline, Airline::AirlineHash, Airline::A
         }
     }
 }
-
 
 void Graph::printPathsByFlights(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
     vector<int> path;

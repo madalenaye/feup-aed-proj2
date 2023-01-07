@@ -171,7 +171,7 @@ list<pair<string,string>> Supervisor::processFlight(int& bestFlight, const vecto
     list<pair<string,string>> res;
     for (const auto &s: src)
         for (const auto &d: dest) {
-            if (src == dest) continue;
+            if (s == d) continue;
             nrFlights = graph.nrFlights(id_airports[s], id_airports[d], airline);
             if (nrFlights != 0 && nrFlights < bestFlight) {
                 bestFlight = nrFlights;
