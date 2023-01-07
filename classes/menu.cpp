@@ -258,7 +258,7 @@ void Menu::info(){
     string option;
     while(true){
         cout << "\n Que tipo de informação deseja ver? \n\n "
-                "[1] Aeroporto específico\n [2] Aeroportos\n [3] Companhias Aéreas\n [4] Países\n\n Opção: ";
+                "[1] Aeroporto específico\n [2] Aeroportos\n [3] Companhias Aéreas\n [4] Países\n [5] Diâmetro da rede\n\n Opção: ";
         cin >> option;
         if (option == "1")
             showAirport();
@@ -271,6 +271,9 @@ void Menu::info(){
 
         else if (option == "4")
             showCountries();
+
+        else if (option == "5")
+        cout << "\n Diâmetro da rede: " << supervisor->getGraph().diameter() << endl;
 
         else if (option == "0") {
             cout << "\n";

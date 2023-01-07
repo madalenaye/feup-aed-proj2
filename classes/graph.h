@@ -70,7 +70,8 @@ public:
     unordered_set<string> airlinesFromAirport(int i);
     unordered_set<pair<string, string>, Airport::CityHash, Airport::CityHash> targetsFromAirport(int i);
     unordered_set<string> countriesFromAirport(int i);
-
+    double bfs_diameter(int v);
+    double diameter();
 };
 
 #endif //GRAPH_H

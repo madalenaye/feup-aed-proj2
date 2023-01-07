@@ -545,3 +545,38 @@ set<string> Graph::listCountries(int v, int max) {
     }
     return countries;
 }
+double Graph::bfs_diameter(int v) {
+    for (Node& node: nodes){node.visited = false; node.distance = -1.0;}
+    queue<int> q;
+    q.push(v);
+    nodes[v].visited = true;
+    nodes[v].distance = 0.0;
+    double max = 0;
+    while(!q.empty()){
+        int u = q.front(); q.pop();
+        for (const auto& e: nodes[u].adj){
+            int w = e.dest;
+            if (!nodes[w].visited){
+                q.push(w);
+                nodes[w].visited = true;
+                nodes[w].distance = nodes[u].distance + 1;
+                if (nodes[w].distance > max) max = nodes[w].distance;
+            }
+        }
+    }
+    return max;
+}
+double Graph::diameter() {
+    queue<int> waiting;
+    waiting.push(1);
+    nodes[1].visited = true;
+    double max = bfs_diameter(1);
+    for (int i = 1; i <= size; i++){
+        if (!nodes[i].visited){
+            nodes[i].visited = true;
+            double diameter = bfs_diameter(i);
+            if (diameter > max) max = diameter;
+        }
+    }
+    return max;
+}
