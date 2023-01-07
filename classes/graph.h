@@ -99,11 +99,10 @@ public:
         }
     };
     typedef unordered_set<pair<string, string>, PairStringHash, PairStringHash> PairH;
-    PairH AirportsFromAirport(int source);
-
-    list<int> articulationPoints(Airline::AirlineH airlines);
-    void dfs_art(int v, int index,list<int> &res, Airline::AirlineH airlines);
-    double bfs_diameter(int v);
+    PairH airportsFromAirport(int source);
+    list<int> articulationPoints(const Airline::AirlineH& airlines);
+    void dfsArt(int v, int index,list<int> &res, Airline::AirlineH airlines);
+    double bfsDiameter(int v);
     double diameter();
 };
 
