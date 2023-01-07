@@ -286,8 +286,7 @@ int Supervisor::nrFlights(){
  * @param airlines -> airlines available for use
  * @return
  */
-list<pair<string,string>> Supervisor::processFlight(vector<string> src, vector<string> dest,
-                                                   Airline::AirlineH& airlines) {
+list<pair<string,string>> Supervisor::processFlight(vector<string>& src,vector<string>& dest,Airline::AirlineH& airline) {
     int bestFlight = INT_MAX;
     int nrFlights;
     string bestSource, bestTarget;
@@ -296,7 +295,7 @@ list<pair<string,string>> Supervisor::processFlight(vector<string> src, vector<s
         for (const auto &d: dest) {
             if (src == dest) continue;
 
-            nrFlights = graph.nrFlights(id_airports[s], id_airports[d], airline);
+            nrFlights = graph.nrFlights(id_airports[s], id_airports[d], airlines);
 
             if (nrFlights != 0 && nrFlights < bestFlight) bestFlight = nrFlights;
         }
@@ -325,7 +324,7 @@ list<pair<string,string>> Supervisor::processDistance(vector<string>& src, vecto
         for (const auto &d: dest) {
             if (src == dest)
                 continue;
-            distance = graph.flownDistance(id_airports[s], id_airports[d], airline);
+            distance = graph.flownDistance(id_airports[s], id_airports[d], airlines);
             if (distance < bestDistance)
                 bestDistance = distance;
         }
@@ -334,7 +333,7 @@ list<pair<string,string>> Supervisor::processDistance(vector<string>& src, vecto
         for (const auto &d: dest) {
             if (s == d)
                 continue;
-            distance = graph.flownDistance(id_airports[s], id_airports[d], airline);
+            distance = graph.flownDistance(id_airports[s], id_airports[d], airlines);
             if (bestDistance  == distance){
                 res.emplace_back(s,d);
             }

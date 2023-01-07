@@ -71,77 +71,69 @@ $(function() {
 <div class="title">supervisor.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Created by Madalena Ye on 27/12/2022.</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#ifndef RENAIR_SUPERVISOR_H</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#define RENAIR_SUPERVISOR_H</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;istream&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;set&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;airport.h&quot;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;airline.h&quot;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;graph.h&quot;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">using namespace </span>std;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef SUPERVISOR_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define SUPERVISOR_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;istream&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;airport.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;airline.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;graph.h&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">using namespace </span>std;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_supervisor.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_supervisor.html">Supervisor</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="class_supervisor.html">Supervisor</a>();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    Airport::AirportH <span class="keyword">const</span>&amp; getAirports()<span class="keyword"> const </span>{<span class="keywordflow">return</span> airports;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    Airline::AirlineH <span class="keyword">const</span>&amp; getAirlines()<span class="keyword"> const </span>{<span class="keywordflow">return</span> airlines;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    Airport::CityH <span class="keyword">const</span> &amp;getCity()<span class="keyword"> const </span>{<span class="keywordflow">return</span> id_city;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="class_graph.html">Graph</a> getGraph() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    unordered_map&lt;string,int&gt; getMap() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    map&lt;string,int&gt; getNrAirportsPerCountry() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_supervisor.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_supervisor.html">Supervisor</a> {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="class_supervisor.html">Supervisor</a>();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    Airport::AirportH <span class="keyword">const</span>&amp; getAirports()<span class="keyword"> const </span>{<span class="keywordflow">return</span> airports;}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    Airline::AirlineH <span class="keyword">const</span>&amp; getAirlines()<span class="keyword"> const </span>{<span class="keywordflow">return</span> airlines;}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    Airport::CityH <span class="keyword">const</span> &amp;getCity()<span class="keyword"> const </span>{<span class="keywordflow">return</span> id_city;}</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="class_graph.html">Graph</a> getGraph() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    unordered_map&lt;string,int&gt; getMap() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    map&lt;string,int&gt; getNrAirportsPerCountry() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">bool</span> isCountry(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; country);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">bool</span> isAirport(<span class="keyword">const</span> <a class="code" href="class_airport.html">Airport</a>&amp; airport);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">bool</span> isAirline(<span class="keyword">const</span> <a class="code" href="class_airline.html">Airline</a>&amp; airline);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">bool</span> isCity(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; city);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">bool</span> isValidCity(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; country, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; city);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    vector&lt;string&gt; localAirports(<span class="keywordtype">double</span>, <span class="keywordtype">double</span>, <span class="keywordtype">double</span>);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> countAirportsPerCountry();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">int</span> nrFlights();</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">bool</span> isCountry(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; country);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">bool</span> isAirport(<span class="keyword">const</span> <a class="code" href="class_airport.html">Airport</a>&amp; airport);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">bool</span> isAirline(<span class="keyword">const</span> <a class="code" href="class_airline.html">Airline</a>&amp; airline);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">bool</span> isCity(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; city);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">bool</span> isValidCity(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; country, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; city);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">int</span> countAirlinesPerCountry(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; country);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    list&lt;pair&lt;string,string&gt;&gt; processFlight(vector&lt;string&gt;&amp; ,vector&lt;string&gt;&amp; ,Airline::AirlineH&amp;);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    list&lt;pair&lt;string,string&gt;&gt; processDistance(vector&lt;string&gt;&amp;,vector&lt;string&gt;&amp;,Airline::AirlineH&amp;);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    multimap&lt;int,string&gt; convertMap(<span class="keyword">const</span> map&lt;string,int&gt;&amp; m);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    vector&lt;string&gt; localAirports(<span class="keywordtype">double</span>, <span class="keywordtype">double</span>, <span class="keywordtype">double</span>);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> countAirportsPerCountry();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">int</span> nrFlights();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">int</span> countAirlinesPerCountry(<span class="keywordtype">string</span> country);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    list&lt;pair&lt;string,string&gt;&gt; processFlight(vector&lt;string&gt;,vector&lt;string&gt;,Airline::AirlineH);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    list&lt;pair&lt;string,string&gt;&gt; processDistance(vector&lt;string&gt;,vector&lt;string&gt;,Airline::AirlineH);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    multimap&lt;int,string&gt; convertMap(<span class="keyword">const</span> map&lt;string,int&gt;&amp; m);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> createAirports();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> createAirlines();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="class_graph.html">Graph</a> graph = <a class="code" href="class_graph.html">Graph</a>(3019);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> createGraph();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    Airport::AirportH airports;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    Airline::AirlineH airlines;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    Airport::CityH id_city;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    unordered_map&lt;string, int&gt; id_airports;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    unordered_set&lt;string&gt; countries;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    unordered_set&lt;string&gt; cities;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    unordered_map&lt;string, list&lt;string&gt;&gt; citiesPerCountry;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    map&lt;string, int&gt; nrAirportsPerCountry;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//RENAIR_SUPERVISOR_H</span></div>
-<div class="ttc" id="aclass_airline_html"><div class="ttname"><a href="class_airline.html">Airline</a></div><div class="ttdef"><b>Definition:</b> airline.h:12</div></div>
-<div class="ttc" id="aclass_airport_html"><div class="ttname"><a href="class_airport.html">Airport</a></div><div class="ttdef"><b>Definition:</b> airport.h:15</div></div>
-<div class="ttc" id="aclass_graph_html"><div class="ttname"><a href="class_graph.html">Graph</a></div><div class="ttdef"><b>Definition:</b> graph.h:18</div></div>
-<div class="ttc" id="aclass_supervisor_html"><div class="ttname"><a href="class_supervisor.html">Supervisor</a></div><div class="ttdef"><b>Definition:</b> supervisor.h:24</div></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> createAirports();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> createAirlines();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="class_graph.html">Graph</a> graph = <a class="code" href="class_graph.html">Graph</a>(3019);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> createGraph();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    Airport::AirportH airports;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    Airline::AirlineH airlines;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    Airport::CityH id_city;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    unordered_map&lt;string, int&gt; id_airports;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    unordered_set&lt;string&gt; countries;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    unordered_set&lt;string&gt; cities;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    unordered_map&lt;string, list&lt;string&gt;&gt; citiesPerCountry;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    map&lt;string, int&gt; nrAirportsPerCountry;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;};</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//SUPERVISOR_H</span></div>
+<div class="ttc" id="aclass_airline_html"><div class="ttname"><a href="class_airline.html">Airline</a></div><div class="ttdef"><b>Definition:</b> airline.h:9</div></div>
+<div class="ttc" id="aclass_airport_html"><div class="ttname"><a href="class_airport.html">Airport</a></div><div class="ttdef"><b>Definition:</b> airport.h:10</div></div>
+<div class="ttc" id="aclass_graph_html"><div class="ttname"><a href="class_graph.html">Graph</a></div><div class="ttdef"><b>Definition:</b> graph.h:21</div></div>
+<div class="ttc" id="aclass_supervisor_html"><div class="ttname"><a href="class_supervisor.html">Supervisor</a></div><div class="ttdef"><b>Definition:</b> supervisor.h:14</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

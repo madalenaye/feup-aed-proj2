@@ -549,9 +549,9 @@ Airport::AirportH Graph::listAirports(int nI, int max) {
     for (Node& node: nodes) node.visited = false;
     Airport::AirportH airports;
     std::queue<int> q; // queue of unvisited nodes
-    q.push(v);
-    nodes[v].visited = true;
-    nodes[v].nrFlights = 0;
+    q.push(nI);
+    nodes[nI].visited = true;
+    nodes[nI].nrFlights = 0;
     while (!q.empty()) {
         int u = q.front(); q.pop();
         for (const auto& e : nodes[u].adj) {
@@ -580,9 +580,9 @@ Airport::CityH2 Graph::listCities(int nI, int max) {
     for (Node& node: nodes) node.visited = false;
     Airport::CityH2 cities;
     std::queue<int> q; // queue of unvisited nodes
-    q.push(v);
-    nodes[v].visited = true;
-    nodes[v].nrFlights = 0;
+    q.push(nI);
+    nodes[nI].visited = true;
+    nodes[nI].nrFlights = 0;
     while (!q.empty()) {
         int u = q.front(); q.pop();
         for (const auto& e : nodes[u].adj) {
