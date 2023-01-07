@@ -172,25 +172,26 @@ void Graph::dfs(int v, const Airline& airline){
  * @param res -> list of articulation points
  * @param airlines -> unordered_set of Airlines that can be empty(meaning it searches all airlines) or with some specific user input airlines
  */
-void Graph::dfs_art(int v, int index, list<int>& res,Airline::AirlineH airlines) {
+void Graph::dfsArt(int v, int index, list<int>& res,Airline::AirlineH airlines) {
     nodes[v].num = nodes[v].low = index;
     index = index+1;
     nodes[v].art = true;
     int count = 0;
-    for (auto e : nodes[v].adj){
+    for (const auto& e : nodes[v].adj){
         auto w = e.dest;
         if(airlines.find(e.airline) != airlines.end() || airlines.empty())
         if (nodes[w].num == 0){
             count++;
-            dfs_art(w,index,res,airlines);
+            dfsArt(w,index,res,airlines);
             nodes[v].low = min(nodes[v].low,nodes[w].low);
             if (nodes[w].low >= nodes[v].num && std::find(res.begin(),res.end(),v) == res.end()) {
                 if (index == 2 && count > 1) res.push_back(1);
                 else if (index != 2 && std::find(res.begin(),res.end(),v)== res.end()) res.push_back(v);
             }
         }
-        else if (nodes[v].art)
-            nodes[v].low = min(nodes[v].low,nodes[w].num);
+        else if (nodes[v].art) {
+            nodes[v].low = min(nodes[v].low, nodes[w].num);
+        }
     }
 }
 /**
@@ -202,7 +203,7 @@ void Graph::dfs_art(int v, int index, list<int>& res,Airline::AirlineH airlines)
  * @param airlines -> unordered_set of Airlines that can be empty(meaning it searches all airlines) or with some specific user input airlines
  * @return The list of articulation points.
  */
-list<int> Graph::articulationPoints(Airline::AirlineH airlines) {
+list<int> Graph::articulationPoints(const Airline::AirlineH& airlines) {
     list<int> answer;
 
     for (int i = 1; i <= size; i++)
@@ -211,7 +212,7 @@ list<int> Graph::articulationPoints(Airline::AirlineH airlines) {
     int index = 1;
     for (int i = 1; i <= size; i++)
         if (nodes[i].num == 0){
-            dfs_art(i,index,answer,airlines);
+            dfsArt(i,index,answer,airlines);
         }
     return answer;
 }
@@ -512,7 +513,7 @@ unordered_set<string> Graph::airlinesFromAirport(int i) {
  */
 Airport::CityH2 Graph::targetsFromAirport(int i){
     Airport::CityH2 ans;
-    for (auto e:nodes[i].adj){
+    for (const auto& e:nodes[i].adj){
         int w = e.dest;
         ans.insert({nodes[w].airport.getCountry(),nodes[w].airport.getCity()});
     }
@@ -637,15 +638,15 @@ set<string> Graph::listCountries(int v, int max) {
  * @param source -> source node
  * @return unordered_set of airports code and name
  */
-Graph::PairH Graph::AirportsFromAirport(int source) {
+Graph::PairH Graph::airportsFromAirport(int source) {
     Graph::PairH ans;
-    for(auto e:nodes[source].adj){
+    for(const auto& e:nodes[source].adj){
         ans.insert({nodes[e.dest].airport.getCode(),nodes[e.dest].airport.getName()});
     }
     return ans;
 }
 
-double Graph::bfs_diameter(int v) {
+double Graph::bfsDiameter(int v) {
     for (Node& node: nodes){node.visited = false; node.distance = -1.0;}
     queue<int> q;
     q.push(v);
@@ -670,11 +671,11 @@ double Graph::diameter() {
     queue<int> waiting;
     waiting.push(1);
     nodes[1].visited = true;
-    double max = bfs_diameter(1);
+    double max = bfsDiameter(1);
     for (int i = 1; i <= size; i++){
         if (!nodes[i].visited){
             nodes[i].visited = true;
-            double diameter = bfs_diameter(i);
+            double diameter = bfsDiameter(i);
             if (diameter > max) max = diameter;
         }
     }
