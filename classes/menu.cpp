@@ -7,8 +7,12 @@ Menu::Menu() {
     cout << "\n\n" << " Bem-vindo!\n (Pressione [0] sempre que quiser voltar atrás)\n\n";
     supervisor = new Supervisor();
     unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> A;
-    auto x = supervisor->getGraph().dijkstra(1,4,A);
-    cout << x.distance << endl;
+    /*auto x = supervisor->getGraph().dijkstra(1,4,A);
+    cout << x.distance << endl;*/
+    vector<vector<int> > paths;
+    vector<int> path;
+    auto map = supervisor->getMap();
+    supervisor->getGraph().printPaths(map["FLW"],map["AEY"]);
 
 }
 

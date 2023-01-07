@@ -37,6 +37,7 @@ class Graph {
         int nrFlights;
         queue<Airport> visitedAirports;
         queue<Airline> visitedAirlines;
+        vector<int> parents;
     };
 
     int size;
@@ -91,5 +92,8 @@ public:
     unordered_set<string> countriesFromAirport(int i);
     Node dijkstra(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
 
+    void bfs(int src);
+    void findPaths(vector<vector<int>>& paths,vector<int>& path,int v);
+    void printPaths( int start, int end);
 };
 #endif //GRAPH_H
