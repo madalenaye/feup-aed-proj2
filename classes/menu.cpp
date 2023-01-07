@@ -172,13 +172,14 @@ void Menu::chooseAirlines() {
 
     if (choice == "1") {
         string airline = validateAirline();
-        if (airline == "0") return;
+        if (airline == "0") { chooseTarget(); return; }
         airlines.insert(Airline(airline));
 
         string option = validateOption("\n Deseja inserir mais alguma companhia aérea? \n\n"
                                     " [1] Sim\n [2] Não\n\n Opção: ");
         while (option == "1") {
             airline = validateAirline();
+            if (airline == "0") { chooseTarget(); return; }
             airlines.insert(Airline(airline));
             option = validateOption("\n Deseja inserir mais alguma companhia aérea? \n\n"
                                     " [1] Sim\n [2] Não\n\n Opção: ");
