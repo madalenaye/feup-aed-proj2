@@ -166,17 +166,18 @@ Graph::Node Graph::dijkstra(int src, int dest, unordered_set<Airline, Airline::A
     nodes[src].visitedAirports.push(nodes[src].airport);
     q.decreaseKey(src, 0);
     while (q.getSize()>0) {
+
         int u = q.removeMin();
+
         //cout << "Node " << u << " with dist = " << nodes[u].dist << endl;
         nodes[u].visited = true;
         for (auto e : nodes[u].adj) {
+            if (!airlines.empty() && airlines.find(e.airline) == airlines.end()) continue;
             int v = e.dest;
             double w = e.distance;
             if (!nodes[v].visited && nodes[u].distance + w < nodes[v].distance) {
                 nodes[v].distance = nodes[u].distance + w;
-                auto aux = nodes[u].visitedAirports;
-                aux.push(nodes[v].airport);
-                nodes[v].visitedAirports = aux;
+
                 auto aux2 =nodes[u].parents;
                 if (find(aux2.begin(),aux2.end(),v) == aux2.end())
                     aux2.push_back(v);
@@ -705,6 +706,12 @@ void Graph::printPathsByFlights(int& nrPath, int start, int end, unordered_set<A
 void Graph::printPathsByDistance(int& nrPath, int start, int end,
                                  unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
     Node node = dijkstra(start,end,airlines);
+
+    if (node.parents.empty()) {
+        cout << " Não existem voos\n\n";
+        return;
+    }
+
     cout << " Trajeto nº" << ++nrPath << ": ";
     for (int i = 0; i < node.parents.size()-1; i++){
         auto possibleAirlines = getAirlines(node.parents[i],node.parents[i+1],airlines);
