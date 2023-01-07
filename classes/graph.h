@@ -60,8 +60,7 @@ public:
     int nrFlights(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
 
     double flownDistance(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
-    string getAirline(int src, int dest);
-    string getAirport(int src);
+    vector<string> getAirlines(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
     list<queue<Airport>>
     usedAirportsFlights(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
 
@@ -93,8 +92,8 @@ public:
     unordered_set<string> countriesFromAirport(int i);
     Node dijkstra(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
 
-    void bfs(int src);
+    void bfs(int src, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
     void findPaths(vector<vector<int>>& paths,vector<int>& path,int v);
-    void printPaths( int start, int end);
+    void printPaths( int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
 };
 #endif //GRAPH_H

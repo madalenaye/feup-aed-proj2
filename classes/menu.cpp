@@ -7,12 +7,13 @@ Menu::Menu() {
     cout << "\n\n" << " Bem-vindo!\n (Pressione [0] sempre que quiser voltar atrás)\n\n";
     supervisor = new Supervisor();
     unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> A;
+    //A.insert(Airline("TAP"));
     /*auto x = supervisor->getGraph().dijkstra(1,4,A);
     cout << x.distance << endl;*/
     vector<vector<int> > paths;
     vector<int> path;
     auto map = supervisor->getMap();
-    supervisor->getGraph().printPaths(map["FLW"],map["AEY"]);
+    supervisor->getGraph().printPaths(map["FLW"],map["AEY"],A);
 
 }
 
@@ -195,7 +196,7 @@ void Menu::processOperation() {
             string source = pair.first;
             string target = pair.second;
             //printPath(source,target);
-            supervisor->getGraph().printPaths(map[source], map[target]);
+            supervisor->getGraph().printPaths(map[source], map[target],airlines);
         }
         /*auto flightPath = supervisor->processFlight(src,dest,airlines);
 
@@ -268,40 +269,6 @@ void Menu::showPath(list<queue<Airport>> usedAirports, list<queue<Airline>> used
         j++;
     }
 }
-void Menu::printPath(string src, string dest) {
-    vector<int> path;
-    vector<vector<int>> paths;
-
-    auto map = supervisor->getMap();
-    // Function call to bfs
-    supervisor->getGraph().bfs(map[src]);
-
-    supervisor->getGraph().findPaths(paths,path,map[dest]);
-
-    for (auto path : paths) {
-
-        // Since paths contain each
-        // path in reverse order,
-        // so reverse it
-        reverse(path.begin(), path.end());
-
-        // Print node for the current path
-        for (int i = 0; i < path.size()-1; i++) {
-            int next = path[i+1];
-            string airline = supervisor->getGraph().getAirline(path[i],path[i+1]);
-            for (auto x : map){
-                if (x.second == path[i])
-                    cout << x.first << "--- (" << airline << ") ---";
-            }
-        }
-        for (auto x : map){
-            if (x.second == path[paths.size()-1])
-                cout << x.first << endl;
-        }
-        cout << endl;
-    }
-}
-
 //info
 void Menu::info(){
     string option;
