@@ -58,7 +58,7 @@ int Graph::nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHa
     queue<int> q;
     q.push(src);
 
-    nodes[src].nrFlights = 0;
+    nodes[src].distance = 0;
     nodes[src].visited = true;
 
     while(!q.empty()){
@@ -69,12 +69,12 @@ int Graph::nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHa
             if (!nodes[w].visited){
                 q.push(w);
                 nodes[w].visited = true;
-                nodes[w].nrFlights = nodes[u].nrFlights + 1;
+                nodes[w].distance = nodes[u].distance + 1;
             }
         }
     }
 
-    return nodes[dest].nrFlights;
+    return nodes[dest].distance;
 }
 /**
  * Calculates the distance between two points on a sphere using their latitudes and longitudes measured along the surface
@@ -159,6 +159,7 @@ Graph::Node Graph::dijkstra(int src, int dest, unordered_set<Airline, Airline::A
         nodes[v].distance = INF;
         q.insert(v, INF);
         nodes[v].visited = false;
+        nodes[v].parents.clear();
     }
     nodes[src].distance = 0;
     nodes[src].parents.push_back(src);
@@ -177,7 +178,8 @@ Graph::Node Graph::dijkstra(int src, int dest, unordered_set<Airline, Airline::A
                 aux.push(nodes[v].airport);
                 nodes[v].visitedAirports = aux;
                 auto aux2 =nodes[u].parents;
-                aux2.push_back(v);
+                if (find(aux2.begin(),aux2.end(),v) == aux2.end())
+                    aux2.push_back(v);
                 nodes[v].parents = aux2;
                 q.decreaseKey(v, nodes[v].distance);
             }
@@ -665,7 +667,7 @@ void Graph::bfs(int src, unordered_set<Airline, Airline::AirlineHash, Airline::A
 }
 
 
-void Graph::printPathsByFlights(int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
+void Graph::printPathsByFlights(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
     vector<int> path;
     vector<vector<int> > paths;
     // Function call to bfs
@@ -673,11 +675,6 @@ void Graph::printPathsByFlights(int start, int end, unordered_set<Airline, Airli
 
     // Function call to find_paths
     findPaths(paths,path,end);
-    if (paths.empty()){
-        cout << "Não existem voos\n";
-        return;
-    }
-    int nrPath = 0;
     int nrFlights = paths.front().size()-1;
     Supervisor supervisor;
     auto map = supervisor.getMap();
@@ -702,15 +699,13 @@ void Graph::printPathsByFlights(int start, int end, unordered_set<Airline, Airli
         }
         printf("\033[1m\033[46m %s \033[0m\n\n", nodes[end].airport.getCode().c_str());
     }
-    if (nrPath != 1) cout << " No total, existem " << nrPath << " trajetos possíveis\n\n";
-    else cout << " Apenas existe 1 trajeto possível\n\n";
-    cout << " O número de voos mínimos é " << nrFlights << "\n\n";
+
 }
 
-void Graph::printPathsByDistance(int start, int end,
+void Graph::printPathsByDistance(int& nrPath, int start, int end,
                                  unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
     Node node = dijkstra(start,end,airlines);
-    cout << " Trajeto : ";
+    cout << " Trajeto nº" << ++nrPath << ": ";
     for (int i = 0; i < node.parents.size()-1; i++){
         auto possibleAirlines = getAirlines(node.parents[i],node.parents[i+1],airlines);
         printf("\033[1m\033[46m %s \033[0m", nodes[node.parents[i]].airport.getCode().c_str());
@@ -721,6 +716,4 @@ void Graph::printPathsByDistance(int start, int end,
         cout << ") --- ";
     }
     printf("\033[1m\033[46m %s \033[0m\n\n", nodes[end].airport.getCode().c_str());
-
-    cout << " A distância mínima é " << node.distance << "km\n\n";
 }

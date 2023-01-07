@@ -94,8 +94,8 @@ public:
 
     void bfs(int src, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
     void findPaths(vector<vector<int>>& paths,vector<int>& path,int v);
-    void printPathsByFlights( int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
-    void printPathsByDistance( int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
+    void printPathsByFlights(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
+    void printPathsByDistance(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
 
 };
 #endif //GRAPH_H

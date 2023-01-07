@@ -6,8 +6,10 @@ Menu::Menu() {
     printf(" \033[44m===========================================================\033[0m\t\t");
     cout << "\n\n" << " Bem-vindo!\n (Pressione [0] sempre que quiser voltar atrás)\n\n";
     supervisor = new Supervisor();
-    /*unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> A;
-    auto x = supervisor->getGraph().dijkstra(1,4,A);
+    unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> A;
+    //supervisor->getGraph().printPathsByDistance(1,2,A);
+    //supervisor->getGraph().printPathsByDistance(3,4,A);
+    /*auto x = supervisor->getGraph().dijkstra(1,4,A);
     supervisor->getGraph().printPathsByDistance(1,4,A);
     /*
     unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> A;
@@ -198,21 +200,32 @@ void Menu::processOperation() {
 
     if (option == "1"){
         printf("\n\033[1m\033[32m===============================================================\033[0m\n\n");
-        auto flightPath = supervisor->processFlight(src,dest,airlines);
+        int nrPath = 0, nrFlights;
+        auto flightPath = supervisor->processFlight(nrFlights,src,dest,airlines);
+        if (nrFlights == INT_MAX) cout << " Não existem voos \n\n";
+        else{
         for (auto pair : flightPath) {
             string source = pair.first;
             string target = pair.second;
-            supervisor->getGraph().printPathsByFlights(map[source], map[target],airlines);
+            supervisor->getGraph().printPathsByFlights(nrPath,map[source], map[target],airlines);
         }
+        if (nrPath != 1) cout << " No total, existem " << nrPath << " trajetos possíveis\n\n";
+        else cout << " Apenas existe 1 trajeto possível\n\n";
+        cout << " O número mínimo de voos é " << nrFlights << "\n\n";}
     }
     else{
         printf("\n\033[1m\033[32m===============================================================\033[0m\n\n");
-        auto flightPath = supervisor->processDistance(src,dest,airlines);
+        int nrPath = 0;
+        double distance;
+        auto flightPath = supervisor->processDistance(distance,src,dest,airlines);
+
         for (auto pair : flightPath) {
             string source = pair.first;
             string target = pair.second;
-            supervisor->getGraph().printPathsByDistance(map[source], map[target],airlines);
+            supervisor->getGraph().printPathsByDistance(nrPath,map[source], map[target],airlines);
         }
+
+        cout << " A distância mínima é " << distance << " km\n\n";
     }
 
     printf("\033[1m\033[36m===============================================================\033[0m\n\n");

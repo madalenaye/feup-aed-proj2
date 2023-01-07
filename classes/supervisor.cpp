@@ -83,7 +83,7 @@ void Supervisor::createGraph(){
     //inFile.open("../data/flights.csv");
     inFile.open("../data/FLIGHTS.CSV");
     getline(inFile, line);
-    vector<double> a = {4,0.5,2,10,0.5};
+    vector<double> a = {1,0.5,2,1,0.5};
     int i = 0;
     while(getline(inFile, line)){
         istringstream is(line);
@@ -183,9 +183,9 @@ int Supervisor::nrFlights(){
     return nrFlights;
 }
 
-list<pair<string,string>> Supervisor::processFlight(const vector<string>& src, const vector<string>& dest,
+list<pair<string,string>> Supervisor::processFlight(int& bestFlight, const vector<string>& src, const vector<string>& dest,
                          const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>& airline) {
-    int bestFlight = INT_MAX;
+    bestFlight = INT_MAX;
     int nrFlights;
     list<pair<string,string>> res;
     for (const auto &s: src)
@@ -204,9 +204,9 @@ list<pair<string,string>> Supervisor::processFlight(const vector<string>& src, c
     return res;
 }
 
-list<pair<string,string>> Supervisor::processDistance(const vector<string>& src, const vector<string>& dest,
+list<pair<string,string>> Supervisor::processDistance(double& bestDistance, const vector<string>& src, const vector<string>& dest,
                                                     const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>& airline) {
-    double bestDistance = MAXFLOAT;
+    bestDistance = MAXFLOAT;
     double distance;
     list<pair<string,string>> res;
     for (const auto &s: src)
@@ -218,6 +218,7 @@ list<pair<string,string>> Supervisor::processDistance(const vector<string>& src,
             if (distance < bestDistance) {
                 bestDistance = distance;
                 res.clear();
+                res.emplace_back(s,d);
             }
             else if (distance == bestDistance)
                 res.emplace_back(s,d);
