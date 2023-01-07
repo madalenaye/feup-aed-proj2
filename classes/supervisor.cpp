@@ -1,9 +1,3 @@
-
-//
-// Created by Madalena Ye on 27/12/2022.
-//
-
-#include <climits>
 #include "supervisor.h"
 /**
  * Default Constructor for supervisor
@@ -168,9 +162,8 @@ bool Supervisor::isCity(const string& city) {
  * @return true if country,city exists
  */
 bool Supervisor::isValidCity(const string& country, const string& city) {
-    for (const auto& c : citiesPerCountry[country]){
+    for (const auto& c : citiesPerCountry[country])
         if (city == c) return true;
-    }
     return false;
 }
 /**
@@ -185,16 +178,16 @@ bool Supervisor::isValidCity(const string& country, const string& city) {
  * @return vector of codes of airports that exist in that range
  */
 vector<string> Supervisor::localAirports(double latitude, double longitude, double radius) {
-    vector<string> airports;
+    vector<string> localAirports;
+    double latitude1,longitude1;
     for (const auto& node : graph.getNodes()){
-        double latitude1 = node.airport.getLatitude();
-        double longitude1 = node.airport.getLongitude();
+        latitude1 = node.airport.getLatitude();
+        longitude1 = node.airport.getLongitude();
         if (Graph::distance(latitude,longitude,latitude1,longitude1) <= radius)
-            airports.push_back(node.airport.getCode());
+            localAirports.push_back(node.airport.getCode());
     }
-    return airports;
-}
-/**
+    return localAirports;
+}/**
  * Calculates the number of airlines that are founded in each country\n\n
  * <b>Complexity\n</b>
  * <pre>
@@ -203,12 +196,11 @@ vector<string> Supervisor::localAirports(double latitude, double longitude, doub
  * @param country - country that the user wants to get information from
  * @return number of airlines
  */
-int Supervisor::countAirlinesPerCountry(string country) {
+int Supervisor::countAirlinesPerCountry(const string& country) {
     int count = 0;
-    for (auto airline : airlines){
+    for (auto airline : airlines)
         if (airline.getCountry() == country)
             count++;
-    }
     return count;
 }
 /**
@@ -295,33 +287,36 @@ int Supervisor::nrFlights(){
  * @return
  */
 list<pair<string,string>> Supervisor::processFlight(vector<string> src, vector<string> dest,
-                                                    unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
+                                                   Airline::AirlineH& airlines) {
     int bestFlight = INT_MAX;
     int nrFlights;
     string bestSource, bestTarget;
     list<pair<string,string>> res;
     for (const auto &s: src)
         for (const auto &d: dest) {
-            if (src == dest)
-                continue;
-            nrFlights = graph.nrFlights(id_airports[s], id_airports[d], airlines);
-            if (nrFlights != -1 && nrFlights < bestFlight)
-                bestFlight = nrFlights;
+            if (src == dest) continue;
+
+            nrFlights = graph.nrFlights(id_airports[s], id_airports[d], airline);
+
+            if (nrFlights != 0 && nrFlights < bestFlight) bestFlight = nrFlights;
         }
+
     for (const auto &s: src)
         for (const auto &d: dest) {
             if (src == dest)
                 continue;
-            nrFlights = graph.nrFlights(id_airports[s], id_airports[d], airlines);
+            nrFlights = graph.nrFlights(id_airports[s], id_airports[d], airline);
             if (nrFlights  == bestFlight){
-                res.push_back({s,d});
+                res.emplace_back(s,d);
             }
         }
     return res;
 }
 
-list<pair<string,string>> Supervisor::processDistance(vector<string> src, vector<string> dest,
-                                                    Airline::AirlineH airlines) {
+
+list<pair<string,string>> Supervisor::processDistance(vector<string>& src, vector<string>& dest,
+                                                    Airline::AirlineH& airlines) {
+
     double bestDistance = 99999999999999;
     double distance;
     string bestSource, bestTarget;
@@ -330,7 +325,7 @@ list<pair<string,string>> Supervisor::processDistance(vector<string> src, vector
         for (const auto &d: dest) {
             if (src == dest)
                 continue;
-            distance = graph.flownDistance(id_airports[s], id_airports[d], airlines);
+            distance = graph.flownDistance(id_airports[s], id_airports[d], airline);
             if (distance < bestDistance)
                 bestDistance = distance;
         }
@@ -339,9 +334,9 @@ list<pair<string,string>> Supervisor::processDistance(vector<string> src, vector
         for (const auto &d: dest) {
             if (s == d)
                 continue;
-            distance = graph.flownDistance(id_airports[s], id_airports[d], airlines);
+            distance = graph.flownDistance(id_airports[s], id_airports[d], airline);
             if (bestDistance  == distance){
-                res.push_back({s,d});
+                res.emplace_back(s,d);
             }
         }
     return res;

@@ -9,9 +9,12 @@
 #include <iostream>
 #include <stack>
 #include <cmath>
+#include <set>
+#include <algorithm>
+#include <climits>
+#include <utility>
 #include "airport.h"
 #include "airline.h"
-
 
 using namespace std;
 
@@ -75,14 +78,12 @@ public:
 
     set<string> listCountries(int nI, int max);
 
-    void dfs(int i, const Airline);
-
+    void dfs(int i, const Airline&);
     unordered_set<string> airlinesFromAirport(int i);
 
     Airport::CityH2 targetsFromAirport(int i);
 
     unordered_set<string> countriesFromAirport(int i);
-
     struct PairStringHash{
         int operator()(const pair<string,string> &b) const {
             string code = b.second;
@@ -102,6 +103,8 @@ public:
 
     list<int> articulationPoints(Airline::AirlineH airlines);
     void dfs_art(int v, int index,list<int> &res, Airline::AirlineH airlines);
+    double bfs_diameter(int v);
+    double diameter();
 };
 
 #endif //GRAPH_H

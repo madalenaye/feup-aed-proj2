@@ -1,11 +1,4 @@
-//
-// Created by Madalena Ye on 27/12/2022.
-//
-
 #include "airport.h"
-
-#include <utility>
-
 
 Airport::Airport(string code, string name, string city, string country, double latitude, double longitude) {
     this->code = std::move(code);

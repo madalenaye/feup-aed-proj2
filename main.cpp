@@ -1,9 +1,9 @@
 #include "classes/menu.h"
+#include <iostream>
 
 using namespace std;
-
 int main() {
     Menu menu;
     menu.init();
-    return 0;
+    Menu::end();
 }

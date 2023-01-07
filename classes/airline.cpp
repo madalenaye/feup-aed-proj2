@@ -1,17 +1,14 @@
-//
-// Created by Madalena Ye on 27/12/2022.
-//
-
 #include "airline.h"
+
 Airline::Airline(string code, string name, string callSign, string country){
-    this->code= code;
-    this->name= name;
-    this->callSign=callSign;
-    this->country=country;
+    this->code = std::move(code);
+    this->name = std::move(name);
+    this->callSign = std::move(callSign);
+    this->country = std::move(country);
 }
 
 Airline::Airline(string code){
-    this->code= code;
+    this->code = std::move(code);
 }
 
 string Airline::getCode() const {return this->code;}

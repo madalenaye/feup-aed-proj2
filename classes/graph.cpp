@@ -1,18 +1,13 @@
-#include <set>
-#include <algorithm>
-#include <unordered_set>
 #include "graph.h"
-#include <climits>
-#include <utility>
 
 /**
  * Graph class constructor
  * @param size - number of nodes
  */
-
 Graph::Graph(int size) : nodes(size+1){
     this->size = size;
 }
+
 /**
  * Adds an edge from source to destination with an airline and distance\n \n
  * <b>Complexity\n</b>
@@ -24,7 +19,6 @@ Graph::Graph(int size) : nodes(size+1){
  * @param airline - airline
  * @param distance - distance between source airport and target airport
  */
-// Add edge from source to destination with a certain weight
 void Graph::addEdge(int src, int dest, Airline airline, double distance) {
     if (src<1 || src>size || dest<1 || dest>size) return;
     nodes[src].adj.push_back({dest,std::move(airline),distance});
@@ -57,6 +51,7 @@ vector<Graph::Node> Graph::getNodes() const{
  * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  * @return minimum number of flights between source airport and target airport using airlines
  */
+
 int Graph::nrFlights(int src, int dest, Airline::AirlineH airlines){
     for (int i=1; i<=size; i++)
         nodes[i].visited = false;
@@ -64,7 +59,6 @@ int Graph::nrFlights(int src, int dest, Airline::AirlineH airlines){
     queue<int> q;
     q.push(src);
 
-    int nrFlights = INT_MAX;
     nodes[src].nrFlights = 0;
     nodes[src].visited = true;
 
@@ -77,12 +71,11 @@ int Graph::nrFlights(int src, int dest, Airline::AirlineH airlines){
                 q.push(w);
                 nodes[w].visited = true;
                 nodes[w].nrFlights = nodes[u].nrFlights + 1;
-                if (w == dest) nrFlights = nodes[w].nrFlights;
             }
         }
     }
 
-    return nrFlights;
+    return nodes[dest].nrFlights;
 }
 /**
  * Calculates the distance between two points on a sphere using their latitudes and longitudes measured along the surface
@@ -147,18 +140,17 @@ stack<Airport> Graph::longestFlight(const Airline& airline){
  * @param airline -> wanted airline
  */
 
-void Graph::dfs(int v, const Airline airline){
-    nodes[v].visited = true ;
-    //auto aux = nodes[v].visitedAirports;
-    //aux.push(nodes[v].airport);
-    for ( auto e : nodes[v].adj) {
+void Graph::dfs(int v, const Airline& airline){
+    nodes[v].visited = true;
+
+    for (const Edge& e : nodes[v].adj) {
         Airline a = e.airline;
         if (a.getCode() != airline.getCode()) continue;
 
         int w = e.dest;
-        if (!nodes[w].visited) {
+        if (!nodes[w].visited)
             dfs(w, airline);
-        }
+
         if (1+nodes[w].nrFlights > nodes[v].nrFlights) {
             auto aux = nodes[w].visitedAirports;
             aux.push(nodes[v].airport);
@@ -291,6 +283,7 @@ list<queue<Airport>> Graph::usedAirportsFlights(int src, int dest, Airline::Airl
         int u = q.front(); q.pop();
         for (const Edge& e : nodes[u].adj){
             if (!airlines.empty() && airlines.find(e.airline) == airlines.end()) continue;
+
             int w = e.dest;
             if (!nodes[w].visited){
                 q.push(w);
@@ -318,6 +311,7 @@ list<queue<Airport>> Graph::usedAirportsFlights(int src, int dest, Airline::Airl
  * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  * @return list of queues of used airlines between source airport and target airport
  */
+
 list<queue<Airline>> Graph::usedAirlinesFlights(int src, int dest, Airline::AirlineH airlines){
     for (int i=1; i<=size; i++)
         nodes[i].visited = false;
@@ -326,7 +320,6 @@ list<queue<Airline>> Graph::usedAirlinesFlights(int src, int dest, Airline::Airl
 
     queue<int> q;
     q.push(src);
-
 
     nodes[src].visited = true;
     nodes[src].visitedAirlines = queue<Airline>();
@@ -337,7 +330,6 @@ list<queue<Airline>> Graph::usedAirlinesFlights(int src, int dest, Airline::Airl
             if (!airlines.empty() && airlines.find(e.airline) == airlines.end()) continue;
             int w = e.dest;
             if (!nodes[w].visited){
-
                 q.push(w);
                 nodes[w].visited = true;
                 nodes[w].visitedAirlines = nodes[u].visitedAirlines;
@@ -367,7 +359,7 @@ list<queue<Airport>> Graph::usedAirportsDistance(int src, int dest, Airline::Air
 
     double distance = flownDistance(src,dest,airlines);
 
-    for (int i=1; i<=size; i++)
+    for (int i = 1; i <= size; i++)
         nodes[i].visited = false;
 
     list<queue<Airport>> res;
@@ -417,7 +409,7 @@ list<queue<Airline>> Graph::usedAirlinesDistance(int src, int dest, Airline::Air
 
     double distance = flownDistance(src,dest,airlines);
 
-    for (int i=1; i<=size; i++)
+    for (int i = 1; i <= size; i++)
         nodes[i].visited = false;
 
     list<queue<Airline>> res;
@@ -435,7 +427,6 @@ list<queue<Airline>> Graph::usedAirlinesDistance(int src, int dest, Airline::Air
             if (!airlines.empty() && airlines.find(e.airline) == airlines.end()) continue;
             int w = e.dest;
             if (!nodes[w].visited){
-
                 q.push(w);
                 nodes[w].visited = true;
                 nodes[w].visitedAirlines = nodes[u].visitedAirlines;
@@ -504,11 +495,12 @@ vector<pair<int,string>> Graph::airlinesPerAirport() {
  */
 unordered_set<string> Graph::airlinesFromAirport(int i) {
     unordered_set<string> ans;
-    for(auto e:nodes[i].adj){
+    for (const Edge& e : nodes[i].adj)
         ans.insert(e.airline.getCode());
-    }
+
     return ans;
 }
+
 /**
  * Calculates the different cities that are reachable from an airport within 1 flight\n\n
  * <b>Complexity\n</b>
@@ -537,8 +529,8 @@ Airport::CityH2 Graph::targetsFromAirport(int i){
  */
 unordered_set<string> Graph::countriesFromAirport(int i) {
     unordered_set<string> ans;
-    for(auto e:nodes[i].adj){
-        int w=e.dest;
+    for (const Edge& e : nodes[i].adj){
+        int w = e.dest;
         ans.insert(nodes[w].airport.getCountry());
     }
     return ans;
@@ -557,9 +549,9 @@ Airport::AirportH Graph::listAirports(int nI, int max) {
     for (Node& node: nodes) node.visited = false;
     Airport::AirportH airports;
     std::queue<int> q; // queue of unvisited nodes
-    q.push(nI);
-    nodes[nI].visited = true;
-    nodes[nI].nrFlights = 0;
+    q.push(v);
+    nodes[v].visited = true;
+    nodes[v].nrFlights = 0;
     while (!q.empty()) {
         int u = q.front(); q.pop();
         for (const auto& e : nodes[u].adj) {
@@ -588,9 +580,9 @@ Airport::CityH2 Graph::listCities(int nI, int max) {
     for (Node& node: nodes) node.visited = false;
     Airport::CityH2 cities;
     std::queue<int> q; // queue of unvisited nodes
-    q.push(nI);
-    nodes[nI].visited = true;
-    nodes[nI].nrFlights = 0;
+    q.push(v);
+    nodes[v].visited = true;
+    nodes[v].nrFlights = 0;
     while (!q.empty()) {
         int u = q.front(); q.pop();
         for (const auto& e : nodes[u].adj) {
@@ -615,13 +607,13 @@ Airport::CityH2 Graph::listCities(int nI, int max) {
  * @param max - number of flights
  * @return set of reachable countries using "max" number of flights
  */
-set<string> Graph::listCountries(int nI, int max) {
+set<string> Graph::listCountries(int v, int max) {
     for (Node& node: nodes) node.visited = false;
     std::set<std::string> countries;
     std::queue<int> q; // queue of unvisited nodes
-    q.push(nI);
-    nodes[nI].visited = true;
-    nodes[nI].nrFlights = 0;
+    q.push(v);
+    nodes[v].visited = true;
+    nodes[v].nrFlights = 0;
     while (!q.empty()) {
         int u = q.front(); q.pop();
         for (const auto& e : nodes[u].adj) {
@@ -652,3 +644,40 @@ Graph::PairH Graph::AirportsFromAirport(int source) {
     }
     return ans;
 }
+
+double Graph::bfs_diameter(int v) {
+    for (Node& node: nodes){node.visited = false; node.distance = -1.0;}
+    queue<int> q;
+    q.push(v);
+    nodes[v].visited = true;
+    nodes[v].distance = 0.0;
+    double max = 0;
+    while(!q.empty()){
+        int u = q.front(); q.pop();
+        for (const auto& e: nodes[u].adj){
+            int w = e.dest;
+            if (!nodes[w].visited){
+                q.push(w);
+                nodes[w].visited = true;
+                nodes[w].distance = nodes[u].distance + 1;
+                if (nodes[w].distance > max) max = nodes[w].distance;
+            }
+        }
+    }
+    return max;
+}
+double Graph::diameter() {
+    queue<int> waiting;
+    waiting.push(1);
+    nodes[1].visited = true;
+    double max = bfs_diameter(1);
+    for (int i = 1; i <= size; i++){
+        if (!nodes[i].visited){
+            nodes[i].visited = true;
+            double diameter = bfs_diameter(i);
+            if (diameter > max) max = diameter;
+        }
+    }
+    return max;
+}
+
