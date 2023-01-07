@@ -6,6 +6,7 @@ Menu::Menu() {
     printf(" \033[44m===========================================================\033[0m\t\t");
     cout << "\n\n" << " Bem-vindo!\n (Pressione [0] sempre que quiser voltar atrás)\n\n";
     supervisor = new Supervisor();
+    /*
     unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> A;
     A.insert(Airline("TAP"));
     A.insert(Airline("SAT"));
@@ -13,11 +14,11 @@ Menu::Menu() {
     A.insert(Airline("GRL"));
     A.insert(Airline("FXI"));
     /*auto x = supervisor->getGraph().dijkstra(1,4,A);
-    cout << x.distance << endl;*/
+    cout << x.distance << endl;
     vector<vector<int> > paths;
     vector<int> path;
     auto map = supervisor->getMap();
-    supervisor->getGraph().printPaths(map["FLW"],map["AEY"],A);
+    supervisor->getGraph().printPaths(map["FLW"],map["AEY"],A);*/
 
 }
 

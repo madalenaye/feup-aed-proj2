@@ -586,7 +586,7 @@ set<string> Graph::listCountries(int v, int max) {
 vector<string> Graph::getAirlines(int src, int dest,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
     vector<string> usedAirlines;
     for (auto e: nodes[src].adj)
-        if (e.dest == dest && airlines.find(e.airline) != airlines.end())
+        if (e.dest == dest && (airlines.empty() ||airlines.find(e.airline) != airlines.end()))
             usedAirlines.push_back(e.airline.getCode());
     return usedAirlines;
 }
