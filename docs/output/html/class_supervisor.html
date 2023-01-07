@@ -111,13 +111,13 @@ map&lt; string, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>g
 <tr class="separator:ad07df8ad7f234349bc367614f5d6e09b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe7cf2be220e2c31df9408423614f520"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#abe7cf2be220e2c31df9408423614f520">nrFlights</a> ()</td></tr>
 <tr class="separator:abe7cf2be220e2c31df9408423614f520"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d03c7d7e8815aa3f3862ec624930809"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a1d03c7d7e8815aa3f3862ec624930809">countAirlinesPerCountry</a> (string country)</td></tr>
-<tr class="separator:a1d03c7d7e8815aa3f3862ec624930809"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d7f51ec4a7a896f3069a2b09c92aae3"><td class="memItemLeft" align="right" valign="top">list&lt; pair&lt; string, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a3d7f51ec4a7a896f3069a2b09c92aae3">processFlight</a> (vector&lt; string &gt;, vector&lt; string &gt;, Airline::AirlineH)</td></tr>
-<tr class="separator:a3d7f51ec4a7a896f3069a2b09c92aae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28e0281d77b6c475790eb10980b53d7f"><td class="memItemLeft" align="right" valign="top"><a id="a28e0281d77b6c475790eb10980b53d7f"></a>
-list&lt; pair&lt; string, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>processDistance</b> (vector&lt; string &gt;, vector&lt; string &gt;, Airline::AirlineH)</td></tr>
-<tr class="separator:a28e0281d77b6c475790eb10980b53d7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bd1d31545a70037aa842cbb86d13026"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a2bd1d31545a70037aa842cbb86d13026">countAirlinesPerCountry</a> (const string &amp;country)</td></tr>
+<tr class="separator:a2bd1d31545a70037aa842cbb86d13026"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0479d385e7a858c98b890782e5ccefa2"><td class="memItemLeft" align="right" valign="top">list&lt; pair&lt; string, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a0479d385e7a858c98b890782e5ccefa2">processFlight</a> (vector&lt; string &gt; &amp;, vector&lt; string &gt; &amp;, Airline::AirlineH &amp;)</td></tr>
+<tr class="separator:a0479d385e7a858c98b890782e5ccefa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cd7c6cb4854c7eb6fe25e28c919a0a6"><td class="memItemLeft" align="right" valign="top"><a id="a7cd7c6cb4854c7eb6fe25e28c919a0a6"></a>
+list&lt; pair&lt; string, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>processDistance</b> (vector&lt; string &gt; &amp;, vector&lt; string &gt; &amp;, Airline::AirlineH &amp;)</td></tr>
+<tr class="separator:a7cd7c6cb4854c7eb6fe25e28c919a0a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97891c45f58471f89b96678ba1085dc9"><td class="memItemLeft" align="right" valign="top"><a id="a97891c45f58471f89b96678ba1085dc9"></a>
 multimap&lt; int, string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>convertMap</b> (const map&lt; string, int &gt; &amp;m)</td></tr>
 <tr class="separator:a97891c45f58471f89b96678ba1085dc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,8 +181,8 @@ map&lt; string, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>n
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1d03c7d7e8815aa3f3862ec624930809"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d03c7d7e8815aa3f3862ec624930809">&#9670;&nbsp;</a></span>countAirlinesPerCountry()</h2>
+<a id="a2bd1d31545a70037aa842cbb86d13026"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bd1d31545a70037aa842cbb86d13026">&#9670;&nbsp;</a></span>countAirlinesPerCountry()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -190,7 +190,7 @@ map&lt; string, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>n
         <tr>
           <td class="memname">int Supervisor::countAirlinesPerCountry </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
+          <td class="paramtype">const string &amp;&#160;</td>
           <td class="paramname"><em>country</em></td><td>)</td>
           <td></td>
         </tr>
@@ -555,8 +555,8 @@ map&lt; string, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>n
 
 </div>
 </div>
-<a id="a3d7f51ec4a7a896f3069a2b09c92aae3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d7f51ec4a7a896f3069a2b09c92aae3">&#9670;&nbsp;</a></span>processFlight()</h2>
+<a id="a0479d385e7a858c98b890782e5ccefa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0479d385e7a858c98b890782e5ccefa2">&#9670;&nbsp;</a></span>processFlight()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -564,20 +564,20 @@ map&lt; string, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>n
         <tr>
           <td class="memname">list&lt; pair&lt; string, string &gt; &gt; Supervisor::processFlight </td>
           <td>(</td>
-          <td class="paramtype">vector&lt; string &gt;&#160;</td>
+          <td class="paramtype">vector&lt; string &gt; &amp;&#160;</td>
           <td class="paramname"><em>src</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">vector&lt; string &gt;&#160;</td>
+          <td class="paramtype">vector&lt; string &gt; &amp;&#160;</td>
           <td class="paramname"><em>dest</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Airline::AirlineH&#160;</td>
-          <td class="paramname"><em>airlines</em>&#160;</td>
+          <td class="paramtype">Airline::AirlineH &amp;&#160;</td>
+          <td class="paramname"><em>airline</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
