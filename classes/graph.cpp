@@ -454,7 +454,6 @@ void Graph::bfs(int src, unordered_set<Airline, Airline::AirlineHash, Airline::A
         }
     }
 }
-
 void Graph::printPathsByFlights(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
     vector<int> path;
     vector<vector<int> > paths;
@@ -467,17 +466,9 @@ void Graph::printPathsByFlights(int& nrPath, int start, int end, unordered_set<A
     for (auto v : paths) {
         reverse(v.begin(), v.end());
         vector<vector<string>> usedAirlines;
+
         cout << " Trajeto nº" << ++nrPath << ": ";
-        for (int i = 0; i < v.size()-1; i++) {
-            auto possibleAirlines = getAirlines(v[i],v[i+1],airlines);
-            printf("\033[1m\033[46m %s \033[0m", nodes[v[i]].airport.getCode().c_str());
-            cout <<" --- (";
-            for (int j = 0; j < possibleAirlines.size()-1; j++)
-                printf("\033[1m\033[32m %s \033[0m |",possibleAirlines[j].c_str());
-            printf("\033[1m\033[32m %s \033[0m",possibleAirlines[possibleAirlines.size()-1].c_str());
-            cout << ") --- ";
-        }
-        printf("\033[1m\033[46m %s \033[0m\n\n", nodes[end].airport.getCode().c_str());
+        printPath(v,airlines);
     }
 }
 
@@ -491,16 +482,22 @@ void Graph::printPathsByDistance(int& nrPath, int start, int end,
     }
 
     cout << " Trajeto nº" << ++nrPath << ": ";
-    for (int i = 0; i < node.parents.size()-1; i++){
-        auto possibleAirlines = getAirlines(node.parents[i],node.parents[i+1],airlines);
-        printf("\033[1m\033[46m %s \033[0m", nodes[node.parents[i]].airport.getCode().c_str());
+    printPath(node.parents,airlines);
+
+}
+
+
+void Graph::printPath(vector<int> path, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
+    for (int i = 0; i < path.size()-1; i++){
+        auto possibleAirlines = getAirlines(path[i],path[i+1],airlines);
+        printf("\033[1m\033[46m %s \033[0m", nodes[path[i]].airport.getCode().c_str());
         cout <<" --- (";
         for (int j = 0; j < possibleAirlines.size()-1; j++)
             printf("\033[1m\033[32m %s \033[0m |",possibleAirlines[j].c_str());
         printf("\033[1m\033[32m %s \033[0m",possibleAirlines[possibleAirlines.size()-1].c_str());
         cout << ") --- ";
     }
-    printf("\033[1m\033[46m %s \033[0m\n\n", nodes[end].airport.getCode().c_str());
+    printf("\033[1m\033[46m %s \033[0m\n\n", nodes[path[path.size()-1]].airport.getCode().c_str());
 }
 /**
  * From a specific airport, calculates all of the airports that are reachable within 1 flight.\n\n

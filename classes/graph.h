@@ -75,7 +75,7 @@ public:
     void findPaths(vector<vector<int>>& paths,vector<int>& path,int v);
     void printPathsByFlights(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
     void printPathsByDistance(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
-
+    void printPath(vector<int>,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>);
     Airport::CityH2 targetsFromAirport(int i);
 
     unordered_set<string> countriesFromAirport(int i);
