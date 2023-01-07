@@ -60,7 +60,8 @@ public:
     int nrFlights(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
 
     double flownDistance(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
-
+    string getAirline(int src, int dest);
+    string getAirport(int src);
     list<queue<Airport>>
     usedAirportsFlights(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
 

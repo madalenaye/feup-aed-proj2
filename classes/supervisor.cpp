@@ -192,21 +192,16 @@ list<pair<string,string>> Supervisor::processFlight(const vector<string>& src, c
     for (const auto &s: src)
         for (const auto &d: dest) {
             if (src == dest) continue;
-
             nrFlights = graph.nrFlights(id_airports[s], id_airports[d], airline);
-
-            if (nrFlights != 0 && nrFlights < bestFlight) bestFlight = nrFlights;
-        }
-
-    for (const auto &s: src)
-        for (const auto &d: dest) {
-            if (src == dest)
-                continue;
-            nrFlights = graph.nrFlights(id_airports[s], id_airports[d], airline);
-            if (nrFlights  == bestFlight){
+            if (nrFlights != 0 && nrFlights < bestFlight) {
+                bestFlight = nrFlights;
+                res.clear();
                 res.emplace_back(s,d);
             }
+            else if(nrFlights == bestFlight)
+                res.emplace_back(s,d);
         }
+
     return res;
 }
 

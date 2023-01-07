@@ -582,17 +582,117 @@ set<string> Graph::listCountries(int v, int max) {
     }
     return countries;
 }
-bool notIn(vector<vector<int>> paths, vector<int> path){
-    for (auto x : paths)
-        if (x == path)
-            return false;
-    return true;
+/*
+void Graph::findPaths(vector<vector<int>>& paths,vector<int>& path, int v){
+
+    if (v == -1) {
+        paths.push_back(path);
+        return;
+    }
+
+    // Loop for all the parents
+    // of the given vertex
+    for (auto par : nodes[v].parents) {
+
+        // Insert the current
+        // vertex in path
+        path.push_back(v);
+
+        // Recursive call for its parent
+        findPaths(paths,path, par);
+
+        // Remove the current vertex
+        path.pop_back();
+    }
 }
+
+void Graph::bfs(int src){
+    // dist will contain shortest distance
+    // from start to every other vertex
+    for (int i = 1; i <= size; i++)
+        nodes[i].distance = INT_MAX;
+    queue<int> q;
+
+    // Insert source vertex in queue and make
+    // its parent -1 and distance 0
+    q.push(src);
+    nodes[src].parents = {-1};
+    nodes[src].distance = 0;
+
+    // Until Queue is empty
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+        for (auto e : nodes[u].adj) {
+            int v = e.dest;
+            if (nodes[v].distance > nodes[u].distance + 1) {
+
+                // A shorter distance is found
+                // So erase all the previous parents
+                // and insert new parent u in parent[v]
+                nodes[v].distance = nodes[u].distance + 1;
+
+                q.push(v);
+                nodes[v].parents.clear();
+
+                nodes[v].parents.push_back(u);
+            }
+            else if (nodes[v].distance == nodes[u].distance + 1) {
+
+                // Another candidate parent for
+                // shortes path found
+                nodes[v].parents.push_back(u);
+            }
+        }
+    }
+}
+*/
+void Graph::printPaths(int start, int end) {
+    vector<int> path;
+    vector<vector<int> > paths;
+    // Function call to bfs
+    bfs(start);
+
+    // Function call to find_paths
+    findPaths(paths,path, end);
+    Supervisor supervisor;
+    auto map = supervisor.getMap();
+    for (auto v : paths) {
+
+        // Since paths contain each
+        // path in reverse order,
+        // so reverse it
+        reverse(v.begin(), v.end());
+
+        // Print node for the current path
+        for (int i = 0; i < v.size()-1; i++) {
+            string airline = getAirline(v[i],v[i+1]);
+            printf("\033[1m\033[46m %s \033[0m", getAirport(v[i]).c_str());
+            cout <<" --- (";
+            printf("\033[1m\033[32m %s \033[0m",airline.c_str());
+            cout << ") --- ";
+
+        }
+        printf("\033[1m\033[46m %s \033[0m\n\n", getAirport(v[v.size()-1]).c_str());
+    }
+}
+
+string Graph::getAirline(int src, int dest) {
+    for ( auto e: nodes[src].adj)
+        if (e.dest == dest)
+            return e.airline.getCode();
+}
+
+string Graph::getAirport(int src) {
+    return nodes[src].airport.getCode();
+}
+
+
 
 void Graph::findPaths(vector<vector<int>>& paths,vector<int>& path, int v){
 
     if (v == -1) {
-        if (notIn(paths,path))
+        if (find(paths.begin(),paths.end(),path) == paths.end())
             paths.push_back(path);
         return;
     }
@@ -617,14 +717,14 @@ void Graph::bfs(int src){
     // dist will contain shortest distance
     // from start to every other vertex
     for (int i = 1; i <= size; i++)
-        nodes[i].nrFlights = INT_MAX;
+        nodes[i].distance = INT_MAX;
     queue<int> q;
 
     // Insert source vertex in queue and make
     // its parent -1 and distance 0
     q.push(src);
     nodes[src].parents = {-1};
-    nodes[src].nrFlights = 0;
+    nodes[src].distance = 0;
 
 
     // Until Queue is empty
@@ -633,52 +733,24 @@ void Graph::bfs(int src){
         q.pop();
         for (auto e : nodes[u].adj) {
             int v = e.dest;
-            if (nodes[v].nrFlights > nodes[u].nrFlights + 1) {
+            if (nodes[v].distance > nodes[u].distance + 1) {
 
                 // A shorter distance is found
                 // So erase all the previous parents
                 // and insert new parent u in parent[v]
-                nodes[v].nrFlights = nodes[u].nrFlights + 1;
+                nodes[v].distance = nodes[u].distance + 1;
 
                 q.push(v);
                 nodes[v].parents.clear();
                 nodes[v].parents.push_back(u);
 
             }
-            else if (nodes[v].nrFlights == nodes[u].nrFlights + 1) {
+            else if (nodes[v].distance == nodes[u].distance + 1) {
 
                 // Another candidate parent for
                 // shortes path found
                 nodes[v].parents.push_back(u);
             }
         }
-    }
-}
-
-void Graph::printPaths(int start, int end) {
-    vector<int> path;
-    vector<vector<int> > paths;
-    // Function call to bfs
-    bfs(start);
-
-    // Function call to find_paths
-    findPaths(paths,path, end);
-    Supervisor supervisor;
-    auto map = supervisor.getMap();
-    for (auto v : paths) {
-
-        // Since paths contain each
-        // path in reverse order,
-        // so reverse it
-        reverse(v.begin(), v.end());
-
-        // Print node for the current path
-        for (int u : v) {
-            for (auto x : map){
-                if (x.second == u)
-                    cout << x.first << ' ';
-            }
-        }
-        cout << endl;
     }
 }

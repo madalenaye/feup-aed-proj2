@@ -22,6 +22,7 @@ private:
     void showAirports();
     void showAirlines();
     void showCountries();
+    void printPath(string src, string dest);
 
     void statistics();
     void numberFlights();
