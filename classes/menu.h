@@ -11,7 +11,7 @@ public:
 private:
     void chooseSource();
     void chooseTarget();
-    void chooseAirlines();
+    void chooseAirlines(bool op);
     void processOperation();
 
     static void showPath(list<queue<Airport>>, list<queue<Airline>>, int& nrPath);
@@ -22,6 +22,7 @@ private:
     void showAirports();
     void showAirlines();
     void showCountries();
+    void showArticulation();
 
     void statistics();
     void numberFlights();
@@ -46,6 +47,7 @@ private:
     Supervisor* supervisor;
     vector<string> src;
     vector<string> dest;
-    unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines;
+    Airline::AirlineH airlines;
+    
 };
 #endif //MENU_H

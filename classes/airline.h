@@ -2,7 +2,9 @@
 #define AIRLINE_H
 
 #include <iostream>
+#include <unordered_set>
 using namespace std;
+
 
 class Airline{
 public:
@@ -29,7 +31,7 @@ public:
     string getCode() const;
     string getName();
     string getCountry();
-
+    typedef unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> AirlineH;
 private:
     string code;
     string name;
