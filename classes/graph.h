@@ -53,8 +53,6 @@ public:
 
     vector<Node> getNodes() const;
 
-    stack<Airport> longestFlight(const Airline &airline);
-
     static double distance(double lat1, double lon1, double lat2, double lon2);
 
     int nrFlights(int src, int dest, Airline::AirlineH airlines);
@@ -69,8 +67,6 @@ public:
 
     set<string> listCountries(int nI, int max);
 
-    void dfs(int i, const Airline &);
-
     unordered_set<string> airlinesFromAirport(int i);
 
     Node dijkstra(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
@@ -79,7 +75,7 @@ public:
     void findPaths(vector<vector<int>>& paths,vector<int>& path,int v);
     void printPathsByFlights(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
     void printPathsByDistance(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
-
+    void printPath(vector<int>,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>);
     Airport::CityH2 targetsFromAirport(int i);
 
     unordered_set<string> countriesFromAirport(int i);
