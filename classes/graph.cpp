@@ -102,12 +102,13 @@ double Graph::distance(double lat1, double lon1, double lat2, double lon2) {
     double c = 2 * asin(sqrt(a));
     return rad * c;
 }
-
+/*
 stack<Airport> Graph::longestFlight(const Airline& airline){
 
     for (int i = 1; i <= size; i++) {
-        nodes[i].nrFlights = 0;
+        nodes[i].distance = 0;
         nodes[i].visited = false;
+        nodes[i].parents.clear();
     }
 
     for (int i = 1; i <= size; i++)
@@ -118,8 +119,9 @@ stack<Airport> Graph::longestFlight(const Airline& airline){
     stack<Airport> used;
 
     for (int i = 1; i <= size; i++)
-        if (nodes[i].nrFlights > ans) {
-            ans = nodes[i].nrFlights;
+        if (nodes[i].distance > ans) {
+            ans = nodes[i].distance;
+            nodes[i].parents.push_back(i);
             used = stack<Airport>();
             while (!nodes[i].visitedAirports.empty()) {
                 used.push(nodes[i].visitedAirports.front());
@@ -128,8 +130,8 @@ stack<Airport> Graph::longestFlight(const Airline& airline){
         }
 
    return used;
-}
-
+}*/
+/*
 
 void Graph::dfs(int v, const Airline& airline){
     nodes[v].visited = true;
@@ -142,16 +144,13 @@ void Graph::dfs(int v, const Airline& airline){
         if (!nodes[w].visited)
             dfs(w, airline);
 
-        if (1+nodes[w].nrFlights > nodes[v].nrFlights) {
-            auto aux = nodes[w].visitedAirports;
-            aux.push(nodes[v].airport);
-            nodes[v].visitedAirports = aux;
-            nodes[v].nrFlights = 1 + nodes[w].nrFlights;
+        if (1+nodes[w].distance > nodes[v].distance) {
+            nodes[v].distance = 1 + nodes[w].distance;
         }
     }
-    if (nodes[v].nrFlights == 0)
+    if (nodes[v].distance == 0)
         nodes[v].visitedAirports.push(nodes[v].airport);
-}
+}*/
 
 Graph::Node Graph::dijkstra(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
     MinHeap<int, int> q(size, -1);
@@ -163,7 +162,6 @@ Graph::Node Graph::dijkstra(int src, int dest, unordered_set<Airline, Airline::A
     }
     nodes[src].distance = 0;
     nodes[src].parents.push_back(src);
-    nodes[src].visitedAirports.push(nodes[src].airport);
     q.decreaseKey(src, 0);
     while (q.getSize()>0) {
 
@@ -177,247 +175,15 @@ Graph::Node Graph::dijkstra(int src, int dest, unordered_set<Airline, Airline::A
             double w = e.distance;
             if (!nodes[v].visited && nodes[u].distance + w < nodes[v].distance) {
                 nodes[v].distance = nodes[u].distance + w;
-
-                auto aux2 =nodes[u].parents;
-                if (find(aux2.begin(),aux2.end(),v) == aux2.end())
-                    aux2.push_back(v);
-                nodes[v].parents = aux2;
+                auto aux =nodes[u].parents;
+                if (find(aux.begin(),aux.end(),v) == aux.end()) aux.push_back(v);
+                nodes[v].parents = aux;
                 q.decreaseKey(v, nodes[v].distance);
             }
         }
     }
     return nodes[dest];
 }
-
-
-// ------------------------------
-/**
- * Calculates the minimum flown distance between source airport and target airport using airlines \n \n
- * <b>Complexity\n</b>
- * <pre>
- *      <b>O(|V| + |E|)</b>, V -> number of nodes, E -> number of edges
- * </pre>
- * @param src - source node / node of source airport
- * @param dest - target node
- * @param airlines - unordered set of airlines to use (if empty, use all airlines)
- * @return minimum flown distance between source airport and target airport using airlines
- */
-double Graph::flownDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
-    for (int i = 1; i <= size; i++)
-        nodes[i].visited = false;
-
-    double minDistance = MAXFLOAT;
-    queue<int> q;
-    q.push(src);
-
-    nodes[src].visited = true;
-    nodes[src].distance = 0;
-
-    while(!q.empty()){
-        int u = q.front(); q.pop();
-        for (const Edge& e : nodes[u].adj){
-            if (!airlines.empty() && airlines.find(e.airline) == airlines.end()) continue;
-
-            int w = e.dest;
-            if (!nodes[w].visited){
-                q.push(w);
-                nodes[w].visited = true;
-                nodes[w].distance = nodes[u].distance + e.distance;
-            }
-            if (w == dest && nodes[u].distance + e.distance < minDistance)
-                minDistance = nodes[u].distance + e.distance;
-        }
-    }
-    return minDistance;
-}
-
-/**
- * Calculates used airports of all possible paths between source airport and target airport, using airlines and minimum number of flights \n \n
- * <b>Complexity\n</b>
- * <pre>
- *      <b>O(|V| + |E|)</b>, V -> number of nodes, E -> number of edges
- * </pre>
- * @param src - source node / node of source airport
- * @param dest - target node
- * @param airlines - unordered set of airlines to use (if empty, use all airlines)
- * @return list of queues of used airports between source airport and target airport
- */
-list<queue<Airport>> Graph::usedAirportsFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
-    for (int i = 1; i <= size; i++)
-        nodes[i].visited = false;
-
-    list<queue<Airport>> res;
-
-    queue<int> q;
-    q.push(src);
-
-    nodes[src].visited = true;
-    nodes[src].visitedAirports = queue<Airport>();
-    nodes[src].visitedAirports.push(nodes[src].airport);
-
-    while(!q.empty()){
-        int u = q.front(); q.pop();
-        for (const Edge& e : nodes[u].adj){
-            if (!airlines.empty() && airlines.find(e.airline) == airlines.end()) continue;
-
-            int w = e.dest;
-            if (!nodes[w].visited){
-                q.push(w);
-                nodes[w].visited = true;
-                nodes[w].visitedAirports = nodes[u].visitedAirports;
-                nodes[w].visitedAirports.push(nodes[w].airport);
-            }
-            if (w == dest && nodes[u].visitedAirports.size() == nodes[w].visitedAirports.size()-1){
-                queue<Airport> aux = nodes[u].visitedAirports;
-                aux.push(nodes[w].airport);
-                res.push_back(aux);
-            }
-        }
-    }
-    return res;
-}
-/**
- * Calculates used airlines of all possible paths between source airport and target airport, using airlines and minimum number of flights \n \n
- * <b>Complexity\n</b>
- * <pre>
- *      <b>O(|V| + |E|)</b>, V -> number of nodes, E -> number of edges
- * </pre>
- * @param src - source node / node of source airport
- * @param dest - target node
- * @param airlines - unordered set of airlines to use (if empty, use all airlines)
- * @return list of queues of used airlines between source airport and target airport
- */
-list<queue<Airline>> Graph::usedAirlinesFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
-    for (int i = 1; i <= size; i++)
-        nodes[i].visited = false;
-
-    list<queue<Airline>> res;
-
-    queue<int> q;
-    q.push(src);
-
-    nodes[src].visited = true;
-    nodes[src].visitedAirlines = queue<Airline>();
-
-    while(!q.empty()){
-        int u = q.front(); q.pop();
-        for (const Edge& e : nodes[u].adj){
-            if (!airlines.empty() && airlines.find(e.airline) == airlines.end()) continue;
-            int w = e.dest;
-            if (!nodes[w].visited){
-                q.push(w);
-                nodes[w].visited = true;
-                nodes[w].visitedAirlines = nodes[u].visitedAirlines;
-                nodes[w].visitedAirlines.push(e.airline);
-            }
-            if (w == dest && nodes[u].visitedAirlines.size() == nodes[w].visitedAirlines.size()-1){
-                queue<Airline> aux = nodes[u].visitedAirlines;
-                aux.push(e.airline);
-                res.push_back(aux);
-            }
-        }
-    }
-    return res;
-}
-/**
- * Calculates used airports of all possible paths between source airport and target airport, using airlines and minimum flown distance \n \n
- * <b>Complexity\n</b>
- * <pre>
- *      <b>O(|V| + |E|)</b>, V -> number of nodes, E -> number of edges
- * </pre>
- * @param src - source node / node of source airport
- * @param dest - target node
- * @param airlines - unordered set of airlines to use (if empty, use all airlines)
- * @return list of queues of used airports between source airport and target airport
- */
-list<queue<Airport>> Graph::usedAirportsDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
-
-    double distance = flownDistance(src,dest,airlines);
-
-    for (int i = 1; i <= size; i++)
-        nodes[i].visited = false;
-
-    list<queue<Airport>> res;
-
-    queue<int> q;
-    q.push(src);
-
-    nodes[src].visited = true;
-    nodes[src].distance = 0;
-    nodes[src].visitedAirports = queue<Airport>();
-    nodes[src].visitedAirports.push(nodes[src].airport);
-
-
-    while(!q.empty()){
-        int u = q.front(); q.pop();
-        for (const Edge& e : nodes[u].adj){
-            if (!airlines.empty() && airlines.find(e.airline) == airlines.end()) continue;
-            int w = e.dest;
-            if (!nodes[w].visited){
-                q.push(w);
-                nodes[w].visited = true;
-                nodes[w].visitedAirports = nodes[u].visitedAirports;
-                nodes[w].visitedAirports.push(nodes[w].airport);
-                nodes[w].distance = nodes[u].distance + e.distance;
-            }
-            if (w == dest && nodes[u].distance + e.distance == distance){
-                queue<Airport> aux = nodes[u].visitedAirports;
-                aux.push(nodes[w].airport);
-                res.push_back(aux);
-            }
-        }
-    }
-    return res;
-}
-/**
- * Calculates used airlines of all possible paths between source airport and target airport, using airlines and minimum flown distance \n \n
- * <b>Complexity\n</b>
- * <pre>
- *      <b>O(|V| + |E|)</b>, V -> number of nodes, E -> number of edges
- * </pre>
- * @param src - source node / node of source airport
- * @param dest - target node
- * @param airlines - unordered set of airlines to use (if empty, use all airlines)
- * @return list of queues of used airlines between source airport and target airport
- */
-list<queue<Airline>> Graph::usedAirlinesDistance(int src, int dest, unordered_set<Airline,Airline::AirlineHash,Airline::AirlineHash> airlines){
-
-    double distance = flownDistance(src,dest,airlines);
-
-    for (int i = 1; i <= size; i++)
-        nodes[i].visited = false;
-
-    list<queue<Airline>> res;
-
-    queue<int> q;
-    q.push(src);
-
-    nodes[src].visited = true;
-    nodes[src].distance = 0;
-    nodes[src].visitedAirlines = queue<Airline>();
-
-    while(!q.empty()){
-        int u = q.front(); q.pop();
-        for (const Edge& e : nodes[u].adj){
-            if (!airlines.empty() && airlines.find(e.airline) == airlines.end()) continue;
-            int w = e.dest;
-            if (!nodes[w].visited){
-                q.push(w);
-                nodes[w].visited = true;
-                nodes[w].visitedAirlines = nodes[u].visitedAirlines;
-                nodes[w].visitedAirlines.push(e.airline);
-                nodes[w].distance = nodes[u].distance + e.distance;
-            }
-            if (w == dest && nodes[u].distance + e.distance == distance){
-                queue<Airline> aux = nodes[u].visitedAirlines;
-                aux.push(e.airline);
-                res.push_back(aux);
-            }
-        }
-    }
-    return res;
-}
-
 
 bool cmp( const pair<int,string>& a, const pair<int,string>& b){
     return a.first > b.first;
@@ -512,7 +278,7 @@ unordered_set<Airport, Airport::AirportHash, Airport::AirportHash> Graph::listAi
     std::queue<int> q; // queue of unvisited nodes
     q.push(v);
     nodes[v].visited = true;
-    nodes[v].nrFlights = 0;
+    nodes[v].distance = 0;
     while (!q.empty()) {
         int u = q.front(); q.pop();
         for (const auto& e : nodes[u].adj) {
@@ -520,8 +286,8 @@ unordered_set<Airport, Airport::AirportHash, Airport::AirportHash> Graph::listAi
             if (!nodes[w].visited) {
                 q.push(w);
                 nodes[w].visited = true;
-                nodes[w].nrFlights = nodes[u].nrFlights +1;
-                if (nodes[w].nrFlights<=max) airports.insert(nodes[w].airport);
+                nodes[w].distance = nodes[u].distance +1;
+                if (nodes[w].distance<=max) airports.insert(nodes[w].airport);
             }
         }
     }
@@ -543,7 +309,7 @@ unordered_set<pair<string,string>, Airport::CityHash, Airport::CityHash> Graph::
     std::queue<int> q; // queue of unvisited nodes
     q.push(v);
     nodes[v].visited = true;
-    nodes[v].nrFlights = 0;
+    nodes[v].distance = 0;
     while (!q.empty()) {
         int u = q.front(); q.pop();
         for (const auto& e : nodes[u].adj) {
@@ -551,8 +317,8 @@ unordered_set<pair<string,string>, Airport::CityHash, Airport::CityHash> Graph::
             if (!nodes[w].visited) {
                 q.push(w);
                 nodes[w].visited = true;
-                nodes[w].nrFlights = nodes[u].nrFlights +1;
-                if (nodes[w].nrFlights<=max) cities.insert({nodes[w].airport.getCountry(),nodes[w].airport.getCity()});
+                nodes[w].distance = nodes[u].distance +1;
+                if (nodes[w].distance<=max) cities.insert({nodes[w].airport.getCountry(),nodes[w].airport.getCity()});
             }
         }
     }
@@ -574,7 +340,7 @@ set<string> Graph::listCountries(int v, int max) {
     std::queue<int> q; // queue of unvisited nodes
     q.push(v);
     nodes[v].visited = true;
-    nodes[v].nrFlights = 0;
+    nodes[v].distance = 0;
     while (!q.empty()) {
         int u = q.front(); q.pop();
         for (const auto& e : nodes[u].adj) {
@@ -582,8 +348,8 @@ set<string> Graph::listCountries(int v, int max) {
             if (!nodes[w].visited) {
                 q.push(w);
                 nodes[w].visited = true;
-                nodes[w].nrFlights = nodes[u].nrFlights +1;
-                if (nodes[w].nrFlights<=max) countries.insert(nodes[w].airport.getCountry());
+                nodes[w].distance = nodes[u].distance +1;
+                if (nodes[w].distance<=max) countries.insert(nodes[w].airport.getCountry());
             }
         }
     }

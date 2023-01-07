@@ -233,29 +233,6 @@ void Menu::processOperation() {
     printf("\033[1m\033[36m===============================================================\033[0m\n\n");
     airlines.clear();
 }
-void Menu::showPath(list<queue<Airport>> usedAirports, list<queue<Airline>> usedAirlines, int& nrPath) {
-    auto i = usedAirports.begin();
-    auto j = usedAirlines.begin();
-    for (int n = 0; n < usedAirports.size(); n ++) {
-
-        cout << " Trajeto nº" << ++nrPath << ": ";
-
-        auto airports = *i;
-        auto airlines = *j;
-        while (!airports.empty() && !airlines.empty()){
-            printf("\033[1m\033[46m %s \033[0m",airports.front().getCode().c_str());
-            cout <<" --- (";
-            printf("\033[1m\033[32m %s \033[0m",airlines.front().getCode().c_str());
-            cout << ") --- ";
-            airports.pop();
-            airlines.pop();
-        }
-        printf("\033[1m\033[46m %s \033[0m",airports.front().getCode().c_str());
-        cout << "\n\n";
-        i++;
-        j++;
-    }
-}
 //info
 void Menu::info(){
     string option;
@@ -476,7 +453,7 @@ void Menu::showAirlines(){
                     cout << " - " << i.getName() << endl;
                 }
         }
-
+        /*
         else if (option == "3"){
             string airline = validateAirline();
             if (airline == "0") continue;
@@ -491,7 +468,7 @@ void Menu::showAirlines(){
             }
             printf(" \033[1m\033[42mnº de voos: %i \033[0m " ,nrFlights);
             cout << "\n";
-        }
+        }*/
         else if (option == "0")
             return;
         else {

@@ -13,16 +13,12 @@ private:
     void chooseTarget();
     void chooseAirlines();
     void processOperation();
-
-    static void showPath(list<queue<Airport>>, list<queue<Airline>>, int& nrPath);
-
     void info();
     void showAirport();
     void showOptions(const string& airport);
     void showAirports();
     void showAirlines();
     void showCountries();
-    void printPath(string src, string dest);
 
     void statistics();
     void numberFlights();

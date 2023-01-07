@@ -34,9 +34,6 @@ class Graph {
         Airport airport = Airport("");
         bool visited;
         double distance;
-        int nrFlights;
-        queue<Airport> visitedAirports;
-        queue<Airline> visitedAirlines;
         vector<int> parents;
     };
 
@@ -59,19 +56,7 @@ public:
 
     int nrFlights(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
 
-    double flownDistance(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
     vector<string> getAirlines(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
-    list<queue<Airport>>
-    usedAirportsFlights(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
-
-    list<queue<Airline>>
-    usedAirlinesFlights(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
-
-    list<queue<Airport>> usedAirportsDistance(int src, int dest,
-                                              unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
-
-    list<queue<Airline>> usedAirlinesDistance(int src, int dest,
-                                              unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
 
     vector<pair<int, string>> flightsPerAirport();
 
