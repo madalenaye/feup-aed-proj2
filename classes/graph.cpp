@@ -56,7 +56,7 @@ int Graph::nrFlights(int src, int dest, unordered_set<Airline,Airline::AirlineHa
         nodes[i].visited = false;
         nodes[i].distance = 0;
     }
-    
+
     queue<int> q;
     q.push(src);
 

@@ -181,7 +181,6 @@ list<pair<string,string>> Supervisor::processFlight(int& bestFlight, const vecto
             else if(nrFlights == bestFlight)
                 res.emplace_back(s,d);
         }
-
     return res;
 }
 
@@ -192,7 +191,7 @@ list<pair<string,string>> Supervisor::processDistance(double& bestDistance, cons
     list<pair<string,string>> res;
     for (const auto &s: src)
         for (const auto &d: dest) {
-            if (src == dest)
+            if (s == d)
                 continue;
             auto node = graph.dijkstra(id_airports[s],id_airports[d],airlines);
             distance = node.distance;
