@@ -47,7 +47,7 @@ vector<Graph::Node> Graph::getNodes() const{
  * Calculates the distance between two points on a sphere using their latitudes and longitudes measured along the surface\n\n
  * <b>Complexity\n</b>
  * <pre>
- *      <b>O(log(n))</b>
+ *      <b>O(log(n))</b>, n -> input
  * </pre>
  * @param lat1 - latitude of point 1
  * @param lon1 - longitude of point 1
