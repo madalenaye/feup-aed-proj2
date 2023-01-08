@@ -3,7 +3,7 @@
 
 ## Desenvolvido por
 
-| Name        | Number    |
+| Nome        | Número UP |
 |-------------|-----------|
 | José Santos | 202108729 |
 | Luís Du     | 202105385 |
