@@ -1,0 +1,4 @@
+/Users/madalenaye/Downloads/AED2223_T2_G69 3/Renair/cmake-build-debug/CMakeFiles/Renair.dir
+/Users/madalenaye/Downloads/AED2223_T2_G69 3/Renair/cmake-build-debug/CMakeFiles/Doxygen.dir
+/Users/madalenaye/Downloads/AED2223_T2_G69 3/Renair/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/madalenaye/Downloads/AED2223_T2_G69 3/Renair/cmake-build-debug/CMakeFiles/rebuild_cache.dir

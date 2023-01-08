@@ -1,8 +1,11 @@
 var searchData=
 [
-  ['node_0',['Node',['../struct_graph_1_1_node.html',1,'Graph::Node'],['../struct_min_heap_1_1_node.html',1,'MinHeap&lt; K, V &gt;::Node']]],
-  ['nrflights_1',['nrFlights',['../class_graph.html#a20fdb9180903e41a424fde68027341ce',1,'Graph::nrFlights()'],['../class_supervisor.html#abe7cf2be220e2c31df9408423614f520',1,'Supervisor::nrFlights()']]],
-  ['numberairlines_2',['numberAirlines',['../class_menu.html#af2401d2eb9bf4b9d82107476a03f9bef',1,'Menu']]],
-  ['numberairports_3',['numberAirports',['../class_menu.html#a2ad209e496cb380b91ac91d3b1210704',1,'Menu']]],
-  ['numberflights_4',['numberFlights',['../class_menu.html#a1674d306d34620fb2a9769fbb0f72363',1,'Menu']]]
+  ['latitude_0',['latitude',['../class_airport.html#a165ba986f87e10d79083a6dab4ea1b34',1,'Airport']]],
+  ['left_1',['LEFT',['../min_heap_8h.html#a25d5ae2e52c533b5f27895fcf7a4ea95',1,'minHeap.h']]],
+  ['listairports_2',['listAirports',['../class_graph.html#a93005888d90af4c36ce7898741c596cb',1,'Graph']]],
+  ['listcities_3',['listCities',['../class_graph.html#ad02f80724e1f3c8fe895fb8efd380f94',1,'Graph']]],
+  ['listcountries_4',['listCountries',['../class_graph.html#a054bd25aeac0810ac19635fe748ba77f',1,'Graph']]],
+  ['localairports_5',['localAirports',['../class_supervisor.html#a8211e53daf4e9f762aa5c9173e497a94',1,'Supervisor']]],
+  ['longitude_6',['longitude',['../class_airport.html#a0996138ab535a93f97d2182c86171af7',1,'Airport']]],
+  ['low_7',['low',['../struct_graph_1_1_node.html#a98f9f515bc2b69a6f8648f3d0c3bd269',1,'Graph::Node']]]
 ];

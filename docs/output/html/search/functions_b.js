@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['printpath_0',['printPath',['../class_graph.html#a3479592c5f43e0607eb9dd5ba432d1e0',1,'Graph']]],
-  ['printpathsbydistance_1',['printPathsByDistance',['../class_graph.html#a3f06c80cc20b0e30dc0bd4b21e3a8563',1,'Graph']]],
-  ['printpathsbyflights_2',['printPathsByFlights',['../class_graph.html#aa5a36170d8f06011233e7d98368d51e7',1,'Graph']]],
-  ['processdistance_3',['processDistance',['../class_supervisor.html#a0d393a1d0b3a279716594f5fa6660d80',1,'Supervisor']]],
-  ['processflight_4',['processFlight',['../class_supervisor.html#a38d37086a15bebf8e1445c60a7cf38ba',1,'Supervisor']]],
-  ['processoperation_5',['processOperation',['../class_menu.html#a6ce2bfc8b5a2fb81038aeac2c572aa8b',1,'Menu']]]
+  ['nrflights_0',['nrFlights',['../class_graph.html#a20fdb9180903e41a424fde68027341ce',1,'Graph::nrFlights()'],['../class_supervisor.html#abe7cf2be220e2c31df9408423614f520',1,'Supervisor::nrFlights()']]],
+  ['numberairlines_1',['numberAirlines',['../class_menu.html#af2401d2eb9bf4b9d82107476a03f9bef',1,'Menu']]],
+  ['numberairports_2',['numberAirports',['../class_menu.html#a2ad209e496cb380b91ac91d3b1210704',1,'Menu']]],
+  ['numberflights_3',['numberFlights',['../class_menu.html#a1674d306d34620fb2a9769fbb0f72363',1,'Menu']]]
 ];

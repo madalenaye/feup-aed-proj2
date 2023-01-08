@@ -75,9 +75,11 @@ $(function() {
 <h3><a id="index_a" name="index_a"></a>- a -</h3><ul>
 <li>addAirport()&#160;:&#160;<a class="el" href="class_graph.html#a8a26c288aebb97a3a9ef508efb1e0fc8">Graph</a></li>
 <li>addEdge()&#160;:&#160;<a class="el" href="class_graph.html#ad18bca34119452f4fb97b156cb5836ad">Graph</a></li>
+<li>Airline()&#160;:&#160;<a class="el" href="class_airline.html#a4819111087a14945b2a4d50f130c3f00">Airline</a></li>
 <li>airlineFlights()&#160;:&#160;<a class="el" href="class_graph.html#a0aefa7325ee06c0438918ec3ddc8e069">Graph</a></li>
 <li>airlinesFromAirport()&#160;:&#160;<a class="el" href="class_graph.html#a2adc3d5570b144bcef5d7481ea404d25">Graph</a></li>
 <li>airlinesPerAirport()&#160;:&#160;<a class="el" href="class_graph.html#a9642ab949ea0dac0d47e89af471c2b61">Graph</a></li>
+<li>Airport()&#160;:&#160;<a class="el" href="class_airport.html#afdf456cd29f8d1e02cab4963ffa25978">Airport</a></li>
 <li>airportsFromAirport()&#160;:&#160;<a class="el" href="class_graph.html#a9686eeea2ab97537a3eb07b581e3568a">Graph</a></li>
 <li>airportStats()&#160;:&#160;<a class="el" href="class_menu.html#a2b280519deef886a529b35ac47902950">Menu</a></li>
 <li>articulationPoints()&#160;:&#160;<a class="el" href="class_graph.html#a50665610e34a895dd1c65d4ef89ec7a0">Graph</a></li>
@@ -94,6 +96,7 @@ $(function() {
 <li>chooseAirlines()&#160;:&#160;<a class="el" href="class_menu.html#a08f7f22ee77e81af231c950b76360590">Menu</a></li>
 <li>chooseSource()&#160;:&#160;<a class="el" href="class_menu.html#a6b6dda222fb9cd0ed7748f7e6f6e9a5c">Menu</a></li>
 <li>chooseTarget()&#160;:&#160;<a class="el" href="class_menu.html#a30d169b33d4b4fc362e4be1acf0c8703">Menu</a></li>
+<li>convertMap()&#160;:&#160;<a class="el" href="class_supervisor.html#a97891c45f58471f89b96678ba1085dc9">Supervisor</a></li>
 <li>countAirlinesPerCountry()&#160;:&#160;<a class="el" href="class_supervisor.html#a2bd1d31545a70037aa842cbb86d13026">Supervisor</a></li>
 <li>countAirportsPerCountry()&#160;:&#160;<a class="el" href="class_supervisor.html#ad07df8ad7f234349bc367614f5d6e09b">Supervisor</a></li>
 <li>countriesFromAirport()&#160;:&#160;<a class="el" href="class_graph.html#ae171b239643005b414e3905738c914c8">Graph</a></li>
@@ -105,10 +108,12 @@ $(function() {
 
 
 <h3><a id="index_d" name="index_d"></a>- d -</h3><ul>
+<li>decreaseKey()&#160;:&#160;<a class="el" href="class_min_heap.html#acb40738ccbaf73f7c093f8504387587b">MinHeap&lt; K, V &gt;</a></li>
 <li>dfsArt()&#160;:&#160;<a class="el" href="class_graph.html#ae1c2c2e0975f508d58feb716f0fd3860">Graph</a></li>
 <li>diameter()&#160;:&#160;<a class="el" href="class_graph.html#a844a02c8b936f95da99864b27b967411">Graph</a></li>
 <li>dijkstra()&#160;:&#160;<a class="el" href="class_graph.html#a8264b1f1d0dc0d9ab609d3c4ddaab747">Graph</a></li>
 <li>distance()&#160;:&#160;<a class="el" href="class_graph.html#a68a2401a1125fd52898c7efd04826c3a">Graph</a></li>
+<li>downHeap()&#160;:&#160;<a class="el" href="class_min_heap.html#a3c546146fe05dce2d81e3f4e93fbf014">MinHeap&lt; K, V &gt;</a></li>
 </ul>
 
 
@@ -124,14 +129,32 @@ $(function() {
 
 
 <h3><a id="index_g" name="index_g"></a>- g -</h3><ul>
-<li>getAirlines()&#160;:&#160;<a class="el" href="class_graph.html#a22896b0c31989b3198510068be952492">Graph</a></li>
+<li>getAirlines()&#160;:&#160;<a class="el" href="class_graph.html#a22896b0c31989b3198510068be952492">Graph</a>, <a class="el" href="class_supervisor.html#ad0948175ca017a277e54e3323c05e8b6">Supervisor</a></li>
+<li>getAirports()&#160;:&#160;<a class="el" href="class_supervisor.html#afd64239e54755f3edfa2a4297ce68196">Supervisor</a></li>
+<li>getCity()&#160;:&#160;<a class="el" href="class_airport.html#adff088d0536ead7d1c060c385da03f32">Airport</a>, <a class="el" href="class_supervisor.html#ac4bd37275351d6e46d1ad692ef281695">Supervisor</a></li>
+<li>getCode()&#160;:&#160;<a class="el" href="class_airline.html#a41ef613d6b390c463821b9ae43d9ec84">Airline</a>, <a class="el" href="class_airport.html#ad1369e1d47c87e205f1718b853a66d54">Airport</a></li>
+<li>getCountry()&#160;:&#160;<a class="el" href="class_airline.html#aa2fbdf61b5dc431552fcea751cb3d101">Airline</a>, <a class="el" href="class_airport.html#ac0ce4ad3ce71653f13b96e5d40648588">Airport</a></li>
+<li>getGraph()&#160;:&#160;<a class="el" href="class_supervisor.html#a762d5acc1f4d5bf756540f293a305d56">Supervisor</a></li>
+<li>getLatitude()&#160;:&#160;<a class="el" href="class_airport.html#aed71ba4592b2a1401eb182931f2d3f06">Airport</a></li>
+<li>getLongitude()&#160;:&#160;<a class="el" href="class_airport.html#ad8cd931389b14d63e5933a1658b653a3">Airport</a></li>
+<li>getMap()&#160;:&#160;<a class="el" href="class_supervisor.html#a3acbe3718cf66361a6d0563869d64c00">Supervisor</a></li>
+<li>getName()&#160;:&#160;<a class="el" href="class_airline.html#a48acf049e4030ac59816e86ee6a7b4aa">Airline</a>, <a class="el" href="class_airport.html#a93efcd09328d24469d97a81e8048b776">Airport</a></li>
+<li>getNodes()&#160;:&#160;<a class="el" href="class_graph.html#adc4daf6c35b3e73211dc5503479f8dca">Graph</a></li>
+<li>getNrAirportsPerCountry()&#160;:&#160;<a class="el" href="class_supervisor.html#a5fe209974f1dfa92b67e58ca6759b0e4">Supervisor</a></li>
+<li>getSize()&#160;:&#160;<a class="el" href="class_min_heap.html#a17652e042dae3954be25a1cd9e04f3b0">MinHeap&lt; K, V &gt;</a></li>
 <li>Graph()&#160;:&#160;<a class="el" href="class_graph.html#a284b99bdb07994225dee3c2cdb59c80a">Graph</a></li>
+</ul>
+
+
+<h3><a id="index_h" name="index_h"></a>- h -</h3><ul>
+<li>hasKey()&#160;:&#160;<a class="el" href="class_min_heap.html#ae5bd0efd391f31ed67634d5eeb50622e">MinHeap&lt; K, V &gt;</a></li>
 </ul>
 
 
 <h3><a id="index_i" name="index_i"></a>- i -</h3><ul>
 <li>info()&#160;:&#160;<a class="el" href="class_menu.html#ad8233700367ac9156d3ac9566e93b989">Menu</a></li>
 <li>init()&#160;:&#160;<a class="el" href="class_menu.html#a342d2a526a850dbf2d1aecd830b91287">Menu</a></li>
+<li>insert()&#160;:&#160;<a class="el" href="class_min_heap.html#a708cab4630ba761be49aea0ae536d772">MinHeap&lt; K, V &gt;</a></li>
 <li>isAirline()&#160;:&#160;<a class="el" href="class_supervisor.html#a3274dd122eff4615a64d79dd18622c60">Supervisor</a></li>
 <li>isAirport()&#160;:&#160;<a class="el" href="class_supervisor.html#a4a77185edf5114fccfa8ec46500b0a86">Supervisor</a></li>
 <li>isCity()&#160;:&#160;<a class="el" href="class_supervisor.html#a70549ae2be8d453e90e8a5441dcf4f1f">Supervisor</a></li>
@@ -151,6 +174,7 @@ $(function() {
 <h3><a id="index_m" name="index_m"></a>- m -</h3><ul>
 <li>maxReach()&#160;:&#160;<a class="el" href="class_menu.html#a443a221825a2fe1f03d4068d2af52503">Menu</a></li>
 <li>Menu()&#160;:&#160;<a class="el" href="class_menu.html#ad466dd83355124a6ed958430450bfe94">Menu</a></li>
+<li>MinHeap()&#160;:&#160;<a class="el" href="class_min_heap.html#a8041a62441509d4fd713e3b1bfad8f31">MinHeap&lt; K, V &gt;</a></li>
 </ul>
 
 
@@ -159,6 +183,11 @@ $(function() {
 <li>numberAirlines()&#160;:&#160;<a class="el" href="class_menu.html#af2401d2eb9bf4b9d82107476a03f9bef">Menu</a></li>
 <li>numberAirports()&#160;:&#160;<a class="el" href="class_menu.html#a2ad209e496cb380b91ac91d3b1210704">Menu</a></li>
 <li>numberFlights()&#160;:&#160;<a class="el" href="class_menu.html#a1674d306d34620fb2a9769fbb0f72363">Menu</a></li>
+</ul>
+
+
+<h3><a id="index_o" name="index_o"></a>- o -</h3><ul>
+<li>operator()()&#160;:&#160;<a class="el" href="struct_airline_1_1_airline_hash.html#a4295e0b07e448bcadaeb0e491bd4662d">Airline::AirlineHash</a>, <a class="el" href="struct_airport_1_1_airport_hash.html#a952056e57cd4f71a550b9d768bd8e44a">Airport::AirportHash</a>, <a class="el" href="struct_airport_1_1_city_hash.html#afe25d901f7b050c06b101363f12e9878">Airport::CityHash</a>, <a class="el" href="struct_graph_1_1_pair_string_hash.html#aa6ddd51c54d41760995264d3e4f3acb8">Graph::PairStringHash</a></li>
 </ul>
 
 
@@ -172,6 +201,11 @@ $(function() {
 </ul>
 
 
+<h3><a id="index_r" name="index_r"></a>- r -</h3><ul>
+<li>removeMin()&#160;:&#160;<a class="el" href="class_min_heap.html#a3ab07802846cc4314d7ec383180d3b82">MinHeap&lt; K, V &gt;</a></li>
+</ul>
+
+
 <h3><a id="index_s" name="index_s"></a>- s -</h3><ul>
 <li>showAirlines()&#160;:&#160;<a class="el" href="class_menu.html#a0096ec264fcacbaf59b645d83e5aa724">Menu</a></li>
 <li>showAirport()&#160;:&#160;<a class="el" href="class_menu.html#a69b62c74b7fdbcb5bae82c6e790ec368">Menu</a></li>
@@ -181,11 +215,17 @@ $(function() {
 <li>showTop()&#160;:&#160;<a class="el" href="class_menu.html#a20f256422e03e2f8f24008da89d3c900">Menu</a></li>
 <li>statistics()&#160;:&#160;<a class="el" href="class_menu.html#ac88bdc761de6e76c77bfb226c1fa6fbb">Menu</a></li>
 <li>Supervisor()&#160;:&#160;<a class="el" href="class_supervisor.html#a9d7eafc36b5429092ba0f758bc7841c4">Supervisor</a></li>
+<li>swap()&#160;:&#160;<a class="el" href="class_min_heap.html#aa7def05463b20015e9956e6c5bb3f291">MinHeap&lt; K, V &gt;</a></li>
 </ul>
 
 
 <h3><a id="index_t" name="index_t"></a>- t -</h3><ul>
 <li>targetsFromAirport()&#160;:&#160;<a class="el" href="class_graph.html#a3ce6c1e2d523a638e8c4bc176cffbbf2">Graph</a></li>
+</ul>
+
+
+<h3><a id="index_u" name="index_u"></a>- u -</h3><ul>
+<li>upHeap()&#160;:&#160;<a class="el" href="class_min_heap.html#aa557bc2acdf4c278e37811f1260fe992">MinHeap&lt; K, V &gt;</a></li>
 </ul>
 
 
