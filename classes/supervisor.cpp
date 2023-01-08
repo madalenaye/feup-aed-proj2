@@ -8,94 +8,16 @@ Supervisor::Supervisor() {
     createGraph();
     countAirportsPerCountry();
 }
+
+Airport::AirportH const& Supervisor::getAirports() const {return airports;}
+Airline::AirlineH const& Supervisor::getAirlines() const {return airlines;}
+Airport::CityH const& Supervisor::getCity() const {return airportsPerCity;}
+Graph Supervisor::getGraph() const {return graph;}
 unordered_map<string,int> Supervisor::getMap() const{
     return idAirports;
 }
-
-Graph Supervisor::getGraph() const {return graph;}
 map<string,int> Supervisor::getNrAirportsPerCountry() const {return nrAirportsPerCountry;}
 
-/**
- * Reads airports.csv file and stores the airports information in airportsPerCity, idAirports, airports, cities, countries,
- * citiesPerCountry and in the graphs function we store the airports according to an index\n\n
- * <b>Complexity\n</b>
- * <pre>
- *      <b>O(n)</b>, n -> file lines
- * </pre>
- */
-void Supervisor::createAirports() {
-    ifstream myFile;
-    string currentLine, code, name, city, country, x;
-    double latitude, longitude;
-    int i = 1;
-    myFile.open("../data/airports.csv");
-    getline(myFile, currentLine);
-
-    while (getline(myFile,currentLine)){
-        istringstream iss(currentLine);
-
-        getline(iss,code,',');
-        getline(iss,name,',');
-        getline(iss,city,',');
-        getline(iss,country,',');
-        getline(iss,x,','); latitude = stod(x);
-        getline(iss,x,','); longitude = stod(x);
-
-        Airport airport = Airport(code,name,city,country,latitude,longitude);
-        graph.addAirport(i,airport);
-        airportsPerCity[{airport.getCountry(),airport.getCity()}].push_back(code);
-        idAirports.insert({airport.getCode(),i++});
-        airports.insert(airport);
-        countries.insert(country);
-        cities.insert(city);
-        citiesPerCountry[country].push_back(city);
-    }
-}
-/**
- * Reads airlines.csv file and stores the information in airlines\n\n
- * <b>Complexity\n</b>
- * <pre>
- *      <b>O(n)</b>, n -> file lines
- * </pre>
- */
-void Supervisor::createAirlines() {
-    ifstream inFile;
-    string code, name, callsign, country, line;
-    inFile.open("../data/airlines.csv");
-    getline(inFile, line);
-    while(getline(inFile, line)){
-        istringstream is(line);
-        getline(is,code,',');
-        getline(is,name,',');
-        getline(is,callsign,',');
-        getline(is,country,',');
-        Airline a = Airline(code, name, callsign, country);
-        airlines.insert(a);
-    }
-}
-/**
- * Reads flights.csv file and stores the airports information in graphs about the flights
- * (airport of departure/arrival and distance between them)\n\n
- * <b>Complexity\n</b>
- * <pre>
- *      <b>O(n*log(n))</b>, n -> file lines
- * </pre>
- */
-void Supervisor::createGraph(){
-    ifstream inFile;
-    string source, target, airline, line;
-    inFile.open("../data/flights.csv");
-    getline(inFile, line);
-    while(getline(inFile, line)){
-        istringstream is(line);
-        getline(is,source,',');
-        getline(is,target,',');
-        getline(is,airline,',');
-        auto d = Graph::distance(airports.find(Airport(source))->getLatitude(),airports.find(Airport(source))->getLongitude()
-                ,airports.find(Airport(target))->getLatitude(),airports.find(Airport(target))->getLongitude());
-        graph.addEdge(idAirports[source],idAirports[target],Airline(airline),d);
-    }
-}
 /**
  * Verifies if a country is in the countries unordered_set\n\n
  * <b>Complexity\n</b>
@@ -190,20 +112,66 @@ vector<string> Supervisor::localAirports(double latitude, double longitude, doub
     return localAirports;
 }
 /**
- * Calculates the number of airlines that are founded in each country\n\n
+ * Calculates the smallest amount of flights possible to get to a specific airport from another airport\n\n
  * <b>Complexity\n</b>
  * <pre>
- *      <b>O(n)</b>, n -> number of airlines
+ *      <b>O(n*m*(|V|+|E|))</b>,n -> size of src vector, m -> size of dest vector,V -> number of nodes, E -> number of edges
  * </pre>
- * @param country - country that the user wants to get information from
- * @return number of airlines
+ * @param src  -> source node
+ * @param dest -> final node
+ * @param airline -> airlines available for use (if empty, use all airlines)
+ * @return list of all best possible paths
  */
-int Supervisor::countAirlinesPerCountry(const string& country) {
-    int count = 0;
-    for (auto airline : airlines)
-        if (airline.getCountry() == country)
-            count++;
-    return count;
+list<pair<string,string>> Supervisor::processFlight(int& bestFlight, const vector<string>& src, const vector<string>& dest,
+                                                    const Airline::AirlineH& airline) {
+    bestFlight = INT_MAX;
+    int nrFlights;
+    list<pair<string,string>> res;
+    for (const auto &s: src)
+        for (const auto &d: dest) {
+            if (s == d) continue;
+            nrFlights = graph.nrFlights(idAirports[s], idAirports[d], airline);
+            if (nrFlights != 0 && nrFlights < bestFlight) {
+                bestFlight = nrFlights;
+                res.clear();
+                res.emplace_back(s,d);
+            }
+            else if(nrFlights == bestFlight)
+                res.emplace_back(s,d);
+        }
+    return res;
+}
+
+/**
+ * Calculates the smallest amount of distance needed to get to a specific airport from another airport\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(n*m*(log(|V|))</b>,n -> size of src vector, m -> size of dest vector,V -> number of nodes
+ * </pre>
+ * @param src  -> source node
+ * @param dest -> final node
+ * @param airline -> airlines available for use  (if empty, use all airlines)
+ * @return list of all best possible paths
+ */
+list<pair<string,string>> Supervisor::processDistance(double& bestDistance, const vector<string>& src, const vector<string>& dest,
+                                                      const Airline::AirlineH& airline) {
+    bestDistance = MAXFLOAT;
+    double distance;
+    list<pair<string,string>> res;
+    for (const auto &s: src)
+        for (const auto &d: dest) {
+            if (s == d) continue;
+            auto node = graph.dijkstra(idAirports[s],idAirports[d],airline);
+            distance = node.distance;
+            if (distance < bestDistance) {
+                bestDistance = distance;
+                res.clear();
+                res.emplace_back(s,d);
+            }
+            else if (distance == bestDistance)
+                res.emplace_back(s,d);
+        }
+    return res;
 }
 /**
  * Calculates the number of airports that belong to each country\n\n
@@ -224,6 +192,38 @@ void Supervisor::countAirportsPerCountry() {
     }
     nrAirportsPerCountry = airportsPerCountry;
 }
+/**
+ * Calculates the number of airlines that are founded in each country\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(n)</b>, n -> number of airlines
+ * </pre>
+ * @param country - country that the user wants to get information from
+ * @return number of airlines
+ */
+int Supervisor::countAirlinesPerCountry(const string& country) {
+    int count = 0;
+    for (auto airline : airlines)
+        if (airline.getCountry() == country)
+            count++;
+    return count;
+}
+
+/**
+ * Calculates the total number of flights\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(|V|)</b>, V -> number of nodes
+ * </pre>
+ * @return number of flights
+ */
+int Supervisor::nrFlights(){
+    int nrFlights = 0;
+    for (const auto& node: graph.getNodes())
+        nrFlights += node.adj.size();
+    return nrFlights;
+}
+
 /**
  * Swaps key and value.\n\n
  * <b>Complexity\n</b>
@@ -263,80 +263,85 @@ multimap<B,A> flip_map(const map<A,B> &src)
 multimap<int,string> Supervisor::convertMap(const map<string, int>& m) {
     return flip_map(m);
 }
-/**
- * Calculates the total number of flights\n\n
- * <b>Complexity\n</b>
- * <pre>
- *      <b>O(|V|)</b>, V -> number of nodes
- * </pre>
- * @return number of flights
- */
-int Supervisor::nrFlights(){
-    int nrFlights = 0;
-    for (const auto& node: graph.getNodes())
-        nrFlights += node.adj.size();
-    return nrFlights;
-}
 
 /**
- * Calculates the smallest amount of flights possible to get to a specific airport from another airport\n\n
+ * Reads airports.csv file and stores the airports information in airportsPerCity, idAirports, airports, cities, countries,
+ * citiesPerCountry and in the graphs function we store the airports according to an index\n\n
  * <b>Complexity\n</b>
  * <pre>
- *      <b>O(n*m*(|V|+|E|))</b>,n -> size of src vector, m -> size of dest vector,V -> number of nodes, E -> number of edges
+ *      <b>O(n)</b>, n -> file lines
  * </pre>
- * @param src  -> source node
- * @param dest -> final node
- * @param airline -> airlines available for use (if empty, use all airlines)
- * @return list of all best possible paths
  */
-list<pair<string,string>> Supervisor::processFlight(int& bestFlight, const vector<string>& src, const vector<string>& dest,
-                         const Airline::AirlineH& airline) {
-    bestFlight = INT_MAX;
-    int nrFlights;
-    list<pair<string,string>> res;
-    for (const auto &s: src)
-        for (const auto &d: dest) {
-            if (s == d) continue;
-            nrFlights = graph.nrFlights(idAirports[s], idAirports[d], airline);
-            if (nrFlights != 0 && nrFlights < bestFlight) {
-                bestFlight = nrFlights;
-                res.clear();
-                res.emplace_back(s,d);
-            }
-            else if(nrFlights == bestFlight)
-                res.emplace_back(s,d);
-        }
-    return res;
-}
+void Supervisor::createAirports() {
+    ifstream myFile;
+    string currentLine, code, name, city, country, x;
+    double latitude, longitude;
+    int i = 1;
+    myFile.open("../data/airports.csv");
+    getline(myFile, currentLine);
 
+    while (getline(myFile,currentLine)){
+        istringstream iss(currentLine);
+
+        getline(iss,code,',');
+        getline(iss,name,',');
+        getline(iss,city,',');
+        getline(iss,country,',');
+        getline(iss,x,','); latitude = stod(x);
+        getline(iss,x,','); longitude = stod(x);
+
+        Airport airport = Airport(code,name,city,country,latitude,longitude);
+        graph.addAirport(i,airport);
+        airportsPerCity[{airport.getCountry(),airport.getCity()}].push_back(code);
+        idAirports.insert({airport.getCode(),i++});
+        airports.insert(airport);
+        countries.insert(country);
+        cities.insert(city);
+        citiesPerCountry[country].push_back(city);
+    }
+}
 /**
- * Calculates the smallest amount of distance needed to get to a specific airport from another airport\n\n
+ * Reads airlines.csv file and stores the information in airlines\n\n
  * <b>Complexity\n</b>
  * <pre>
- *      <b>O(n*m*(log(|V|))</b>,n -> size of src vector, m -> size of dest vector,V -> number of nodes
+ *      <b>O(n)</b>, n -> file lines
  * </pre>
- * @param src  -> source node
- * @param dest -> final node
- * @param airline -> airlines available for use  (if empty, use all airlines)
- * @return list of all best possible paths
  */
-list<pair<string,string>> Supervisor::processDistance(double& bestDistance, const vector<string>& src, const vector<string>& dest,
-                                                    const Airline::AirlineH& airline) {
-    bestDistance = MAXFLOAT;
-    double distance;
-    list<pair<string,string>> res;
-    for (const auto &s: src)
-        for (const auto &d: dest) {
-            if (s == d) continue;
-            auto node = graph.dijkstra(idAirports[s],idAirports[d],airline);
-            distance = node.distance;
-            if (distance < bestDistance) {
-                bestDistance = distance;
-                res.clear();
-                res.emplace_back(s,d);
-            }
-            else if (distance == bestDistance)
-                res.emplace_back(s,d);
-        }
-    return res;
+void Supervisor::createAirlines() {
+    ifstream inFile;
+    string code, name, callsign, country, line;
+    inFile.open("../data/airlines.csv");
+    getline(inFile, line);
+    while(getline(inFile, line)){
+        istringstream is(line);
+        getline(is,code,',');
+        getline(is,name,',');
+        getline(is,callsign,',');
+        getline(is,country,',');
+        Airline a = Airline(code, name, callsign, country);
+        airlines.insert(a);
+    }
+}
+/**
+ * Reads flights.csv file and stores the airports information in graphs about the flights
+ * (airport of departure/arrival and distance between them)\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(n*log(n))</b>, n -> file lines
+ * </pre>
+ */
+void Supervisor::createGraph(){
+    ifstream inFile;
+    string source, target, airline, line;
+    inFile.open("../data/flights.csv");
+    getline(inFile, line);
+    while(getline(inFile, line)){
+        istringstream is(line);
+        getline(is,source,',');
+        getline(is,target,',');
+        getline(is,airline,',');
+        auto d = Graph::distance(airports.find(Airport(source))->getLatitude(),airports.find(Airport(source))->getLongitude()
+                ,airports.find(Airport(target))->getLatitude(),airports.find(Airport(target))->getLongitude());
+        graph.addEdge(idAirports[source],idAirports[target],Airline(airline),d);
+    }
 }

@@ -48,37 +48,20 @@ public:
     explicit Graph(int nodes);
 
     void addEdge(int src, int dest, Airline airline, double distance);
-
     void addAirport(int src, Airport airport);
 
     vector<Node> getNodes() const;
-
     static double distance(double lat1, double lon1, double lat2, double lon2);
 
     int nrFlights(int src, int dest, Airline::AirlineH airlines);
 
     vector<pair<int, string>> flightsPerAirport();
-
     vector<pair<int, string>> airlinesPerAirport();
 
     Airport::AirportH listAirports(int nI, int max);
-
     Airport::CityH2 listCities(int nI, int max);
-
     set<string> listCountries(int nI, int max);
 
-    unordered_set<string> airlinesFromAirport(int i);
-
-    Node dijkstra(int src, int dest, Airline::AirlineH airlines);
-
-    void bfs(int src, Airline::AirlineH airlines);
-    void findPaths(vector<vector<int>>& paths,vector<int>& path,int v);
-    void printPathsByFlights(int& nrPath, int start, int end, const Airline::AirlineH& airlines);
-    void printPathsByDistance(int& nrPath, int start, int end, const Airline::AirlineH& airlines);
-    void printPath(vector<int>,const Airline::AirlineH&);
-    Airport::CityH2 targetsFromAirport(int i);
-
-    unordered_set<string> countriesFromAirport(int i);
     struct PairStringHash{
         int operator()(const pair<string,string> &b) const {
             string code = b.second;
@@ -93,12 +76,24 @@ public:
     };
     typedef unordered_set<pair<string, string>, PairStringHash, PairStringHash> PairH;
     PairH airportsFromAirport(int source);
-    list<int> articulationPoints(const Airline::AirlineH& airlines);
-    void dfsArt(int v, int index,list<int> &res, Airline::AirlineH airlines);
+    unordered_set<string> airlinesFromAirport(int i);
+    Airport::CityH2 targetsFromAirport(int i);
+    unordered_set<string> countriesFromAirport(int i);
+
+    void bfsPath(int src, Airline::AirlineH airlines);
+    void findPaths(vector<vector<int>>& paths,vector<int>& path,int v);
+
+    Node dijkstra(int src, int dest, Airline::AirlineH airlines);
+
     double bfsDiameter(int v);
     double diameter();
 
-    vector<string>
-    getAirlines(int src, int dest, Airline::AirlineH airlines);
+    void dfsArt(int v, int index,list<int> &res, Airline::AirlineH airlines);
+    list<int> articulationPoints(const Airline::AirlineH& airlines);
+
+    vector<string> getAirlines(int src, int dest, Airline::AirlineH airlines);
+    void printPath(vector<int>,const Airline::AirlineH&);
+    void printPathsByFlights(int& nrPath, int start, int end, const Airline::AirlineH& airlines);
+    void printPathsByDistance(int& nrPath, int start, int end, const Airline::AirlineH& airlines);
 };
 #endif //GRAPH_H

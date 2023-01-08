@@ -31,15 +31,15 @@ private:
     static int showTop();
     static int customTop(const string& message, int n);
 
-    string validateCountry();
-    static string validateOption(const string& message);
+    string validateAirport();
     string validateAirline();
+    string validateCountry();
+    string validateCity(const string& country);
     static double validateLatitude();
     static double validateLongitude();
     static double validateRadius();
-    string validateCity(const string& country);
-    string validateAirport();
     vector<string> validateLocal();
+    static string validateOption(const string& message);
 
     Supervisor* supervisor;
     vector<string> src;
