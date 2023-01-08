@@ -10,4 +10,6 @@
 | Madalena Ye | 202108795 |
 
 
-`Lembre-se que sempre que necessitar voltar atrás no menu, basta pressionar [0]!`
+### Notas adicionais:
+
+* `Lembre-se que sempre que necessitar voltar atrás no menu, basta pressionar [0]!`
