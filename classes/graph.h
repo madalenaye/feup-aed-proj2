@@ -73,9 +73,9 @@ public:
 
     void bfs(int src, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
     void findPaths(vector<vector<int>>& paths,vector<int>& path,int v);
-    void printPathsByFlights(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
-    void printPathsByDistance(int& nrPath, int start, int end, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
-    void printPath(vector<int>,unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>);
+    void printPathsByFlights(int& nrPath, int start, int end, const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>& airlines);
+    void printPathsByDistance(int& nrPath, int start, int end, const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>& airlines);
+    void printPath(vector<int>,const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>&);
     Airport::CityH2 targetsFromAirport(int i);
 
     unordered_set<string> countriesFromAirport(int i);
@@ -83,8 +83,8 @@ public:
         int operator()(const pair<string,string> &b) const {
             string code = b.second;
             int v = 0;
-            for (unsigned int i = 0; i < code.size(); i++)
-                v = 37 * v + code[i];
+            for (char i : code)
+                v = 37 * v + i;
             return v;
         }
 

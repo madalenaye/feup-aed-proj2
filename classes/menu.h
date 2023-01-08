@@ -19,7 +19,6 @@ private:
     void showAirports();
     void showAirlines();
     void showCountries();
-    void showArticulation();
 
     void statistics();
     void numberFlights();
