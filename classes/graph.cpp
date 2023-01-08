@@ -108,6 +108,24 @@ int Graph::nrFlights(int src, int dest, Airline::AirlineH airlines){
     return nodes[dest].distance;
 }
 
+/**
+ * Calculates the number of flights of a specific airline\n\n
+ * <b>Complexity\n</b>
+ * <pre>
+ *      <b>O(|E|)</b>, E -> number of edges
+ * </pre>
+ * @param airline
+ * @return number of flights of a specific airline
+ */
+int Graph::airlineFlights(const string& airline){
+    int count = 0;
+    for (int i = 1 ; i <= size; i++)
+        for (const Edge& e : nodes[i].adj)
+            if (e.airline.getCode() == airline)
+                count++;
+    return count;
+}
+
 bool cmp( const pair<int,string>& a, const pair<int,string>& b){
     return a.first > b.first;
 }

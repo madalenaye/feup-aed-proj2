@@ -54,6 +54,7 @@ public:
     static double distance(double lat1, double lon1, double lat2, double lon2);
 
     int nrFlights(int src, int dest, Airline::AirlineH airlines);
+    int airlineFlights(const string& airline);
 
     vector<pair<int, string>> flightsPerAirport();
     vector<pair<int, string>> airlinesPerAirport();

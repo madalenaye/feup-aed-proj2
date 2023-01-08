@@ -109,6 +109,8 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
 <tr class="separator:adc4daf6c35b3e73211dc5503479f8dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20fdb9180903e41a424fde68027341ce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a20fdb9180903e41a424fde68027341ce">nrFlights</a> (int src, int dest, Airline::AirlineH airlines)</td></tr>
 <tr class="separator:a20fdb9180903e41a424fde68027341ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0aefa7325ee06c0438918ec3ddc8e069"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a0aefa7325ee06c0438918ec3ddc8e069">airlineFlights</a> (const string &amp;airline)</td></tr>
+<tr class="separator:a0aefa7325ee06c0438918ec3ddc8e069"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81c24e1f675cb8a311b1682b73af96b2"><td class="memItemLeft" align="right" valign="top">vector&lt; pair&lt; int, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a81c24e1f675cb8a311b1682b73af96b2">flightsPerAirport</a> ()</td></tr>
 <tr class="separator:a81c24e1f675cb8a311b1682b73af96b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9642ab949ea0dac0d47e89af471c2b61"><td class="memItemLeft" align="right" valign="top">vector&lt; pair&lt; int, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a9642ab949ea0dac0d47e89af471c2b61">airlinesPerAirport</a> ()</td></tr>
@@ -289,6 +291,36 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a0aefa7325ee06c0438918ec3ddc8e069" name="a0aefa7325ee06c0438918ec3ddc8e069"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0aefa7325ee06c0438918ec3ddc8e069">&#9670;&#160;</a></span>airlineFlights()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Graph::airlineFlights </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>airline</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Calculates the number of flights of a specific airline<br  />
+<br  />
+<b>Complexity<br  />
+</b> </p><pre>
+     <b>O(|E|)</b>, E -&gt; number of edges
+</pre> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">airline</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>number of flights of a specific airline </dd></dl>
 
 </div>
 </div>

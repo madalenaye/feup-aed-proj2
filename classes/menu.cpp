@@ -625,8 +625,8 @@ void Menu::statistics() {
 void Menu::numberFlights(){
     string option;
     while(true){
-        cout << "\n Pretende saber quantos voos:\n\n "
-                "[1] Existem no total\n [2] Existem a partir de um aeroporto\n\n Opção: ";
+        cout << "\n Pretende ver o número de:\n\n "
+                "[1] Voos totais\n [2] Voos de uma companhia aérea\n\n Opção: ";
         cin >> option;
         if (option == "1"){
             cout << "\n Existem ";
@@ -634,13 +634,11 @@ void Menu::numberFlights(){
             cout << "voos no total\n";
         }
         else if (option == "2"){
-            string code = validateAirport();
-            if (code == "0") continue;
-            Airport airport = *supervisor->getAirports().find(Airport(code));
-            int node = supervisor->getMap()[code];
-            cout << "\n Existem ";
-            printf("\033[1m\033[35m%lu \033[0m", supervisor->getGraph().getNodes()[node].adj.size());
-            cout << "voos a partir de " << airport.getName() << '\n';
+            string airline = validateAirline();
+            if (airline == "0") continue;
+            cout << "\n A " << airline << " tem ";
+            printf("\033[1m\033[35m%d \033[0m", supervisor->getGraph().airlineFlights(airline));
+            cout << "voos\n";
         }
         else if (option == "0")
             return;
