@@ -6,7 +6,7 @@
  */
 Menu::Menu() {
     printf("\n");
-    printf(" \033[44m===========================================================\033[0m\t\t");
+    printf("\033[44m===========================================================\033[0m\t\t");
     cout << "\n\n" << " Bem-vindo!\n (Pressione [0] sempre que quiser voltar atrás)\n\n";
     supervisor = new Supervisor();
 }
@@ -148,7 +148,7 @@ void Menu::chooseTarget() {
             return;
         }
 
-        cout << "\n Input inválido, tente novamente. \n\n";
+        cout << "\n Input inválido, tente novamente. \n";
         cin.clear();
         cin.ignore(INT_MAX, '\n');
     }
