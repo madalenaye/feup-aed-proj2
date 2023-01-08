@@ -191,7 +191,7 @@ Graph::Node Graph::dijkstra(int src, int dest, unordered_set<Airline, Airline::A
         int u = q.removeMin();
         nodes[u].visited = true;
 
-        for (auto e : nodes[u].adj) {
+        for (const auto& e : nodes[u].adj) {
 
             if (!airlines.empty() && airlines.find(e.airline) == airlines.end()) continue;
 
@@ -414,7 +414,7 @@ set<string> Graph::listCountries(int v, int max) {
  */
 vector<string> Graph::getAirlines(int src, int dest,Airline::AirlineH airlines) {
     vector<string> usedAirlines;
-    for (auto e: nodes[src].adj)
+    for (const auto& e: nodes[src].adj)
         if (e.dest == dest && (airlines.empty() ||airlines.find(e.airline) != airlines.end()))
             usedAirlines.push_back(e.airline.getCode());
     return usedAirlines;
@@ -469,7 +469,7 @@ void Graph::bfs(int src, Airline::AirlineH airlines){
     while (!q.empty()) {
         int u = q.front();
         q.pop();
-        for (auto e : nodes[u].adj) {
+        for (const auto& e : nodes[u].adj) {
             if (!airlines.empty() && airlines.find(e.airline) == airlines.end()) continue;
             int v = e.dest;
             if (nodes[v].distance > nodes[u].distance + 1) {
@@ -495,7 +495,7 @@ void Graph::bfs(int src, Airline::AirlineH airlines){
  * @param end -> final node
  * @param airlines -> unordered_set of airlines
  */
-void Graph::printPathsByFlights(int& nrPath, int start, int end, Airline::AirlineH airlines) {
+void Graph::printPathsByFlights(int& nrPath, int start, int end, const Airline::AirlineH& airlines) {
     vector<int> path;
     vector<vector<int> > paths;
 
@@ -524,7 +524,7 @@ void Graph::printPathsByFlights(int& nrPath, int start, int end, Airline::Airlin
  * @param airlines ->unordered_set of the airlines
  */
 void Graph::printPathsByDistance(int& nrPath, int start, int end,
-                                 Airline::AirlineH airlines) {
+                                 const Airline::AirlineH& airlines) {
     Node node = dijkstra(start,end,airlines);
 
     if (node.parents.empty()) {
@@ -538,7 +538,7 @@ void Graph::printPathsByDistance(int& nrPath, int start, int end,
 }
 
 
-void Graph::printPath(vector<int> path, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines) {
+void Graph::printPath(vector<int> path, const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>& airlines) {
     for (int i = 0; i < path.size()-1; i++){
         auto possibleAirlines = getAirlines(path[i],path[i+1],airlines);
         printf("\033[1m\033[46m %s \033[0m", nodes[path[i]].airport.getCode().c_str());
@@ -601,8 +601,6 @@ double Graph::bfsDiameter(int v) {
  * @return max diameter between all connected components.
  */
 double Graph::diameter() {
-    queue<int> waiting;
-    waiting.push(1);
     nodes[1].visited = true;
     double max = bfsDiameter(1);
     for (int i = 1; i <= size; i++){

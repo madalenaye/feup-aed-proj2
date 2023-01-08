@@ -13,13 +13,13 @@ private:
     void chooseTarget();
     void chooseAirlines(bool op);
     void processOperation();
+
     void info();
     void showAirport();
     void showOptions(const string& airport);
     void showAirports();
     void showAirlines();
     void showCountries();
-    void showArticulation();
 
     void statistics();
     void numberFlights();
