@@ -1,0 +1,10 @@
+# ninja log v5
+0	1918	1673202753245504138	CMakeFiles/Renair.dir/classes/graph.cpp.o	d238536f5a065d84
+0	110	0	CMakeFiles/Doxygen	25f0d3fa73b6c96f
+0	1065	1673202752395884347	CMakeFiles/Renair.dir/main.cpp.o	b9789fb599974c57
+0	80	1673203506452255203	build.ninja	ab317bd97fa32c01
+0	629	1673202751961136480	CMakeFiles/Renair.dir/classes/airport.cpp.o	dff0e74ad5ad14fb
+0	727	1673202752055364992	CMakeFiles/Renair.dir/classes/airline.cpp.o	e36a230e15cbfa0c
+1	1838	1673202753168928344	CMakeFiles/Renair.dir/classes/supervisor.cpp.o	e24830deb693284c
+0	1654	1673202752983970387	CMakeFiles/Renair.dir/classes/menu.cpp.o	a1b150133e674406
+1918	2078	1673202753411393365	Renair	d65651ee8ee89a3a

@@ -80,6 +80,8 @@ $(function() {
   <div class="headertitle"><div class="title">Graph Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="graph_8h_source.html">graph.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -92,22 +94,20 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a353c1d686ece72068fc269239e9cdb51"><td class="memItemLeft" align="right" valign="top"><a id="a353c1d686ece72068fc269239e9cdb51" name="a353c1d686ece72068fc269239e9cdb51"></a>
-typedef unordered_set&lt; pair&lt; string, string &gt;, <a class="el" href="struct_graph_1_1_pair_string_hash.html">PairStringHash</a>, <a class="el" href="struct_graph_1_1_pair_string_hash.html">PairStringHash</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>PairH</b></td></tr>
+<tr class="memitem:a353c1d686ece72068fc269239e9cdb51"><td class="memItemLeft" align="right" valign="top">typedef unordered_set&lt; pair&lt; string, string &gt;, <a class="el" href="struct_graph_1_1_pair_string_hash.html">PairStringHash</a>, <a class="el" href="struct_graph_1_1_pair_string_hash.html">PairStringHash</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a353c1d686ece72068fc269239e9cdb51">PairH</a></td></tr>
 <tr class="separator:a353c1d686ece72068fc269239e9cdb51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a284b99bdb07994225dee3c2cdb59c80a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a284b99bdb07994225dee3c2cdb59c80a">Graph</a> (int nodes)</td></tr>
+<tr class="memitem:a284b99bdb07994225dee3c2cdb59c80a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a284b99bdb07994225dee3c2cdb59c80a">Graph</a> (int <a class="el" href="class_graph.html#a71b5e16eb9e0670fea3ecee3526abb41">nodes</a>)</td></tr>
 <tr class="separator:a284b99bdb07994225dee3c2cdb59c80a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad18bca34119452f4fb97b156cb5836ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ad18bca34119452f4fb97b156cb5836ad">addEdge</a> (int src, int dest, <a class="el" href="class_airline.html">Airline</a> airline, double <a class="el" href="class_graph.html#a68a2401a1125fd52898c7efd04826c3a">distance</a>)</td></tr>
 <tr class="separator:ad18bca34119452f4fb97b156cb5836ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a26c288aebb97a3a9ef508efb1e0fc8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a8a26c288aebb97a3a9ef508efb1e0fc8">addAirport</a> (int src, <a class="el" href="class_airport.html">Airport</a> airport)</td></tr>
 <tr class="separator:a8a26c288aebb97a3a9ef508efb1e0fc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc4daf6c35b3e73211dc5503479f8dca"><td class="memItemLeft" align="right" valign="top"><a id="adc4daf6c35b3e73211dc5503479f8dca" name="adc4daf6c35b3e73211dc5503479f8dca"></a>
-vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getNodes</b> () const</td></tr>
+<tr class="memitem:adc4daf6c35b3e73211dc5503479f8dca"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#adc4daf6c35b3e73211dc5503479f8dca">getNodes</a> () const</td></tr>
 <tr class="separator:adc4daf6c35b3e73211dc5503479f8dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20fdb9180903e41a424fde68027341ce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a20fdb9180903e41a424fde68027341ce">nrFlights</a> (int src, int dest, Airline::AirlineH airlines)</td></tr>
+<tr class="memitem:a20fdb9180903e41a424fde68027341ce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a20fdb9180903e41a424fde68027341ce">nrFlights</a> (int src, int dest, <a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a> airlines)</td></tr>
 <tr class="separator:a20fdb9180903e41a424fde68027341ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0aefa7325ee06c0438918ec3ddc8e069"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a0aefa7325ee06c0438918ec3ddc8e069">airlineFlights</a> (const string &amp;airline)</td></tr>
 <tr class="separator:a0aefa7325ee06c0438918ec3ddc8e069"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,41 +115,41 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
 <tr class="separator:a81c24e1f675cb8a311b1682b73af96b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9642ab949ea0dac0d47e89af471c2b61"><td class="memItemLeft" align="right" valign="top">vector&lt; pair&lt; int, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a9642ab949ea0dac0d47e89af471c2b61">airlinesPerAirport</a> ()</td></tr>
 <tr class="separator:a9642ab949ea0dac0d47e89af471c2b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93005888d90af4c36ce7898741c596cb"><td class="memItemLeft" align="right" valign="top">Airport::AirportH&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a93005888d90af4c36ce7898741c596cb">listAirports</a> (int nI, int max)</td></tr>
+<tr class="memitem:a93005888d90af4c36ce7898741c596cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_airport.html#a18ae8cd7f46fbbc09d94a5ee940a0522">Airport::AirportH</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a93005888d90af4c36ce7898741c596cb">listAirports</a> (int nI, int max)</td></tr>
 <tr class="separator:a93005888d90af4c36ce7898741c596cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad02f80724e1f3c8fe895fb8efd380f94"><td class="memItemLeft" align="right" valign="top">Airport::CityH2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ad02f80724e1f3c8fe895fb8efd380f94">listCities</a> (int nI, int max)</td></tr>
+<tr class="memitem:ad02f80724e1f3c8fe895fb8efd380f94"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_airport.html#a2534e7042d66aa7cded11af6e898c52f">Airport::CityH2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ad02f80724e1f3c8fe895fb8efd380f94">listCities</a> (int nI, int max)</td></tr>
 <tr class="separator:ad02f80724e1f3c8fe895fb8efd380f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a054bd25aeac0810ac19635fe748ba77f"><td class="memItemLeft" align="right" valign="top">set&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a054bd25aeac0810ac19635fe748ba77f">listCountries</a> (int nI, int max)</td></tr>
 <tr class="separator:a054bd25aeac0810ac19635fe748ba77f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9686eeea2ab97537a3eb07b581e3568a"><td class="memItemLeft" align="right" valign="top">PairH&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a9686eeea2ab97537a3eb07b581e3568a">airportsFromAirport</a> (int source)</td></tr>
+<tr class="memitem:a9686eeea2ab97537a3eb07b581e3568a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_graph.html#a353c1d686ece72068fc269239e9cdb51">PairH</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a9686eeea2ab97537a3eb07b581e3568a">airportsFromAirport</a> (int source)</td></tr>
 <tr class="separator:a9686eeea2ab97537a3eb07b581e3568a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2adc3d5570b144bcef5d7481ea404d25"><td class="memItemLeft" align="right" valign="top">unordered_set&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a2adc3d5570b144bcef5d7481ea404d25">airlinesFromAirport</a> (int i)</td></tr>
 <tr class="separator:a2adc3d5570b144bcef5d7481ea404d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ce6c1e2d523a638e8c4bc176cffbbf2"><td class="memItemLeft" align="right" valign="top">Airport::CityH2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a3ce6c1e2d523a638e8c4bc176cffbbf2">targetsFromAirport</a> (int i)</td></tr>
+<tr class="memitem:a3ce6c1e2d523a638e8c4bc176cffbbf2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_airport.html#a2534e7042d66aa7cded11af6e898c52f">Airport::CityH2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a3ce6c1e2d523a638e8c4bc176cffbbf2">targetsFromAirport</a> (int i)</td></tr>
 <tr class="separator:a3ce6c1e2d523a638e8c4bc176cffbbf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae171b239643005b414e3905738c914c8"><td class="memItemLeft" align="right" valign="top">unordered_set&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ae171b239643005b414e3905738c914c8">countriesFromAirport</a> (int i)</td></tr>
 <tr class="separator:ae171b239643005b414e3905738c914c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16d22f88ac4d750c91ac9c1678b40366"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a16d22f88ac4d750c91ac9c1678b40366">bfsPath</a> (int src, Airline::AirlineH airlines)</td></tr>
+<tr class="memitem:a16d22f88ac4d750c91ac9c1678b40366"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a16d22f88ac4d750c91ac9c1678b40366">bfsPath</a> (int src, <a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a> airlines)</td></tr>
 <tr class="separator:a16d22f88ac4d750c91ac9c1678b40366"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11b10540c0a1f24aee06d2ab793543af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a11b10540c0a1f24aee06d2ab793543af">findPaths</a> (vector&lt; vector&lt; int &gt; &gt; &amp;paths, vector&lt; int &gt; &amp;path, int v)</td></tr>
 <tr class="separator:a11b10540c0a1f24aee06d2ab793543af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8264b1f1d0dc0d9ab609d3c4ddaab747"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_graph_1_1_node.html">Node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a8264b1f1d0dc0d9ab609d3c4ddaab747">dijkstra</a> (int src, int dest, Airline::AirlineH airlines)</td></tr>
+<tr class="memitem:a8264b1f1d0dc0d9ab609d3c4ddaab747"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_graph_1_1_node.html">Node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a8264b1f1d0dc0d9ab609d3c4ddaab747">dijkstra</a> (int src, int dest, <a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a> airlines)</td></tr>
 <tr class="separator:a8264b1f1d0dc0d9ab609d3c4ddaab747"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6470565b622cf663860754ca88e5045"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ac6470565b622cf663860754ca88e5045">bfsDiameter</a> (int v)</td></tr>
 <tr class="separator:ac6470565b622cf663860754ca88e5045"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a844a02c8b936f95da99864b27b967411"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a844a02c8b936f95da99864b27b967411">diameter</a> ()</td></tr>
 <tr class="separator:a844a02c8b936f95da99864b27b967411"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1c2c2e0975f508d58feb716f0fd3860"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ae1c2c2e0975f508d58feb716f0fd3860">dfsArt</a> (int v, int index, list&lt; int &gt; &amp;res, Airline::AirlineH airlines)</td></tr>
+<tr class="memitem:ae1c2c2e0975f508d58feb716f0fd3860"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ae1c2c2e0975f508d58feb716f0fd3860">dfsArt</a> (int v, int index, list&lt; int &gt; &amp;res, <a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a> airlines)</td></tr>
 <tr class="separator:ae1c2c2e0975f508d58feb716f0fd3860"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50665610e34a895dd1c65d4ef89ec7a0"><td class="memItemLeft" align="right" valign="top">list&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a50665610e34a895dd1c65d4ef89ec7a0">articulationPoints</a> (const Airline::AirlineH &amp;airlines)</td></tr>
+<tr class="memitem:a50665610e34a895dd1c65d4ef89ec7a0"><td class="memItemLeft" align="right" valign="top">list&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a50665610e34a895dd1c65d4ef89ec7a0">articulationPoints</a> (const <a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a> &amp;airlines)</td></tr>
 <tr class="separator:a50665610e34a895dd1c65d4ef89ec7a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22896b0c31989b3198510068be952492"><td class="memItemLeft" align="right" valign="top">vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a22896b0c31989b3198510068be952492">getAirlines</a> (int src, int dest, Airline::AirlineH airlines)</td></tr>
+<tr class="memitem:a22896b0c31989b3198510068be952492"><td class="memItemLeft" align="right" valign="top">vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a22896b0c31989b3198510068be952492">getAirlines</a> (int src, int dest, <a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a> airlines)</td></tr>
 <tr class="separator:a22896b0c31989b3198510068be952492"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3479592c5f43e0607eb9dd5ba432d1e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a3479592c5f43e0607eb9dd5ba432d1e0">printPath</a> (vector&lt; int &gt;, const Airline::AirlineH &amp;)</td></tr>
+<tr class="memitem:a3479592c5f43e0607eb9dd5ba432d1e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a3479592c5f43e0607eb9dd5ba432d1e0">printPath</a> (vector&lt; int &gt;, const <a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a> &amp;)</td></tr>
 <tr class="separator:a3479592c5f43e0607eb9dd5ba432d1e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5a36170d8f06011233e7d98368d51e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#aa5a36170d8f06011233e7d98368d51e7">printPathsByFlights</a> (int &amp;nrPath, int start, int end, const Airline::AirlineH &amp;airlines)</td></tr>
+<tr class="memitem:aa5a36170d8f06011233e7d98368d51e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#aa5a36170d8f06011233e7d98368d51e7">printPathsByFlights</a> (int &amp;nrPath, int start, int end, const <a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a> &amp;airlines)</td></tr>
 <tr class="separator:aa5a36170d8f06011233e7d98368d51e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f06c80cc20b0e30dc0bd4b21e3a8563"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a3f06c80cc20b0e30dc0bd4b21e3a8563">printPathsByDistance</a> (int &amp;nrPath, int start, int end, const Airline::AirlineH &amp;airlines)</td></tr>
+<tr class="memitem:a3f06c80cc20b0e30dc0bd4b21e3a8563"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a3f06c80cc20b0e30dc0bd4b21e3a8563">printPathsByDistance</a> (int &amp;nrPath, int start, int end, const <a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a> &amp;airlines)</td></tr>
 <tr class="separator:a3f06c80cc20b0e30dc0bd4b21e3a8563"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
@@ -159,13 +159,26 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a726d5df1025e915e8785b6522331b21c"><td class="memItemLeft" align="right" valign="top"><a id="a726d5df1025e915e8785b6522331b21c" name="a726d5df1025e915e8785b6522331b21c"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>size</b></td></tr>
+<tr class="memitem:a726d5df1025e915e8785b6522331b21c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a726d5df1025e915e8785b6522331b21c">size</a></td></tr>
 <tr class="separator:a726d5df1025e915e8785b6522331b21c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71b5e16eb9e0670fea3ecee3526abb41"><td class="memItemLeft" align="right" valign="top"><a id="a71b5e16eb9e0670fea3ecee3526abb41" name="a71b5e16eb9e0670fea3ecee3526abb41"></a>
-vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nodes</b></td></tr>
+<tr class="memitem:a71b5e16eb9e0670fea3ecee3526abb41"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a71b5e16eb9e0670fea3ecee3526abb41">nodes</a></td></tr>
 <tr class="separator:a71b5e16eb9e0670fea3ecee3526abb41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a353c1d686ece72068fc269239e9cdb51" name="a353c1d686ece72068fc269239e9cdb51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a353c1d686ece72068fc269239e9cdb51">&#9670;&#160;</a></span>PairH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef unordered_set&lt;pair&lt;string, string&gt;, <a class="el" href="struct_graph_1_1_pair_string_hash.html">PairStringHash</a>, <a class="el" href="struct_graph_1_1_pair_string_hash.html">PairStringHash</a>&gt; <a class="el" href="class_graph.html#a353c1d686ece72068fc269239e9cdb51">Graph::PairH</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a284b99bdb07994225dee3c2cdb59c80a" name="a284b99bdb07994225dee3c2cdb59c80a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a284b99bdb07994225dee3c2cdb59c80a">&#9670;&#160;</a></span>Graph()</h2>
@@ -346,7 +359,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
      <b>O(|E|)</b>, E -&gt; number of edges of node i
 </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">i</td><td>-&gt; source node </td></tr>
+    <tr><td class="paramname">i</td><td>- source node </td></tr>
   </table>
   </dd>
 </dl>
@@ -384,7 +397,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Graph::PairH Graph::airportsFromAirport </td>
+          <td class="memname"><a class="el" href="class_graph.html#a353c1d686ece72068fc269239e9cdb51">Graph::PairH</a> Graph::airportsFromAirport </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>source</em></td><td>)</td>
@@ -399,7 +412,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
      <b>O(|E|)</b>,E -&gt; number of edges of source node
 </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">source</td><td>-&gt; source node </td></tr>
+    <tr><td class="paramname">source</td><td>- source node </td></tr>
   </table>
   </dd>
 </dl>
@@ -416,7 +429,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
         <tr>
           <td class="memname">list&lt; int &gt; Graph::articulationPoints </td>
           <td>(</td>
-          <td class="paramtype">const Airline::AirlineH &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a> &amp;&#160;</td>
           <td class="paramname"><em>airlines</em></td><td>)</td>
           <td></td>
         </tr>
@@ -429,7 +442,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
      <b>O((|V| + |E|)*n)</b>, V -&gt; number of nodes, E -&gt; number of edges, n-&gt; list size
 </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">airlines</td><td>-&gt; unordered set of airlines to use (if empty, use all airlines) </td></tr>
+    <tr><td class="paramname">airlines</td><td>- unordered set of airlines to use (if empty, use all airlines) </td></tr>
   </table>
   </dd>
 </dl>
@@ -459,7 +472,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
      <b>O(|V|+|E|)</b>, V -&gt; number of nodes, E -&gt; number of edges
 </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">v</td><td>-&gt; source node </td></tr>
+    <tr><td class="paramname">v</td><td>- source node </td></tr>
   </table>
   </dd>
 </dl>
@@ -482,7 +495,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Airline::AirlineH&#160;</td>
+          <td class="paramtype"><a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a>&#160;</td>
           <td class="paramname"><em>airlines</em>&#160;</td>
         </tr>
         <tr>
@@ -499,8 +512,8 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
      <b>O(|V|+|E|)</b>, V -&gt; number of nodes, E -&gt; number of edges
 </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">src</td><td>-&gt; source node </td></tr>
-    <tr><td class="paramname">airlines</td><td>-&gt; unordered set of airlines to use (if empty, use all airlines) </td></tr>
+    <tr><td class="paramname">src</td><td>- source node </td></tr>
+    <tr><td class="paramname">airlines</td><td>- unordered set of airlines to use (if empty, use all airlines) </td></tr>
   </table>
   </dd>
 </dl>
@@ -529,7 +542,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
      <b>O(|E|)</b>, E -&gt; number of edges of node i
 </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">i</td><td>-&gt; source node </td></tr>
+    <tr><td class="paramname">i</td><td>- source node </td></tr>
   </table>
   </dd>
 </dl>
@@ -564,7 +577,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Airline::AirlineH&#160;</td>
+          <td class="paramtype"><a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a>&#160;</td>
           <td class="paramname"><em>airlines</em>&#160;</td>
         </tr>
         <tr>
@@ -581,10 +594,10 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
      <b>O((|V| + |E|)*n)</b>, V -&gt; number of nodes, E -&gt; number of edges, n-&gt; list size
 </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">v</td><td>-&gt; source node </td></tr>
+    <tr><td class="paramname">v</td><td>- source node </td></tr>
     <tr><td class="paramname">index</td><td></td></tr>
-    <tr><td class="paramname">res</td><td>-&gt; list of articulation points </td></tr>
-    <tr><td class="paramname">airlines</td><td>-&gt; unordered set of airlines to use (if empty, use all airlines) </td></tr>
+    <tr><td class="paramname">res</td><td>- list of articulation points </td></tr>
+    <tr><td class="paramname">airlines</td><td>- unordered set of airlines to use (if empty, use all airlines) </td></tr>
   </table>
   </dd>
 </dl>
@@ -635,7 +648,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Airline::AirlineH&#160;</td>
+          <td class="paramtype"><a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a>&#160;</td>
           <td class="paramname"><em>airlines</em>&#160;</td>
         </tr>
         <tr>
@@ -711,7 +724,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
 <br  />
 <b>Complexity<br  />
 </b> </p><pre>
-     <b>O(log(n))</b>
+     <b>O(log(n))</b>, n -&gt; input
 </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lat1</td><td>- latitude of point 1 </td></tr>
@@ -763,9 +776,9 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
      <b>O(n)</b> n -&gt; paths size
 </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">paths</td><td>-&gt; vector of paths that are possible </td></tr>
-    <tr><td class="paramname">path</td><td>-&gt; current path </td></tr>
-    <tr><td class="paramname">v</td><td>-&gt; target node </td></tr>
+    <tr><td class="paramname">paths</td><td>- vector of paths that are possible </td></tr>
+    <tr><td class="paramname">path</td><td>- current path </td></tr>
+    <tr><td class="paramname">v</td><td>- target node </td></tr>
   </table>
   </dd>
 </dl>
@@ -816,7 +829,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Airline::AirlineH&#160;</td>
+          <td class="paramtype"><a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a>&#160;</td>
           <td class="paramname"><em>airlines</em>&#160;</td>
         </tr>
         <tr>
@@ -833,13 +846,30 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
      <b>O(|E|)</b> E -&gt; number of edges of source node
 </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">src</td><td>-&gt; source node </td></tr>
-    <tr><td class="paramname">dest</td><td>-&gt; final node </td></tr>
-    <tr><td class="paramname">airlines</td><td>-&gt; unordered_set of airlines that without user input is empty, if has user input only uses those specific airlines. </td></tr>
+    <tr><td class="paramname">src</td><td>- source node </td></tr>
+    <tr><td class="paramname">dest</td><td>- final node </td></tr>
+    <tr><td class="paramname">airlines</td><td>- unordered_set of airlines that without user input is empty, if has user input only uses those specific airlines. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>vector of the possible airlines to use to travel from src to dest </dd></dl>
+
+</div>
+</div>
+<a id="adc4daf6c35b3e73211dc5503479f8dca" name="adc4daf6c35b3e73211dc5503479f8dca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc4daf6c35b3e73211dc5503479f8dca">&#9670;&#160;</a></span>getNodes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; <a class="el" href="struct_graph_1_1_node.html">Graph::Node</a> &gt; Graph::getNodes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -850,7 +880,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Airport::AirportH Graph::listAirports </td>
+          <td class="memname"><a class="el" href="class_airport.html#a18ae8cd7f46fbbc09d94a5ee940a0522">Airport::AirportH</a> Graph::listAirports </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>v</em>, </td>
@@ -891,7 +921,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Airport::CityH2 Graph::listCities </td>
+          <td class="memname"><a class="el" href="class_airport.html#a2534e7042d66aa7cded11af6e898c52f">Airport::CityH2</a> Graph::listCities </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>v</em>, </td>
@@ -987,7 +1017,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Airline::AirlineH&#160;</td>
+          <td class="paramtype"><a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a>&#160;</td>
           <td class="paramname"><em>airlines</em>&#160;</td>
         </tr>
         <tr>
@@ -1029,7 +1059,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Airline::AirlineH &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a> &amp;&#160;</td>
           <td class="paramname"><em>airlines</em>&#160;</td>
         </tr>
         <tr>
@@ -1047,8 +1077,8 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
      <b>O(n*m)</b>, n -&gt; path size , m -&gt; possibleAirlines size
 </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">path</td><td>-&gt; visited nodes during the path </td></tr>
-    <tr><td class="paramname">airlines</td><td>-&gt; unordered set of airlines to use (if empty, use all airlines) </td></tr>
+    <tr><td class="paramname">path</td><td>- visited nodes during the path </td></tr>
+    <tr><td class="paramname">airlines</td><td>- unordered set of airlines to use (if empty, use all airlines) </td></tr>
   </table>
   </dd>
 </dl>
@@ -1084,7 +1114,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Airline::AirlineH &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a> &amp;&#160;</td>
           <td class="paramname"><em>airlines</em>&#160;</td>
         </tr>
         <tr>
@@ -1102,9 +1132,9 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
 </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nrPath</td><td></td></tr>
-    <tr><td class="paramname">start</td><td>-&gt; source node </td></tr>
-    <tr><td class="paramname">end</td><td>-&gt; final node </td></tr>
-    <tr><td class="paramname">airlines</td><td>-&gt; unordered set of airlines to use (if empty, use all airlines) </td></tr>
+    <tr><td class="paramname">start</td><td>- source node </td></tr>
+    <tr><td class="paramname">end</td><td>- final node </td></tr>
+    <tr><td class="paramname">airlines</td><td>- unordered set of airlines to use (if empty, use all airlines) </td></tr>
   </table>
   </dd>
 </dl>
@@ -1138,7 +1168,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Airline::AirlineH &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_airline.html#a1663e1e3e2091b4c0edc9792b8165652">Airline::AirlineH</a> &amp;&#160;</td>
           <td class="paramname"><em>airlines</em>&#160;</td>
         </tr>
         <tr>
@@ -1156,9 +1186,9 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
 </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nrPath</td><td></td></tr>
-    <tr><td class="paramname">start</td><td>-&gt; source node </td></tr>
-    <tr><td class="paramname">end</td><td>-&gt; final node </td></tr>
-    <tr><td class="paramname">airlines</td><td>-&gt; unordered set of airlines to use (if empty, use all airlines) </td></tr>
+    <tr><td class="paramname">start</td><td>- source node </td></tr>
+    <tr><td class="paramname">end</td><td>- final node </td></tr>
+    <tr><td class="paramname">airlines</td><td>- unordered set of airlines to use (if empty, use all airlines) </td></tr>
   </table>
   </dd>
 </dl>
@@ -1172,7 +1202,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Airport::CityH2 Graph::targetsFromAirport </td>
+          <td class="memname"><a class="el" href="class_airport.html#a2534e7042d66aa7cded11af6e898c52f">Airport::CityH2</a> Graph::targetsFromAirport </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>i</em></td><td>)</td>
@@ -1187,7 +1217,7 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
      <b>O(|E|)</b>, E -&gt; number of edges of node i
 </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">i</td><td>-&gt; source node </td></tr>
+    <tr><td class="paramname">i</td><td>- source node </td></tr>
   </table>
   </dd>
 </dl>
@@ -1195,9 +1225,54 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
 
 </div>
 </div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a71b5e16eb9e0670fea3ecee3526abb41" name="a71b5e16eb9e0670fea3ecee3526abb41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71b5e16eb9e0670fea3ecee3526abb41">&#9670;&#160;</a></span>nodes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;<a class="el" href="struct_graph_1_1_node.html">Node</a>&gt; Graph::nodes</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a726d5df1025e915e8785b6522331b21c" name="a726d5df1025e915e8785b6522331b21c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a726d5df1025e915e8785b6522331b21c">&#9670;&#160;</a></span>size</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Graph::size</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/du/CLionProjects/AED/feup-aed-proj/classes/<a class="el" href="graph_8h_source.html">graph.h</a></li>
-<li>/home/du/CLionProjects/AED/feup-aed-proj/classes/graph.cpp</li>
+<li>/Users/madalenaye/Downloads/AED_again/Renair/classes/<a class="el" href="graph_8h_source.html">graph.h</a></li>
+<li>/Users/madalenaye/Downloads/AED_again/Renair/classes/<a class="el" href="graph_8cpp.html">graph.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
