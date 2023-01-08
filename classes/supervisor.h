@@ -16,7 +16,7 @@ public:
     Supervisor();
     Airport::AirportH const& getAirports() const {return airports;}
     Airline::AirlineH const& getAirlines() const {return airlines;}
-    Airport::CityH const &getCity() const {return id_city;}
+    Airport::CityH const &getCity() const {return airportsPerCity;}
     Graph getGraph() const;
     unordered_map<string,int> getMap() const;
     map<string,int> getNrAirportsPerCountry() const;
@@ -32,8 +32,8 @@ public:
     int nrFlights();
 
     int countAirlinesPerCountry(const string& country);
-    list<pair<string,string>> processFlight(int&, const vector<string>&,const vector<string>&,const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>&);
-    list<pair<string,string>> processDistance(double&, const vector<string>&,const vector<string>&,const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>&);
+    list<pair<string,string>> processFlight(int&, const vector<string>&,const vector<string>&,const Airline::AirlineH&);
+    list<pair<string,string>> processDistance(double&, const vector<string>&,const vector<string>&,const Airline::AirlineH&);
     static multimap<int,string> convertMap(const map<string,int>& m);
 
 
@@ -48,8 +48,8 @@ private:
 
     Airport::AirportH airports;
     Airline::AirlineH airlines;
-    Airport::CityH id_city;
-    unordered_map<string, int> id_airports;
+    Airport::CityH airportsPerCity;
+    unordered_map<string, int> idAirports;
     unordered_set<string> countries;
     unordered_set<string> cities;
     unordered_map<string, list<string>> citiesPerCountry;

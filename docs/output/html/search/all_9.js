@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['node_43',['Node',['../struct_graph_1_1_node.html',1,'Graph::Node'],['../struct_min_heap_1_1_node.html',1,'MinHeap&lt; K, V &gt;::Node']]],
-  ['nrflights_44',['nrFlights',['../class_graph.html#a20fdb9180903e41a424fde68027341ce',1,'Graph::nrFlights()'],['../class_supervisor.html#abe7cf2be220e2c31df9408423614f520',1,'Supervisor::nrFlights()']]],
-  ['numberflights_45',['numberFlights',['../class_menu.html#a1674d306d34620fb2a9769fbb0f72363',1,'Menu']]]
+  ['maxreach_0',['maxReach',['../class_menu.html#a443a221825a2fe1f03d4068d2af52503',1,'Menu']]],
+  ['menu_1',['Menu',['../class_menu.html',1,'Menu'],['../class_menu.html#ad466dd83355124a6ed958430450bfe94',1,'Menu::Menu()']]],
+  ['minheap_2',['MinHeap',['../class_min_heap.html',1,'']]]
 ];

@@ -69,13 +69,13 @@ public:
 
     unordered_set<string> airlinesFromAirport(int i);
 
-    Node dijkstra(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
+    Node dijkstra(int src, int dest, Airline::AirlineH airlines);
 
-    void bfs(int src, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
+    void bfs(int src, Airline::AirlineH airlines);
     void findPaths(vector<vector<int>>& paths,vector<int>& path,int v);
-    void printPathsByFlights(int& nrPath, int start, int end, const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>& airlines);
-    void printPathsByDistance(int& nrPath, int start, int end, const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>& airlines);
-    void printPath(vector<int>,const unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash>&);
+    void printPathsByFlights(int& nrPath, int start, int end, const Airline::AirlineH& airlines);
+    void printPathsByDistance(int& nrPath, int start, int end, const Airline::AirlineH& airlines);
+    void printPath(vector<int>,const Airline::AirlineH&);
     Airport::CityH2 targetsFromAirport(int i);
 
     unordered_set<string> countriesFromAirport(int i);
@@ -87,8 +87,6 @@ public:
                 v = 37 * v + i;
             return v;
         }
-
-        // TODO
         bool operator()(const pair<string,string> &b1, const pair<string,string> &b2) const {
             return b1.first == b2.first && b1.second== b2.second;
         }
@@ -101,6 +99,6 @@ public:
     double diameter();
 
     vector<string>
-    getAirlines(int src, int dest, unordered_set<Airline, Airline::AirlineHash, Airline::AirlineHash> airlines);
+    getAirlines(int src, int dest, Airline::AirlineH airlines);
 };
 #endif //GRAPH_H

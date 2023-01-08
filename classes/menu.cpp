@@ -11,9 +11,8 @@ Menu::Menu() {
     supervisor = new Supervisor();
 }
 /**
- * Initial menu where the user is able to choose what he wants to do; Do Operation/Check Information/See Stats\n\n
+ * Initial menu where the user is able to choose what he wants to do: Do Operation, Check Information, See Stats\n\n
  */
-//options of the menu
 void Menu::init() {
     string option;
     while(true) {
@@ -47,7 +46,6 @@ void Menu::init() {
 /**
  * Allows the user to select between 3 different types of source(Specific Airport/City/Location) when doing an operation.\n\n
  */
-//operations
 void Menu::chooseSource() {
     string option;
 
@@ -99,7 +97,7 @@ void Menu::chooseSource() {
     }
 }
 /**
- * Also allows the user to choose between 3 different types of targets(Specific Airport/City/Location) during an operation.\n\n
+ * Allows the user to choose between 3 different types of targets(Specific Airport/City/Location) during an operation.\n\n
  */
 void Menu::chooseTarget() {
 
@@ -184,7 +182,7 @@ void Menu::chooseAirlines(bool op) {
     if (op) processOperation();
 }
 /**
- * After choosing a source,target and airline(or not) it ask the user to choose
+ * After choosing a source, target and airline(or not) it asks the user to choose
  * between two criteria(Minimum number of flights/traveled distance).
  * Where the result might be different.\n\n
  */
@@ -193,10 +191,9 @@ void Menu::processOperation() {
     auto map = supervisor->getMap();
     string option = validateOption("\n Indique o critério a usar: \n\n"
                                 " [1] Número mínimo de voos\n [2] Distância mínima percorrida\n\n Opção: ");
-    while (option == "0") {
-        cout << "\n Input inválido, tente novamente. \n\n";
-        option = validateOption("\n Indique o critério a usar: \n\n"
-                                " [1] Número mínimo de voos\n [2] Distância mínima percorrida\n\n Opção: ");
+    if (option == "0") {
+        chooseAirlines(true);
+        return;
     }
 
     if (option == "1"){
@@ -233,7 +230,7 @@ void Menu::processOperation() {
     airlines.clear();
 }
 /**
- * Information Menu where the user can obtain certain informations  about
+ * Information Menu where the user can obtain certain informations about
  * airport/s airlines, countries, articulation points and diameter.\n\n
  */
 void Menu::info(){
@@ -357,14 +354,15 @@ void Menu::showAirport(){
             return;
 
         else{
-            std::cout << "\n Input inválido, tente novamente. \n";
-            std::cin.clear();
-            std::cin.ignore(INT_MAX, '\n');
+            cout << "\n Input inválido, tente novamente. \n";
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
         }
     }
 }
+
 /**
- * Asks the user the option to choose a max limit of flights and then gives him the possibility to
+ * Gives the user the option to choose a max limit of flights and then gives him the possibility to
  * choose between 3 types of targets(Airports,Cities,Countries).\n\n
  * @param airport  -> source airport
  */
@@ -409,7 +407,9 @@ void Menu::showOptions(const string& airport) {
             cin.ignore(INT_MAX, '\n');
         }
     }
-}/**
+}
+
+/**
  * The user can obtain information about all the airports as a collective.
  * List of all airports int the world/country. With the most departures or with most airlines\n\n
  */
@@ -474,6 +474,7 @@ void Menu::showAirports(){
         }
     }
 }
+
 /**
  * The user can obtain information about all the airlines as a collective.
  * List of all airlines in the world/country.\n\n
@@ -509,6 +510,7 @@ void Menu::showAirlines(){
         }
     }
 }
+
 /**
  * Shows the first X numbers of airports that exist in each country according to its quantity.
  * List of Airports from a country according to a top(user input) and an order(ascending or descending)\n\n
@@ -557,8 +559,9 @@ void Menu::showCountries(){
         }
     }
 }
+
 /**
- * Allows the user to check some numbers about airport/s ,flights, airlines and articulation points.\n\n
+ * Allows the user to check some numbers about airport/s, flights, airlines and articulation points.\n\n
  */
 void Menu::statistics() {
     string option;
@@ -600,9 +603,10 @@ void Menu::statistics() {
         }
     }
 }
+
 /**
  * Gives the user the possibility to get the numbers of a specific airport.
- * Total amount of flights,airlines,reachable cities/airports/countries and total amount of airports/cities/countries within Y flights\n\n
+ * Total amount of flights, airlines, reachable cities/airports/countries and total amount of airports/cities/countries within Y flights\n\n
  */
 void Menu::airportStats() {
     string option;
@@ -662,6 +666,7 @@ void Menu::airportStats() {
         }
     }
 }
+
 /**
  * Allows the user to select the max limit of flights from a certain airport/city/coordinates.
  */
@@ -697,12 +702,13 @@ void Menu::maxReach() {
             return;
 
         else {
-            std::cout << "\n Input inválido, tente novamente. \n";
-            std::cin.clear();
-            std::cin.ignore(INT_MAX, '\n');
+            cout << "\n Input inválido, tente novamente. \n";
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
         }
     }
 }
+
 /**
  * Calculates the number of flights according to the users preference.
  * Total flights or flights from an airport.\n\n
@@ -736,6 +742,7 @@ void Menu::numberFlights(){
         }
     }
 }
+
 /**
  * Calculates the numbers of airports according to the user selected option.
  * Total number of airports in the world,country and reachable airports within Y flights; \n\n
@@ -770,6 +777,7 @@ void Menu::numberAirports() {
         }
     }
 }
+
 /**
  * Total number of airlines in the world,country. \n\n
  */
@@ -801,8 +809,8 @@ void Menu::numberAirlines() {
 }
 
 /**
- * Validation of input of the user.
- * @return  location if it is indeed valid
+ * Validation of input of the user for location.
+ * @return vector of codes of airports that exist in that range
  */
 vector<string> Menu::validateLocal() {
     double latitude = validateLatitude();
@@ -820,7 +828,7 @@ vector<string> Menu::validateLocal() {
 }
 /**
  * Validation of input of the user for country.
- * @return  country if it is indeed valid
+ * @return country if it is indeed valid
  */
 string Menu::validateCountry(){
     string country;
@@ -891,7 +899,7 @@ double Menu::validateRadius() {
 }
 /**
  * Validation of input of the user for airport code.
- * @return  airport code if it is within its valid/existent.
+ * @return airport code if it is valid.
  */
 string Menu::validateAirport(){
     string airport;
@@ -910,7 +918,7 @@ string Menu::validateAirport(){
 }
 /**
  * Validation of input of the user for airline code.
- * @return  airline if it is within its existent/valid.
+ * @return  airline code if it is valid.
  */
 string Menu::validateAirline() {
     string airline;
@@ -930,7 +938,7 @@ string Menu::validateAirline() {
 }
 /**
  * Validation of input of the user for city.
- * @return  city if it is within its existent/valid.
+ * @return  city if it is valid.
  */
 string Menu::validateCity(const string& country) {
     string city;
@@ -950,8 +958,8 @@ string Menu::validateCity(const string& country) {
 }
 /**
  * Verifies if the option selected by the user is valid or not
- * @param message -> user input
- * @return option when valid
+ * @param message -> message chosen from developers
+ * @return user's option
  */
 string Menu::validateOption(const string &message) {
     string option;
@@ -967,7 +975,7 @@ string Menu::validateOption(const string &message) {
 }
 /**
  * Asks the user to choose between a predefined top(10/20) or to choose a specific top.
- * @return
+ * @return chosen top
  */
 int Menu::showTop(){
     cout << "\n Deseja consultar:\n\n "

@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['pairstringhash_46',['PairStringHash',['../struct_graph_1_1_pair_string_hash.html',1,'Graph']]],
-  ['printpathsbydistance_47',['printPathsByDistance',['../class_graph.html#af5afad37b2f14443fcfc0e7de71609d9',1,'Graph']]],
-  ['printpathsbyflights_48',['printPathsByFlights',['../class_graph.html#accfeb4cba0419127489057cecaa80077',1,'Graph']]],
-  ['processflight_49',['processFlight',['../class_supervisor.html#a686b81dbd1a0a8a9d72a70e1ada63a4e',1,'Supervisor']]],
-  ['processoperation_50',['processOperation',['../class_menu.html#a6ce2bfc8b5a2fb81038aeac2c572aa8b',1,'Menu']]]
+  ['node_0',['Node',['../struct_graph_1_1_node.html',1,'Graph::Node'],['../struct_min_heap_1_1_node.html',1,'MinHeap&lt; K, V &gt;::Node']]],
+  ['nrflights_1',['nrFlights',['../class_graph.html#a20fdb9180903e41a424fde68027341ce',1,'Graph::nrFlights()'],['../class_supervisor.html#abe7cf2be220e2c31df9408423614f520',1,'Supervisor::nrFlights()']]],
+  ['numberairlines_2',['numberAirlines',['../class_menu.html#af2401d2eb9bf4b9d82107476a03f9bef',1,'Menu']]],
+  ['numberairports_3',['numberAirports',['../class_menu.html#a2ad209e496cb380b91ac91d3b1210704',1,'Menu']]],
+  ['numberflights_4',['numberFlights',['../class_menu.html#a1674d306d34620fb2a9769fbb0f72363',1,'Menu']]]
 ];

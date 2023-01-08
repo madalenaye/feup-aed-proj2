@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['getairlines_27',['getAirlines',['../class_graph.html#a40ad64370d9e3f77f8b075673a0aa569',1,'Graph']]],
-  ['graph_28',['Graph',['../class_graph.html',1,'Graph'],['../class_graph.html#a284b99bdb07994225dee3c2cdb59c80a',1,'Graph::Graph()']]]
+  ['findpaths_0',['findPaths',['../class_graph.html#a11b10540c0a1f24aee06d2ab793543af',1,'Graph']]],
+  ['flightsperairport_1',['flightsPerAirport',['../class_graph.html#a81c24e1f675cb8a311b1682b73af96b2',1,'Graph']]]
 ];

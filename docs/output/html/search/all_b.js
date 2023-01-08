@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['showairlines_51',['showAirlines',['../class_menu.html#a0096ec264fcacbaf59b645d83e5aa724',1,'Menu']]],
-  ['showairport_52',['showAirport',['../class_menu.html#a69b62c74b7fdbcb5bae82c6e790ec368',1,'Menu']]],
-  ['showairports_53',['showAirports',['../class_menu.html#aa9deb6139ac0d853510f6fc2978f29c7',1,'Menu']]],
-  ['showcountries_54',['showCountries',['../class_menu.html#a2ef034e75e24ed1db793966c2020da6e',1,'Menu']]],
-  ['showoptions_55',['showOptions',['../class_menu.html#a5d346c24f0d6bbdde0aa9180a766fe15',1,'Menu']]],
-  ['statistics_56',['statistics',['../class_menu.html#ac88bdc761de6e76c77bfb226c1fa6fbb',1,'Menu']]],
-  ['supervisor_57',['Supervisor',['../class_supervisor.html',1,'Supervisor'],['../class_supervisor.html#a9d7eafc36b5429092ba0f758bc7841c4',1,'Supervisor::Supervisor()']]]
+  ['pairstringhash_0',['PairStringHash',['../struct_graph_1_1_pair_string_hash.html',1,'Graph']]],
+  ['printpath_1',['printPath',['../class_graph.html#a3479592c5f43e0607eb9dd5ba432d1e0',1,'Graph']]],
+  ['printpathsbydistance_2',['printPathsByDistance',['../class_graph.html#a3f06c80cc20b0e30dc0bd4b21e3a8563',1,'Graph']]],
+  ['printpathsbyflights_3',['printPathsByFlights',['../class_graph.html#aa5a36170d8f06011233e7d98368d51e7',1,'Graph']]],
+  ['processdistance_4',['processDistance',['../class_supervisor.html#a0d393a1d0b3a279716594f5fa6660d80',1,'Supervisor']]],
+  ['processflight_5',['processFlight',['../class_supervisor.html#a38d37086a15bebf8e1445c60a7cf38ba',1,'Supervisor']]],
+  ['processoperation_6',['processOperation',['../class_menu.html#a6ce2bfc8b5a2fb81038aeac2c572aa8b',1,'Menu']]]
 ];
