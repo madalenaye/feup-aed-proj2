@@ -291,7 +291,7 @@ set<string> Graph::listCountries(int v, int max) {
  * <pre>
  *      <b>O(|E|)</b>,E -> number of edges of source node
  * </pre>
- * @param source -> source node
+ * @param source - source node
  * @return unordered_set of airports code and name
  */
 Graph::PairH Graph::airportsFromAirport(int source) {
@@ -307,7 +307,7 @@ Graph::PairH Graph::airportsFromAirport(int source) {
  * <pre>
  *      <b>O(|E|)</b>, E -> number of edges of node i
  * </pre>
- * @param i -> source node
+ * @param i - source node
  * @return set of all the different airlines
  */
 unordered_set<string> Graph::airlinesFromAirport(int i) {
@@ -323,7 +323,7 @@ unordered_set<string> Graph::airlinesFromAirport(int i) {
  * <pre>
  *      <b>O(|E|)</b>, E -> number of edges of node i
  * </pre>
- * @param i -> source node
+ * @param i - source node
  * @return set of all the different cities
  */
 Airport::CityH2 Graph::targetsFromAirport(int i){
@@ -341,7 +341,7 @@ Airport::CityH2 Graph::targetsFromAirport(int i){
  * <pre>
  *      <b>O(|E|)</b>, E -> number of edges of node i
  * </pre>
- * @param i -> source node
+ * @param i - source node
  * @return set of all the different countries
  */
 unordered_set<string> Graph::countriesFromAirport(int i) {
@@ -360,8 +360,8 @@ unordered_set<string> Graph::countriesFromAirport(int i) {
  * <pre>
  *      <b>O(|V|+|E|)</b>, V -> number of nodes, E -> number of edges
  * </pre>
- * @param src -> source node
- * @param airlines -> unordered set of airlines to use (if empty, use all airlines)
+ * @param src - source node
+ * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  */
 void Graph::bfsPath(int src, Airline::AirlineH airlines){
 
@@ -399,9 +399,9 @@ void Graph::bfsPath(int src, Airline::AirlineH airlines){
  * <pre>
  *      <b>O(n)</b> n -> paths size
  * </pre>
- * @param paths -> vector of paths that are possible
- * @param path -> current path
- * @param v -> target node
+ * @param paths - vector of paths that are possible
+ * @param path - current path
+ * @param v - target node
  */
 void Graph::findPaths(vector<vector<int>>& paths,vector<int>& path, int v){
 
@@ -473,7 +473,7 @@ Graph::Node Graph::dijkstra(int src, int dest, Airline::AirlineH airlines) {
  * <pre>
  *      <b>O(|V|+|E|)</b>, V -> number of nodes, E -> number of edges
  * </pre>
- * @param v -> source node
+ * @param v - source node
  * @return the diameter of a connected component
  */
 double Graph::bfsDiameter(int v) {
@@ -529,10 +529,10 @@ double Graph::diameter() {
  * <pre>
  *      <b>O((|V| + |E|)*n)</b>, V -> number of nodes, E -> number of edges, n-> list size
  * </pre>
- * @param v -> source node
+ * @param v - source node
  * @param index
- * @param res -> list of articulation points
- * @param airlines -> unordered set of airlines to use (if empty, use all airlines)
+ * @param res - list of articulation points
+ * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  */
 void Graph::dfsArt(int v, int index, list<int>& res,Airline::AirlineH airlines) {
     nodes[v].num = nodes[v].low = index++;
@@ -562,7 +562,7 @@ void Graph::dfsArt(int v, int index, list<int>& res,Airline::AirlineH airlines) 
  * <pre>
  *      <b>O((|V| + |E|)*n)</b>, V -> number of nodes, E -> number of edges, n-> list size
  * </pre>
- * @param airlines -> unordered set of airlines to use (if empty, use all airlines)
+ * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  * @return The list of articulation points.
  */
 list<int> Graph::articulationPoints(const Airline::AirlineH& airlines) {
@@ -586,9 +586,9 @@ list<int> Graph::articulationPoints(const Airline::AirlineH& airlines) {
  * <pre>
  *      <b>O(|E|)</b> E -> number of edges of source node
  * </pre>
- * @param src -> source node
- * @param dest -> final node
- * @param airlines -> unordered_set of airlines that without user input is empty, if has user input only uses those specific airlines.
+ * @param src - source node
+ * @param dest - final node
+ * @param airlines - unordered_set of airlines that without user input is empty, if has user input only uses those specific airlines.
  * @return vector of the possible airlines to use to travel from src to dest
  */
 vector<string> Graph::getAirlines(int src, int dest, Airline::AirlineH airlines) {
@@ -605,8 +605,8 @@ vector<string> Graph::getAirlines(int src, int dest, Airline::AirlineH airlines)
  * <pre>
  *      <b>O(n*m)</b>, n -> path size , m -> possibleAirlines size
  * </pre>
- * @param path -> visited nodes during the path
- * @param airlines -> unordered set of airlines to use (if empty, use all airlines)
+ * @param path - visited nodes during the path
+ * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  */
 void Graph::printPath(vector<int> path, const Airline::AirlineH& airlines) {
     for (int i = 0; i < path.size()-1; i++){
@@ -628,9 +628,9 @@ void Graph::printPath(vector<int> path, const Airline::AirlineH& airlines) {
  *      <b>O((|V|+|E|)*p)</b>, V -> number of nodes , E-> number of edges, p-> possibleAirlines size
  * </pre>
  * @param nrPath
- * @param start -> source node
- * @param end -> final node
- * @param airlines -> unordered set of airlines to use (if empty, use all airlines)
+ * @param start - source node
+ * @param end - final node
+ * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  */
 void Graph::printPathsByFlights(int& nrPath, int start, int end, const Airline::AirlineH& airlines) {
     vector<int> path;
@@ -655,9 +655,9 @@ void Graph::printPathsByFlights(int& nrPath, int start, int end, const Airline::
  *      <b>O(log(|V|)*p)</b>, V -> number of nodes , p -> possibleAirlines size
  * </pre>
  * @param nrPath
- * @param start -> source node
- * @param end  -> final node
- * @param airlines -> unordered set of airlines to use (if empty, use all airlines)
+ * @param start - source node
+ * @param end  - final node
+ * @param airlines - unordered set of airlines to use (if empty, use all airlines)
  */
 void Graph::printPathsByDistance(int& nrPath, int start, int end, const Airline::AirlineH& airlines) {
     Node node = dijkstra(start,end,airlines);

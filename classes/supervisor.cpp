@@ -117,9 +117,9 @@ vector<string> Supervisor::localAirports(double latitude, double longitude, doub
  * <pre>
  *      <b>O(n*m*(|V|+|E|))</b>,n -> size of src vector, m -> size of dest vector,V -> number of nodes, E -> number of edges
  * </pre>
- * @param src  -> source node
- * @param dest -> final node
- * @param airline -> airlines available for use (if empty, use all airlines)
+ * @param src  - source node
+ * @param dest - final node
+ * @param airline - airlines available for use (if empty, use all airlines)
  * @return list of all best possible paths
  */
 list<pair<string,string>> Supervisor::processFlight(int& bestFlight, const vector<string>& src, const vector<string>& dest,
@@ -148,9 +148,9 @@ list<pair<string,string>> Supervisor::processFlight(int& bestFlight, const vecto
  * <pre>
  *      <b>O(n*m*(log(|V|))</b>,n -> size of src vector, m -> size of dest vector,V -> number of nodes
  * </pre>
- * @param src  -> source node
- * @param dest -> final node
- * @param airline -> airlines available for use  (if empty, use all airlines)
+ * @param src  - source node
+ * @param dest - final node
+ * @param airline - airlines available for use  (if empty, use all airlines)
  * @return list of all best possible paths
  */
 list<pair<string,string>> Supervisor::processDistance(double& bestDistance, const vector<string>& src, const vector<string>& dest,
@@ -230,8 +230,8 @@ int Supervisor::nrFlights(){
  * <pre>
  *      <b>O(1)</b>
  * </pre>
- * @tparam A -> key
- * @tparam B -> value
+ * @tparam A - key
+ * @tparam B - value
  * @param p
  * @return pair where key is the value(B) and value is the key(A)
  */
@@ -246,8 +246,8 @@ pair<B,A> flip_pair(const pair<A,B> &p)
  * <pre>
  *      <b>O(n*log(m))</b>,n -> size of map src, insertion of map src key in multimap
  * </pre>
- * @tparam A -> key
- * @tparam B -> value
+ * @tparam A - key
+ * @tparam B - value
  * @param src
  * @return flipped multimap were all the keys turn to values and values to keys
  */

@@ -164,7 +164,7 @@ void Menu::chooseTarget() {
 
 /**
  * Asks the user if he wants to select an airline or a set of airlines.\n\n
- * @param op -> boolean value to distinguish types of operations.
+ * @param op - boolean value to distinguish types of operations.
  */
 void Menu::chooseAirlines(bool op) {
 
@@ -378,7 +378,7 @@ void Menu::showAirport(){
 /**
  * Gives the user the option to choose a max limit of flights and then gives him the possibility to
  * choose between 3 types of targets(Airports,Cities,Countries).\n\n
- * @param airport  -> source airport
+ * @param airport - source airport
  */
 void Menu::showOptions(const string& airport) {
     int maxFlight = customTop(" Que número máximo de voos pretende realizar: ", 63832);
@@ -840,8 +840,8 @@ int Menu::showTop(){
 
 /**
  * User can decide the size of the top he wants to see.\n\n
- * @param message -> message chosen from developers
- * @param n -> maximum range for top
+ * @param message - message chosen from developers
+ * @param n - maximum range for top
  * @return top size
  */
 int Menu::customTop(const string& message, int n) {
@@ -920,6 +920,7 @@ string Menu::validateCountry(){
 
 /**
  * Validation of input of the user for city.
+ * @param country
  * @return  city if it is valid.
  */
 string Menu::validateCity(const string& country) {
@@ -1014,7 +1015,7 @@ vector<string> Menu::validateLocal() {
 
 /**
  * Verifies if the option selected by the user is valid or not
- * @param message -> message chosen from developers
+ * @param message - message chosen from developers
  * @return user's option
  */
 string Menu::validateOption(const string &message) {
